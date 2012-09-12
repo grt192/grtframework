@@ -1,4 +1,4 @@
-package core;
+  package core;
 
 /**
  * An IProcess is a component that produces a certain behavior.

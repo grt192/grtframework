@@ -19,25 +19,25 @@ public abstract class GRTLoggedProcess extends Thread implements IProcess {
     }
 
     /**
-     * 
-     * @param message
+     * Logs a message.
+     * @param message message to log
      */
     protected void log(String message) {
         System.out.println(toString() + "\t" + message);
     }
 
     /**
-     * Logs in format: "[[ClassName:Id]]    @name   message
-     * @param name
-     * @param message
+     * Logs in format: "[[ClassName:Id]]	name	message"
+     * @param name name to log
+     * @param message message to log
      */
     protected void log(String name, String message) {
         System.out.println(toString() + "\t" + name + "\t" + message); 
     }
 
     /**
-     * 
-     * @param data
+     * Logs in format: "[[ClassName:Id]]	data"
+     * @param data data to log
      */
     protected void log(double data) {
         System.out.println(toString() + "\t" + data);
@@ -45,9 +45,9 @@ public abstract class GRTLoggedProcess extends Thread implements IProcess {
     }
 
     /**
-     * 
-     * @param name
-     * @param data
+     * Logs in format: "[[ClassName:Id]]	name	data"
+     * @param name name to log
+     * @param data data to log
      */
     protected void log(String name, double data) {
         System.out.println(toString() + "\t" + name + "\t" + data);
@@ -75,17 +75,19 @@ public abstract class GRTLoggedProcess extends Thread implements IProcess {
     }
 
     /**
-     * Name
+     * Returns the name of this process
      * 
-     * @return
+     * @return name
      */
     public String getID() {
         return name;
     }
     
     /*
-     * To string method, returns loggable string in the formate
+     * toString method, returns loggable string in the format
      * [[ClassName:Id]]
+	 * 
+	 * @return loggable string
      */
     public String toString(){
         return "[[" + getClass().getName() + ":" + getID();

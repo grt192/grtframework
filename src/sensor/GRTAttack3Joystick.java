@@ -7,6 +7,7 @@ package sensor;
 import core.PollingSensor;
 import edu.wpi.first.wpilibj.Joystick;
 import event.*;
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
@@ -57,12 +58,12 @@ public class GRTAttack3Joystick extends PollingSensor {
             //ID maps directly to button ID
             ButtonEvent e = new ButtonEvent(this, id, newDatum == PRESSED);
             if (newDatum == PRESSED) { //true
-                for (int i = 0; i < buttonListeners.size(); i++) {
-                    ((ButtonListener) buttonListeners.elementAt(i)).buttonPressed(e);
+                for (Enumeration en = buttonListeners.elements(); en.hasMoreElements();) {
+                    ((ButtonListener) en.nextElement()).buttonPressed(e);
                 }
             } else {
-                for (int i = 0; i < buttonListeners.size(); i++) {
-                    ((ButtonListener) buttonListeners.elementAt(i)).buttonReleased(e);
+                for (Enumeration en = buttonListeners.elements(); en.hasMoreElements();) {
+                    ((ButtonListener) en.nextElement()).buttonReleased(e);
                 }
             }
 
@@ -71,19 +72,16 @@ public class GRTAttack3Joystick extends PollingSensor {
          Attack3JoystickEvent e = new Attack3JoystickEvent(this, id, newDatum);
          switch (id){
              case (KEY_X):
-                 for (int i = 0; i < joystickListeners.size(); i++) {
-                    ((Attack3JoystickListener)joystickListeners.elementAt(i)).XAxisMoved(e);
-                 }
+                 for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) 
+                    ((Attack3JoystickListener) en.nextElement()).XAxisMoved(e);
                  break;
              case (KEY_Y):
-                 for (int i = 0; i < joystickListeners.size(); i++) {
-                    ((Attack3JoystickListener)joystickListeners.elementAt(i)).YAxisMoved(e);
-                 }
+                 for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) 
+                    ((Attack3JoystickListener) en.nextElement()).YAxisMoved(e);
                  break;
              case (KEY_JOYSTICK_ANGLE):
-                 for (int i = 0; i < joystickListeners.size(); i++) {
-                    ((Attack3JoystickListener)joystickListeners.elementAt(i)).AngleChanged(e);
-                 }
+                 for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) 
+                    ((Attack3JoystickListener) en.nextElement()).AngleChanged(e);
                  break;
          }
         }

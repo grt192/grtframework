@@ -1,11 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package actuator;
 
-import edu.wpi.first.wpilibj.Relay;
 import core.Actuator;
+import edu.wpi.first.wpilibj.Relay;
 
 /**
  *
@@ -24,30 +20,31 @@ public class GRTRelay extends Actuator{
     }
     
     /**
- * Sends command to relay.  If the value of the command is -1.0 the relay is in reverse,
- * 1.0 is forward, and 0.0 is off.
- * @param c
- */
+	 * Sends command to relay. If command is FORWARD (1.0),
+	 * relay is turned on; if command is REVERSE (-1.0),
+	 * relay is turned on in reverse; if command is OFF (0.0)
+	 * output is disabled.
+	 * 
+	 * @param command command to send to relay
+	 */
     public void executeCommand(double command) {
-        if (command == OFF) {
-            relay.set(Relay.Value.kOff);
-        } else if(command == FORWARD) {
-            relay.set(Relay.Value.kForward);
-        } else if(command == REVERSE) {
-            relay.set(Relay.Value.kReverse);
-        }
+		if (enabled) {
+			if (command == OFF) {
+				relay.set(Relay.Value.kOff);
+			} else if (command == FORWARD) {
+				relay.set(Relay.Value.kForward);
+			} else if (command == REVERSE) {
+				relay.set(Relay.Value.kReverse);
+			}
+		}
     }
-/**
- * SEts the state of the relay to off
- */
+
+	/**
+	 * Sets the state of the relay to off, and disables it
+	 */
     public void halt() {
         relay.set(Relay.Value.kOff);
+		super.halt();
     }
-/**
- * Returns String
- * @return
- */
-    public String toString() {
-        return "Relay";
-    }
+
 }

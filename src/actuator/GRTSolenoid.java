@@ -24,8 +24,9 @@ public class GRTSolenoid extends Actuator {
         sol = new Solenoid(slot, channel);
     }
 
-    /*
+    /**
      * Engage or disengage the solenoid
+	 * @param command ON if on, OFF if off
      */
     public void executeCommand(double command) {
         if (command == ON) {
@@ -37,6 +38,9 @@ public class GRTSolenoid extends Actuator {
 
 
 //    @Override
+	/**
+	 * Halts the solenoid, and moves it to original position
+	 */
     public void halt() {
         sol.set(false);
 
