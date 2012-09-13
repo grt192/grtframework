@@ -11,7 +11,6 @@ package core;
  * It additionally stores the state of variables, and automatically performs
  * state change checks.
  * 
- * 
  * @author ajc
  */
 public abstract class PollingSensor extends Sensor {
@@ -22,6 +21,7 @@ public abstract class PollingSensor extends Sensor {
     /**
      * Construct a polling sensor. 
      * Subclasses need to start themselves-- make a call to start();
+     * 
      * @param name name of the sensor
      * @param sleepTime time between polls [ms]
      * @param numData number of pieces of data
@@ -72,8 +72,8 @@ public abstract class PollingSensor extends Sensor {
 
     /**
      * Retrieves sensor data
-     * @param id
-     * @return 
+     * @param id id of data
+     * @return representative sensor data
      */
     public double getState(int id) {
         return data[id];
@@ -81,15 +81,14 @@ public abstract class PollingSensor extends Sensor {
 
     /**
      * Calls the listener events based on what has changed
+     * 
      * @param id the key of the data that changed
      * @param oldDatum the datum's previous value
      * @param newDatum  the datum's new value
      */
     protected abstract void notifyListeners(int id, double oldDatum, double newDatum);
 
-    /*
-     * Polling sensors do not listen to things, necesserily
-     */
+    //Polling sensors do not listen to things, necessarily
     protected void startListening() {
     }
 

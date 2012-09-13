@@ -4,10 +4,10 @@
  */
 package sensor.base;
 
-import event.Attack3JoystickEvent;
-import event.Attack3JoystickListener;
-import event.ButtonEvent;
-import event.ButtonListener;
+import event.events.Attack3JoystickEvent;
+import event.listeners.Attack3JoystickListener;
+import event.events.ButtonEvent;
+import event.listeners.ButtonListener;
 import sensor.GRTAttack3Joystick;
 
 /**

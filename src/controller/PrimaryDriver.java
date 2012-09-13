@@ -6,12 +6,12 @@ package controller;
 
 import core.EventController;
 import edu.wpi.first.wpilibj.DriverStation;
-import event.DrivingEvent;
-import event.DrivingListener;
-import event.DrivingProfileEvent;
-import event.DrivingProfileListener;
-import event.XboxJoystickEvent;
-import event.XboxJoystickListener;
+import event.events.DrivingEvent;
+import event.listeners.DrivingListener;
+import event.events.DrivingProfileEvent;
+import event.listeners.DrivingProfileListener;
+import event.events.XboxJoystickEvent;
+import event.listeners.XboxJoystickListener;
 import mechanism.GRTDriveTrain;
 import sensor.base.GRTXboxDriverStation;
 import mechanism.GRTRobotBase;

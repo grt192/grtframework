@@ -7,13 +7,14 @@ package sensor;
 import core.PollingSensor;
 import edu.wpi.first.wpilibj.AnalogModule;
 import edu.wpi.first.wpilibj.Gyro;
+import event.events.GyroEvent;
+import event.listeners.GyroListener;
 import java.util.Vector;
-import event.GyroEvent;
-import event.GyroListener;
 
 /**
  * Provides angular position along a single axis through an analog sensor
- * @author calvin
+ * 
+ * @author Calvin
  */
 public class GRTGyro extends PollingSensor {
 

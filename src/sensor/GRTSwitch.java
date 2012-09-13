@@ -6,8 +6,8 @@ package sensor;
 
 import core.PollingSensor;
 import edu.wpi.first.wpilibj.DigitalInput;
-import event.SwitchEvent;
-import event.SwitchListener;
+import event.events.SwitchEvent;
+import event.listeners.SwitchListener;
 import java.util.Vector;
 
 /**

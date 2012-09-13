@@ -4,9 +4,12 @@
  */
 package sensor;
 
+import event.events.Attack3JoystickEvent;
+import event.events.ButtonEvent;
+import event.listeners.Attack3JoystickListener;
+import event.listeners.ButtonListener;
 import core.PollingSensor;
 import edu.wpi.first.wpilibj.Joystick;
-import event.*;
 import java.util.Vector;
 
 /**

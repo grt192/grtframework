@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package event;
+package event.events;
 import sensor.GRTADXL345;
 
 /**
@@ -24,7 +24,11 @@ public class ADXL345Event {
         this.acceleration = acceleration;
     }
 
-    //TODO what units
+    /**
+     * Gets acceleration along some axis
+     * 
+     * @return acceleration in G's
+     */
     public double getAcceleration() {
         return acceleration;
     }

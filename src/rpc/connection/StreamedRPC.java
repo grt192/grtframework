@@ -68,7 +68,6 @@ public class StreamedRPC extends Thread implements RPCConnection {
 
     private static boolean isTelemetryLine(String line) {
         return line.length() > 3 && line.substring(0, 3).equals("USB");// TODO
-        // MAGICNUMBERS
     }
 
     private static int getKey(String line) {

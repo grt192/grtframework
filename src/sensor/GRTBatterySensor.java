@@ -6,8 +6,8 @@ package sensor;
 
 import core.PollingSensor;
 import edu.wpi.first.wpilibj.DriverStation;
-import event.BatteryVoltageEvent;
-import event.BatteryVoltageListener;
+import event.events.BatteryVoltageEvent;
+import event.listeners.BatteryVoltageListener;
 import java.util.Vector;
 
 /**

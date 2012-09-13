@@ -5,10 +5,10 @@
 package sensor.base;
 
 import core.Sensor;
-import event.DrivingEvent;
-import event.DrivingListener;
-import event.DrivingProfileEvent;
-import event.DrivingProfileListener;
+import event.events.DrivingEvent;
+import event.listeners.DrivingListener;
+import event.events.DrivingProfileEvent;
+import event.listeners.DrivingProfileListener;
 import java.util.Vector;
 
 /**

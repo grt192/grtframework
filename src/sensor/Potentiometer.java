@@ -6,8 +6,8 @@ package sensor;
 
 import edu.wpi.first.wpilibj.AnalogChannel;
 import core.PollingSensor;
-import event.PotentiometerEvent;
-import event.PotentiometerListener;
+import event.events.PotentiometerEvent;
+import event.listeners.PotentiometerListener;
 import java.util.Vector;
 
 /**

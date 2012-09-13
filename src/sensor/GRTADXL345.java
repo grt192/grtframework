@@ -6,41 +6,42 @@ package sensor;
 
 import core.PollingSensor;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
-import event.ADXL345Event;
-import event.ADXL345Listener;
+import event.events.ADXL345Event;
+import event.listeners.ADXL345Listener;
 import java.util.Vector;
 /**
- *
+ * Wrapper for the ADXL345 accelerometer.
+ * Measures X, Y, and Z accelerations in G's
+ * (doesn't account for gravity)
+ * 
  * @author gerberduffy
  */
 public class GRTADXL345  extends PollingSensor{
     
-    private ADXL345_I2C i2c;
+    private ADXL345_I2C accelerometer;
     
     private static final int X_AXIS = 0;
     private static final int Y_AXIS = 1;
     private static final int Z_AXIS = 2;
     private static final int NUM_DATA = 3;
     
-    
-    
     private Vector listeners;
-    
-    private ADXL345_I2C.AllAxes accelerations;
     
     public GRTADXL345(int slot, int pollTime, String id){
         super (id, pollTime, NUM_DATA);
-        i2c = new ADXL345_I2C(slot, ADXL345_I2C.DataFormat_Range.k2G);
+        accelerometer = new ADXL345_I2C(slot, ADXL345_I2C.DataFormat_Range.k2G);
         
         listeners = new Vector();
     }
 
     protected void poll() {
-        setState(X_AXIS, i2c.getAcceleration(ADXL345_I2C.Axes.kX));
-        setState(Y_AXIS, i2c.getAcceleration(ADXL345_I2C.Axes.kY));
-        setState(Z_AXIS, i2c.getAcceleration(ADXL345_I2C.Axes.kZ));
+        setState(X_AXIS, accelerometer.getAcceleration(ADXL345_I2C.Axes.kX));
+        setState(Y_AXIS, accelerometer.getAcceleration(ADXL345_I2C.Axes.kY));
+        setState(Z_AXIS, accelerometer.getAcceleration(ADXL345_I2C.Axes.kZ));
         
-        System.out.println("ADXL345:\t" + getState(X_AXIS) + "\t" + getState(Y_AXIS) + "\t" + getState(Z_AXIS));
+        System.out.println("ADXL345:\t" + getState(X_AXIS) +
+                "\t" + getState(Y_AXIS) +
+                "\t" + getState(Z_AXIS));
     }
     
     public void addADXL345Listener(ADXL345Listener l){

@@ -1,5 +1,7 @@
 
-package event;
+package event.listeners;
+
+import event.events.SensorEvent;
 
 /**
  *

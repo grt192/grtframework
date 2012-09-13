@@ -4,10 +4,10 @@
  */
 package sensor.base;
 
-import event.ButtonEvent;
-import event.ButtonListener;
-import event.XboxJoystickEvent;
-import event.XboxJoystickListener;
+import event.events.ButtonEvent;
+import event.listeners.ButtonListener;
+import event.events.XboxJoystickEvent;
+import event.listeners.XboxJoystickListener;
 import sensor.GRTXBoxJoystick;
 
 /**

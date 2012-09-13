@@ -1,15 +1,13 @@
 package networking;
 
+import com.sun.squawk.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.Vector;
-
 import javax.microedition.io.Connector;
-import javax.microedition.io.StreamConnection;
-
-import com.sun.squawk.io.BufferedReader;
 import javax.microedition.io.ServerSocketConnection;
+import javax.microedition.io.StreamConnection;
 
 public class GRTSingleClientServer extends Thread implements GRTSocket {
 	public static final int POLL_TIME = 50;

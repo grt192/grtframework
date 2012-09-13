@@ -2,29 +2,35 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package event;
-import sensor.GRTAttack3Joystick;
+package event.events;
+
+import sensor.GRTXBoxJoystick;
+
 /**
  *
- * @author dan
+ * @author student
  */
-public class Attack3JoystickEvent {
+public class XboxJoystickEvent {
+
     public static final int DEFAULT = 0;
+    private GRTXBoxJoystick source;
     private int id;
     private double value;
-    private GRTAttack3Joystick source;
-    
-    public Attack3JoystickEvent(GRTAttack3Joystick source, int id, double value){
+
+    public XboxJoystickEvent(GRTXBoxJoystick source, int id, double value) {
         this.source = source;
         this.id = id;
         this.value = value;
     }
+
     public int getId() {
         return id;
     }
-    public GRTAttack3Joystick getSource(){
+
+    public GRTXBoxJoystick getSource() {
         return source;
     }
+
     public double getValue() {
         return value;
     }

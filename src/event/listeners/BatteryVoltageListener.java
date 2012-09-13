@@ -3,7 +3,9 @@
  * and open the template in the editor.
  */
 
-package event;
+package event.listeners;
+
+import event.events.BatteryVoltageEvent;
 
 /**
  *

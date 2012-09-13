@@ -8,10 +8,10 @@ package balancer;
 
 import com.sun.squawk.util.MathUtils;
 import core.Sensor;
-import event.ADXL345Event;
-import event.ADXL345Listener;
-import event.RobotTiltEvent;
-import event.RobotTiltListener;
+import event.events.ADXL345Event;
+import event.listeners.ADXL345Listener;
+import event.events.RobotTiltEvent;
+import event.listeners.RobotTiltListener;
 import java.util.Vector;
 import sensor.GRTADXL345;
 

@@ -4,18 +4,22 @@
  */
 package actuator;
 
-import core.IProcess;
+import core.Actuator;
 
 /**
  *
  * @author ajc
  */
-public interface IMotor extends IProcess{
+public abstract class IMotor extends Actuator {
+    
+    public IMotor(String name){
+        super(name);
+    }
     
     /**
      * 
      * @param speed 
      */
-    public void setSpeed(double speed);
+    public abstract void setSpeed(double speed);
     
 }

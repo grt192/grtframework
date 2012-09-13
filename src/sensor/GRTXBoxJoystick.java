@@ -6,10 +6,10 @@ package sensor;
 
 import core.PollingSensor;
 import edu.wpi.first.wpilibj.Joystick;
-import event.ButtonEvent;
-import event.ButtonListener;
-import event.XboxJoystickEvent;
-import event.XboxJoystickListener;
+import event.events.ButtonEvent;
+import event.listeners.ButtonListener;
+import event.events.XboxJoystickEvent;
+import event.listeners.XboxJoystickListener;
 import java.util.Vector;
 
 /**

@@ -5,8 +5,8 @@
 package balancer;
 import balancer.RobotTiltGyro;
 import core.EventController;
-import event.RobotTiltListener;
-import event.RobotTiltEvent;
+import event.listeners.RobotTiltListener;
+import event.events.RobotTiltEvent;
 import mechanism.GRTRobotBase;
 
 

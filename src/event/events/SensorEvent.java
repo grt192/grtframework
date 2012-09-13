@@ -1,4 +1,4 @@
-package event;
+package event.events;
 
 import core.Sensor;
 import java.util.Hashtable;

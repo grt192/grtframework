@@ -6,8 +6,8 @@ package rpc.telemetry;
 
 import core.EventController;
 import core.Sensor;
-import event.SensorChangeListener;
-import event.SensorEvent;
+import event.listeners.SensorChangeListener;
+import event.events.SensorEvent;
 import rpc.RPCConnection;
 import rpc.RPCMessage;
 

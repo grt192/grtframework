@@ -4,8 +4,8 @@
  */
 package core;
 
-import event.SensorChangeListener;
-import event.SensorEvent;
+import event.listeners.SensorChangeListener;
+import event.events.SensorEvent;
 import java.util.Vector;
 
 /**

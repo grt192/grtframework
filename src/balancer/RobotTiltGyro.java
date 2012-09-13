@@ -5,11 +5,11 @@
 package balancer;
 import core.Sensor;
 import sensor.GRTGyro;
-import event.GyroEvent;
-import event.GyroListener;
+import event.events.GyroEvent;
+import event.listeners.GyroListener;
 import java.util.Vector;
-import event.RobotTiltEvent;
-import event.RobotTiltListener;
+import event.events.RobotTiltEvent;
+import event.listeners.RobotTiltListener;
 
 /**
  *

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Victor;
  *
  * @author ajc
  */
-public class GRTVictor extends Actuator implements IMotor {
+public class GRTVictor extends IMotor {
 
     Victor victor;
 
@@ -28,12 +28,10 @@ public class GRTVictor extends Actuator implements IMotor {
 
     /*
      * Set the Victor's speed
+     * 
      * @param speed the new speed to set
      */
-    public void setSpeed(double speed){
-        if(enabled){
-            victor.set(speed);
-//            log(speed);
-        }
+    public void setSpeed(double speed) {
+        executeCommand(speed);
     }
 }

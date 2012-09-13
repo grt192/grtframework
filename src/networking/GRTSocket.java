@@ -1,6 +1,7 @@
 package networking;
 
 public interface GRTSocket {
+    
 	public void sendData(String data);
 
 	public boolean isConnected();

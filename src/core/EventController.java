@@ -21,17 +21,22 @@ public abstract class EventController extends GRTLoggedProcess {
     protected abstract void startListening();
 
     /**
-     * Removes listeners
+     * Removes listeners.
      */
     protected abstract void stopListening();
 
-    
+    /**
+     * Enables actions, and begins listening
+     */
     public void enable() {
         //enable() always works because an EventController is always running
         super.enable();
         startListening();
     }
 
+    /**
+     * Disables actions, and stops listening
+     */
     public void disable() {
         super.disable();
         stopListening();
