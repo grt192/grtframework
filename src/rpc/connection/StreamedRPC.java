@@ -3,18 +3,14 @@ package rpc.connection;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Enumeration;
-import java.util.Vector;
-
 import rpc.RPCConnection;
 import rpc.RPCMessage;
-import rpc.RPCMessageListener;
 
 /**
  * Reads lines from an input stream
- * 
+ *
  * @author ajc
- * 
+ *
  */
 public class StreamedRPC extends RPCConnection implements Runnable {
 
@@ -24,14 +20,16 @@ public class StreamedRPC extends RPCConnection implements Runnable {
     private final InputStream in;
     private final OutputStream out;
     private boolean running; // TODO grtobject type thing
-    private Vector listeners = new Vector();
-	private Thread thread;
+    private Thread thread;
 
     public StreamedRPC(InputStream in, OutputStream out) {
         this.in = in;
         this.out = out;
-		thread = new Thread(this);
-		thread.start();
+        thread = new Thread(this);
+    }
+    
+    public void start(){
+        thread.start();
     }
 
     public void run() {
@@ -39,7 +37,7 @@ public class StreamedRPC extends RPCConnection implements Runnable {
         while (running) {
             poll();
             try {
-                thread.sleep(1);// TODO sleeping
+                Thread.sleep(1);// TODO sleeping
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -52,30 +50,15 @@ public class StreamedRPC extends RPCConnection implements Runnable {
         try {
             int len = 0;
             while ((data = in.read()) > -1) {
-                if (data == '\n') {
+                if (data == '\n')
                     break;
-                }
                 buffer[len++] = (byte) data;
             }
-			if (len > 0)
-				notifyListeners(new String(buffer, 0, len));
+            if (len > 0) 
+                notifyListeners(new String(buffer, 0, len));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
-        }
-    }
-
-    private void notifyListeners(String received) {
-        if (isTelemetryLine(received)) {
-            // RPCMessage message = new RPCMessage(getKey(received),
-            // getData(received));
-            RPCMessage message = decode(received);
-            // System.out.println(message);
-            // TODO only notify specific 'keyed' listeners
-            for (Enumeration e = listeners.elements(); e.hasMoreElements();) {
-                ((RPCMessageListener) e.nextElement()).messageReceived(message);
-            }
-
         }
     }
 
@@ -89,7 +72,4 @@ public class StreamedRPC extends RPCConnection implements Runnable {
         }
     }
 
-    private static RPCMessage decode(String received) {
-        return new RPCMessage(getKey(received), getData(received));
-    }
 }

@@ -4,27 +4,44 @@
  */
 package actuator;
 
-import core.Actuator;
 import edu.wpi.first.wpilibj.Victor;
 
 /**
  *
  * @author ajc
  */
-public class GRTVictor extends IMotor {
+public class GRTVictor extends Motor {
 
     Victor victor;
 
-    public GRTVictor(int id, String name) {
+    /**
+     * Instantiates a Victor controller on the default digital module
+     * 
+     * @param channel number of PWM output this Victor is attached to
+     * @param name name of motor
+     */
+    public GRTVictor(int channel, String name) {
         super(name);
-        victor = new Victor(id);
+        victor = new Victor(channel);
+    }
+    
+    /**
+     * Instantiates a Victor controller
+     * 
+     * @param slot digital module number
+     * @param channel number of PWM output this Victor is attached to
+     * @param name name of motor
+     */
+    public GRTVictor(int slot, int channel, String name) {
+        super(name);
+        victor = new Victor(slot, channel);
     }
 
-	/**
-	 * Set the Victor's speed
-	 * Identical to setSpeed(command)
-	 * @param speed set the new speed to command
-	 */
+    /**
+     * Set the Victor's speed. Identical to setSpeed(command)
+     *
+     * @param speed set the new speed to command
+     */
     public void executeCommand(double command) {
         if (enabled) {
             victor.set(command);
@@ -33,6 +50,7 @@ public class GRTVictor extends IMotor {
 
     /**
      * Set the Victor's speed (-1 to 1)
+     *
      * @param speed the new speed to set
      */
     public void setSpeed(double speed) {

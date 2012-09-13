@@ -5,6 +5,7 @@
 package sensor;
 
 import core.PollingSensor;
+import edu.wpi.first.wpilibj.AnalogChannel;
 import event.events.PotentiometerEvent;
 import event.listeners.PotentiometerListener;
 import java.util.Vector;
@@ -14,15 +15,15 @@ import java.util.Vector;
  * @author calvin
  */
 public class Potentiometer extends PollingSensor {
+
     public static final int KEY_VALUE = 0;
     public static final int NUM_DATA = 1;
-    
     private int potentiometerType;
     private AnalogChannel channel;
     public static final int LINEAR = 0;
     public static final int LOGARITHMIC = 1;
-    
-    public Potentiometer(AnalogChannel channel, int type, int pollTime, String name){
+
+    public Potentiometer(AnalogChannel channel, int type, int pollTime, String name) {
         super(name, pollTime, NUM_DATA);
         potentiometerType = type;
         this.channel = channel;
@@ -31,11 +32,11 @@ public class Potentiometer extends PollingSensor {
     protected void poll() {
         setState(KEY_VALUE, updateScaledValue());
     }
-    
-    private double updateScaledValue(){
+
+    private double updateScaledValue() {
         double rawValue = channel.getVoltage();
         double scaledValue;
-        switch(potentiometerType){
+        switch (potentiometerType) {
             case LINEAR:
                 scaledValue = rawValue / 5;
                 break;
@@ -43,10 +44,10 @@ public class Potentiometer extends PollingSensor {
                 scaledValue = rawValue / 5;
                 System.out.println("log is broken as of right now");
         }
-        
+
         return scaledValue;
     }
-    
+
     protected void notifyListeners(int id, double oldDatum, double newDatum) {
     }
 }

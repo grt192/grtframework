@@ -7,19 +7,20 @@ package actuator;
 import core.Actuator;
 
 /**
- * Generic interface for a motor.
+ * Generic motor.
+ *
  * @author ajc
  */
-public abstract class IMotor extends Actuator {
-    
-    public IMotor(String name){
+public abstract class Motor extends Actuator {
+
+    public Motor(String name) {
         super(name);
     }
-    
+
     /**
      * Sets the speed of this motor
+     *
      * @param speed speed of motor (-1 to 1)
      */
     public abstract void setSpeed(double speed);
-    
 }

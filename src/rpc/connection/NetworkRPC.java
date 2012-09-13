@@ -4,13 +4,11 @@
  */
 package rpc.connection;
 
-import java.util.Enumeration;
 import networking.GRTServer;
 import networking.SocketEvent;
 import networking.SocketListener;
 import rpc.RPCConnection;
 import rpc.RPCMessage;
-import rpc.RPCMessageListener;
 
 /**
  * NetworkRPC provides an Internet RPC connection. It currently receives 
@@ -37,26 +35,13 @@ public class NetworkRPC extends RPCConnection implements SocketListener {
     }
 
     //TODO enable sending to a single host
+    /**
+     * Sends an RPCMessage
+     * 
+     * @param message message to send
+     */
     public void send(RPCMessage message) {
         connection.sendData(encode(message));
-    }
-
-    private void notifyListeners(String received) {
-        if (isTelemetryLine(received)) {
-            // RPCMessage message = new RPCMessage(getKey(received),
-            // getData(received));
-            RPCMessage message = decode(received);
-//             System.out.println(message);
-            // TODO only notify specific 'keyed' listeners
-            for (Enumeration e = listeners.elements(); e.hasMoreElements();) {
-                ((RPCMessageListener) e.nextElement()).messageReceived(message);
-            }
-
-        }
-    }
-
-    private static RPCMessage decode(String received) {
-        return new RPCMessage(getKey(received), getData(received));
     }
 
     public void onConnect(SocketEvent e) { //TODO

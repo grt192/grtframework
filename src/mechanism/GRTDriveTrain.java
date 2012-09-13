@@ -4,7 +4,7 @@
  */
 package mechanism;
 
-import actuator.IMotor;
+import actuator.Motor;
 
 /**
  * Standard 4 motor drivetrain.
@@ -12,10 +12,10 @@ import actuator.IMotor;
  */
 public class GRTDriveTrain {
 
-    private final IMotor leftFront;
-    private final IMotor leftBack;
-    private final IMotor rightFront;
-    private final IMotor rightBack;
+    private final Motor leftFront;
+    private final Motor leftBack;
+    private final Motor rightFront;
+    private final Motor rightBack;
 
     /**
      * 
@@ -24,8 +24,8 @@ public class GRTDriveTrain {
      * @param rightFront right front motor
      * @param rightBack right back motor
      */
-    public GRTDriveTrain(IMotor leftFront, IMotor leftBack,
-            IMotor rightFront, IMotor rightBack) {
+    public GRTDriveTrain(Motor leftFront, Motor leftBack,
+            Motor rightFront, Motor rightBack) {
                 
         this.leftFront = leftFront;
         this.leftBack = leftBack;

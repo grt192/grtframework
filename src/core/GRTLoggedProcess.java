@@ -8,7 +8,7 @@ package core;
  * @author ajc
  * 
  */
-public abstract class GRTLoggedProcess extends Thread implements IProcess {
+public abstract class GRTLoggedProcess extends Thread {
 
     protected final String name;
     protected boolean enabled = false;

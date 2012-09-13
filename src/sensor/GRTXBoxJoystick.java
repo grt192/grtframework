@@ -7,8 +7,8 @@ package sensor;
 import core.PollingSensor;
 import edu.wpi.first.wpilibj.Joystick;
 import event.events.ButtonEvent;
-import event.listeners.ButtonListener;
 import event.events.XboxJoystickEvent;
+import event.listeners.ButtonListener;
 import event.listeners.XboxJoystickListener;
 import java.util.Vector;
 
@@ -52,6 +52,13 @@ public class GRTXBoxJoystick extends PollingSensor {
     private final Vector buttonListeners;
     private final Vector joystickListeners;
 
+    /**
+     * Instantiates a new GRTXBoxJoystick
+     * 
+     * @param channel USB channel joystick is plugged into
+     * @param pollTime how often to poll the joystick
+     * @param name this joystick's name
+     */
     public GRTXBoxJoystick(int channel, int pollTime, String name) {
         super(name, pollTime, NUM_DATA);
         joystick = new Joystick(channel);

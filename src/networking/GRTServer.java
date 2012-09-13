@@ -1,8 +1,7 @@
 package networking;
 
 import com.sun.squawk.io.BufferedReader;
-//import com.sun.squawk.microedition.io.ServerSocketConnection;
-import java.io.DataInputStream;
+import core.GRTLoggedProcess;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -13,10 +12,12 @@ import javax.microedition.io.StreamConnection;
 
 /**
  * A event driven daemon which makes multiple single client connections
+ *
  * @author data, ajc
  */
-public class GRTServer extends Thread implements GRTSocket {
+public class GRTServer extends Thread implements GRTSocket, Runnable {
 
+    
     /**
      * A single client connection to the server.
      */
@@ -38,8 +39,8 @@ public class GRTServer extends Thread implements GRTSocket {
 //                GRTRobot.getInstance().getLogger().write("GRTServer", client.toString());
                 serverSocketListeners = new Vector();
 //                isr = new InputStreamReader(client.openInputStream());
-//                isr.read
-                in = new BufferedReader(new InputStreamReader(client.openInputStream()),1);
+//                isr.reads
+                in = new BufferedReader(new InputStreamReader(client.openInputStream()), 1);
 
 //                client.openDataInputStream().readUT
 //                in = client.openDataInputStream();

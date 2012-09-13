@@ -10,17 +10,35 @@ import edu.wpi.first.wpilibj.Jaguar;
  *
  * @author Calvin
  */
-public class GRTPWMJag extends IMotor {
-    
+public class GRTPWMJag extends Motor {
+
     private final Jaguar jag;
-    
-    public GRTPWMJag(int id, String name){
+
+    /**
+     * Instantiates a Jag controller on the default digital module.
+     * 
+     * @param channel number of PWM output this Jag is attached to
+     * @param name name of motor
+     */
+    public GRTPWMJag(int channel, String name) {
         super(name);
-        jag = new Jaguar(id);
+        jag = new Jaguar(channel);
+    }
+    
+    /**
+     * Instantiates a Jag controller.
+     * 
+     * @param slot digital module number
+     * @param channel number of PWM output this Jag is attached to
+     * @param name name of motor
+     */
+    public GRTPWMJag(int slot, int channel, String name) {
+        super(name);
+        jag = new Jaguar(slot, channel);
     }
 
     public void setSpeed(double speed) {
-        if(enabled) {
+        if (enabled) {
             jag.set(speed);
         }
     }
@@ -28,7 +46,4 @@ public class GRTPWMJag extends IMotor {
     public void executeCommand(double command) {
         setSpeed(command);
     }
-    
-    
-    
 }

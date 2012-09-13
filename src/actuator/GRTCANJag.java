@@ -9,20 +9,20 @@ import edu.wpi.first.wpilibj.can.CANTimeoutException;
 
 /**
  * Wrapper class for the Jag speed controller on a CAN bus
- * 
+ *
  * @author Calvin
  */
-public class GRTCANJag extends IMotor {
+public class GRTCANJag extends Motor {
 
     private final CANJaguar jag;
-    
+
     public GRTCANJag(int id, String name) throws CANTimeoutException {
         super(name);
         jag = new CANJaguar(id);
     }
-    
+
     public void setSpeed(double speed) {
-        if(enabled) {
+        if (enabled) {
             try {
                 jag.setX(speed);
             } catch (CANTimeoutException ex) {
@@ -34,6 +34,4 @@ public class GRTCANJag extends IMotor {
     public void executeCommand(double command) {
         setSpeed(command);
     }
-    
-    
 }

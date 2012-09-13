@@ -5,10 +5,10 @@
 package controller;
 
 import core.EventController;
-import event.DrivingEvent;
-import event.DrivingListener;
-import event.DrivingProfileEvent;
-import event.DrivingProfileListener;
+import event.events.DrivingEvent;
+import event.events.DrivingProfileEvent;
+import event.listeners.DrivingListener;
+import event.listeners.DrivingProfileListener;
 import mechanism.GRTRobotBase;
 import sensor.base.GRTDriverStation;
 import sensor.base.IDriverProfile;
