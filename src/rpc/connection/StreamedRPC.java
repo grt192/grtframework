@@ -16,7 +16,7 @@ import rpc.RPCMessageListener;
  * @author ajc
  * 
  */
-public class StreamedRPC extends Thread implements RPCConnection {
+public class StreamedRPC extends RPCConnection implements Runnable {
 
     private static final int MAX_STRING_LENGTH = 1024;
     // stores byteform of string until newline
@@ -25,10 +25,13 @@ public class StreamedRPC extends Thread implements RPCConnection {
     private final OutputStream out;
     private boolean running; // TODO grtobject type thing
     private Vector listeners = new Vector();
+	private Thread thread;
 
     public StreamedRPC(InputStream in, OutputStream out) {
         this.in = in;
         this.out = out;
+		thread = new Thread(this);
+		thread.start();
     }
 
     public void run() {
@@ -36,7 +39,7 @@ public class StreamedRPC extends Thread implements RPCConnection {
         while (running) {
             poll();
             try {
-                Thread.sleep(1);// TODO sleeping
+                thread.sleep(1);// TODO sleeping
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -54,36 +57,12 @@ public class StreamedRPC extends Thread implements RPCConnection {
                 }
                 buffer[len++] = (byte) data;
             }
-            // System.out.println("READ:\t" + new String(buffer, 0, len));//
-            // TODO
-            // selected
-            // debug:
-            // prints
-            notifyListeners(new String(buffer, 0, len));
+			if (len > 0)
+				notifyListeners(new String(buffer, 0, len));
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(-1);
         }
-    }
-
-    private static boolean isTelemetryLine(String line) {
-        return line.length() > 3 && line.substring(0, 3).equals("USB");// TODO
-    }
-
-    private static int getKey(String line) {
-        return Integer.parseInt(line.substring(3, line.indexOf(':')));
-    }
-
-    private static double getData(String line) {
-        return Double.parseDouble((line.substring(line.indexOf(':') + 1)));
-    }
-
-    public void addMessageListener(RPCMessageListener listener) {
-        listeners.addElement(listener);
-    }
-
-    public void removeMessageListener(RPCMessageListener listener) {
-        listeners.removeElement(listener);
     }
 
     private void notifyListeners(String received) {
@@ -102,17 +81,12 @@ public class StreamedRPC extends Thread implements RPCConnection {
 
     public void send(RPCMessage message) {
         try {
-            out.write(encode(message));
+            out.write(encode(message).getBytes());
             out.flush();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-    }
-
-    private static byte[] encode(RPCMessage m) {
-        // newline to flush all buffers
-        return ("USB" + m.getKey() + ":" + m.getData() + "\n").getBytes();
     }
 
     private static RPCMessage decode(String received) {

@@ -4,8 +4,9 @@
  */
 package core;
 
-import event.listeners.SensorChangeListener;
-import event.events.SensorEvent;
+import event.SensorChangeListener;
+import event.SensorEvent;
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
@@ -52,8 +53,8 @@ public abstract class Sensor extends GRTLoggedProcess {
 
     protected void notifyStateChange(int id, double data) {
         SensorEvent e = new SensorEvent(this, id, data);
-        for (int i = 0; i < listeners.size(); i++) {
-            ((SensorChangeListener) listeners.elementAt(i)).sensorStateChanged(e);
+        for (Enumeration en = listeners.elements(); en.hasMoreElements();) {
+            ((SensorChangeListener) en.nextElement()).sensorStateChanged(e);
         }
     }
 

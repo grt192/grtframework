@@ -4,7 +4,6 @@
  */
 package sensor;
 
-import edu.wpi.first.wpilibj.AnalogChannel;
 import core.PollingSensor;
 import event.events.PotentiometerEvent;
 import event.listeners.PotentiometerListener;
@@ -14,7 +13,7 @@ import java.util.Vector;
  *
  * @author calvin
  */
-public class Potentiometer extends PollingSensor{
+public class Potentiometer extends PollingSensor {
     public static final int KEY_VALUE = 0;
     public static final int NUM_DATA = 1;
     

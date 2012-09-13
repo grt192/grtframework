@@ -20,15 +20,19 @@ public class GRTVictor extends IMotor {
         victor = new Victor(id);
     }
 
+	/**
+	 * Set the Victor's speed
+	 * Identical to setSpeed(command)
+	 * @param speed set the new speed to command
+	 */
     public void executeCommand(double command) {
         if (enabled) {
             victor.set(command);
         }
     }
 
-    /*
-     * Set the Victor's speed
-     * 
+    /**
+     * Set the Victor's speed (-1 to 1)
      * @param speed the new speed to set
      */
     public void setSpeed(double speed) {

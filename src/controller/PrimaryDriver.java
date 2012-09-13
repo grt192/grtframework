@@ -5,20 +5,13 @@
 package controller;
 
 import core.EventController;
-import edu.wpi.first.wpilibj.DriverStation;
-import event.events.DrivingEvent;
-import event.listeners.DrivingListener;
-import event.events.DrivingProfileEvent;
-import event.listeners.DrivingProfileListener;
-import event.events.XboxJoystickEvent;
-import event.listeners.XboxJoystickListener;
-import mechanism.GRTDriveTrain;
-import sensor.base.GRTXboxDriverStation;
+import event.DrivingEvent;
+import event.DrivingListener;
+import event.DrivingProfileEvent;
+import event.DrivingProfileListener;
 import mechanism.GRTRobotBase;
-import sensor.base.IDriverProfile;
-import sensor.base.LinearDrive;
-import sensor.GRTXBoxJoystick;
 import sensor.base.GRTDriverStation;
+import sensor.base.IDriverProfile;
 
 /**
  * Robot base driving.

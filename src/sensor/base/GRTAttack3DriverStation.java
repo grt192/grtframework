@@ -66,6 +66,7 @@ public class GRTAttack3DriverStation extends GRTDriverStation implements Attack3
             notifyStateChange(KEY_PROFILE_ID, profileID);
         }
     }
+	
     private static int getIndex(int[] array, int value) {
         for (int i = 0; i < array.length; i++) {
             if (value == array[i]) {

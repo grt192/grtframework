@@ -4,11 +4,10 @@
  */
 package rpc.connection;
 
+import java.util.Enumeration;
 import networking.GRTServer;
 import networking.SocketEvent;
 import networking.SocketListener;
-import java.util.Enumeration;
-import java.util.Vector;
 import rpc.RPCConnection;
 import rpc.RPCMessage;
 import rpc.RPCMessageListener;
@@ -19,10 +18,9 @@ import rpc.RPCMessageListener;
  * 
  * @author ajc
  */
-public class NetworkRPC implements RPCConnection, SocketListener {
+public class NetworkRPC extends RPCConnection implements SocketListener {
 
     private GRTServer connection;
-    private Vector listeners = new Vector();
 
     /**
      * Opens a new Network RPC connection and starts it.
@@ -33,7 +31,6 @@ public class NetworkRPC implements RPCConnection, SocketListener {
         start();
     }
 
-    
     private void start(){
         connection.addSocketListener(this);
         connection.start();
@@ -42,14 +39,6 @@ public class NetworkRPC implements RPCConnection, SocketListener {
     //TODO enable sending to a single host
     public void send(RPCMessage message) {
         connection.sendData(encode(message));
-    }
-
-    public void addMessageListener(RPCMessageListener l) {
-        listeners.addElement(l);
-    }
-
-    public void removeMessageListener(RPCMessageListener l) {
-        listeners.removeElement(l);
     }
 
     private void notifyListeners(String received) {
@@ -66,26 +55,8 @@ public class NetworkRPC implements RPCConnection, SocketListener {
         }
     }
 
-    private static String encode(RPCMessage m) {
-        // newline to flush all buffers
-        return ("USB" + m.getKey() + ":" + m.getData() + "\n");
-    }
-
     private static RPCMessage decode(String received) {
         return new RPCMessage(getKey(received), getData(received));
-    }
-
-    private static boolean isTelemetryLine(String line) {
-        return line.length() > 3 && line.substring(0, 3).equals("USB");// TODO
-        // MAGICNUMBERS
-    }
-
-    private static int getKey(String line) {
-        return Integer.parseInt(line.substring(3, line.indexOf(':')));
-    }
-
-    private static double getData(String line) {
-        return Double.parseDouble((line.substring(line.indexOf(':') + 1)));
     }
 
     public void onConnect(SocketEvent e) { //TODO
@@ -95,7 +66,6 @@ public class NetworkRPC implements RPCConnection, SocketListener {
     }
 
     public void dataRecieved(SocketEvent e) {
-//        System.out.println("Data received: " + e.getData());
         notifyListeners(e.getData());
     }
 }
