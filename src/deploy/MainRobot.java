@@ -6,6 +6,7 @@ package deploy;
 
 import actuator.GRTVictor;
 import controller.PrimaryDriver;
+import logger.GRTLogger;
 import mechanism.GRTDriveTrain;
 import mechanism.GRTRobotBase;
 import rpc.connection.NetworkRPC;
@@ -33,7 +34,7 @@ public class MainRobot extends GRTRobot {
 
     public MainRobot() {
 
-        System.out.println("Running grtframeworkv6");
+        GRTLogger.getLogger().logInfo("GRTFramework v6 starting up.");
 
         //RPC Connection
         NetworkRPC rpcConn = new NetworkRPC(180);
@@ -77,5 +78,12 @@ public class MainRobot extends GRTRobot {
         
         
         addTeleopController(driveControl);
+        
+        GRTLogger.getLogger().logSuccess("Ready to drive.");
+    }
+    
+    public void disabled(){
+        GRTLogger.getLogger().logInfo("Disabling robot. Halting drivetrain");
+        robotBase.tankDrive(0.0, 0.0);
     }
 }

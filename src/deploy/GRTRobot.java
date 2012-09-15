@@ -28,9 +28,8 @@ public abstract class GRTRobot extends SimpleRobot {
     public GRTRobot() {
         autoControllers = new Vector();
         teleopControllers = new Vector();
-
     }
-
+    
     /**
      * This function is called once each time the robot enters autonomous mode.
      * All Autonomous controllers are started/resumed, and all teleop controllers are paused.
