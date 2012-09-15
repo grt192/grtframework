@@ -28,9 +28,10 @@ public class GRTXboxDriverStation extends GRTDriverStation implements XboxJoysti
      * @param curves
      * @param name
      */
-    public GRTXboxDriverStation(GRTXBoxJoystick primary, GRTXBoxJoystick secondary,
-            int[] profileButtons, IDriverProfile[] curves, String name) {
-        super(profileButtons, curves, name);
+    public GRTXboxDriverStation(GRTXBoxJoystick primary,
+            GRTXBoxJoystick secondary,
+            String name) {
+        super(name);
         this.primary = primary;
         this.secondary = secondary;
 
@@ -82,15 +83,6 @@ public class GRTXboxDriverStation extends GRTDriverStation implements XboxJoysti
     }
 
     public void buttonReleased(ButtonEvent e) {
-
-        //we receive the button.
-        //the button corresponds to an element in the profileButtons list
-        //we need to find the index from that array that the button ID is
-        int profileID = getIndex(profileButtons, e.getButtonID());
-        if (profileID != -1) {//meaning it exists, see #getIndex(int[], int)
-            notifyProfileChange(profileID);
-            notifyStateChange(KEY_PROFILE_ID, profileID);
-        }
     }
 
     /**

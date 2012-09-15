@@ -18,9 +18,8 @@ public class GRTAttack3DriverStation extends GRTDriverStation implements Attack3
     private final GRTAttack3Joystick left;
     private final GRTAttack3Joystick right;
     
-    public GRTAttack3DriverStation(GRTAttack3Joystick left, GRTAttack3Joystick right,
-            int[] profileButtons, IDriverProfile[] curves, String name){
-        super(profileButtons, curves, name);
+    public GRTAttack3DriverStation(GRTAttack3Joystick left, GRTAttack3Joystick right,String name){
+        super(name);
         this.left= left;
         this.right = right;
     }
@@ -60,11 +59,6 @@ public class GRTAttack3DriverStation extends GRTDriverStation implements Attack3
     }
 
     public void buttonReleased(ButtonEvent e) {
-        int profileID = getIndex(profileButtons, e.getButtonID());
-        if (profileID != -1) {//meaning it exists, see #getIndex(int[], int)
-            notifyProfileChange(profileID);
-            notifyStateChange(KEY_PROFILE_ID, profileID);
-        }
     }
 	
     private static int getIndex(int[] array, int value) {

@@ -6,9 +6,7 @@ package controller;
 
 import core.EventController;
 import event.events.DrivingEvent;
-import event.events.DrivingProfileEvent;
 import event.listeners.DrivingListener;
-import event.listeners.DrivingProfileListener;
 import mechanism.GRTRobotBase;
 import sensor.base.GRTDriverStation;
 import sensor.base.IDriverProfile;
@@ -20,7 +18,7 @@ import sensor.base.IDriverProfile;
  * 
  * @author ajc
  */
-public class PrimaryDriver extends EventController implements DrivingListener, DrivingProfileListener {
+public class PrimaryDriver extends EventController implements DrivingListener {
 
     //sensor
     private final GRTDriverStation ds;
@@ -41,12 +39,10 @@ public class PrimaryDriver extends EventController implements DrivingListener, D
 
     protected void startListening() {
         ds.addDrivingListener(this);
-        ds.addDrivingProfileListener(this);
     }
 
     protected void stopListening() {
         ds.removeDrivingListener(this);
-        ds.removeDrivingProfileListener(this);
     }
 
     public void driverLeftSpeed(DrivingEvent e) {
@@ -59,9 +55,5 @@ public class PrimaryDriver extends EventController implements DrivingListener, D
         rightVelocity = e.getPercentSpeed();
 
         dt.tankDrive(driveProfile.driveSpeed(leftVelocity), driveProfile.driveSpeed(rightVelocity));
-    }
-
-    public void drivingProfileChanged(DrivingProfileEvent e) {
-        driveProfile = e.getProfile();
     }
 }

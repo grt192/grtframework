@@ -7,8 +7,6 @@ package sensor.base;
 import core.Sensor;
 import event.events.DrivingEvent;
 import event.listeners.DrivingListener;
-import event.events.DrivingProfileEvent;
-import event.listeners.DrivingProfileListener;
 import java.util.Vector;
 
 /**
@@ -26,17 +24,7 @@ public abstract class GRTDriverStation extends Sensor {
     public static final int KEY_RIGHT_VELOCITY = 1;
     public static final int KEY_PROFILE_ID = 2;
     
-    //profiles
-    protected IDriverProfile[] curves;
-    /*
-     * maps the profile index to the button that should register it
-     * so {3 4} means button 3 will register PROFILE_LINEAR,
-     * while button 4 will register PROFILE_SQUARED.
-     */
-    protected final int[] profileButtons;
-    //listeners
     private final Vector drivingListeners;
-    private final Vector profileListeners;
 
     /**
      * 
@@ -44,13 +32,10 @@ public abstract class GRTDriverStation extends Sensor {
      * @param curves
      * @param name
      */
-    public GRTDriverStation(int[] profileButtons, IDriverProfile[] curves, String name) {
+    public GRTDriverStation(String name) {
         super(name);
-        this.profileButtons = profileButtons;
-        this.curves = curves;
 
         drivingListeners = new Vector();
-        profileListeners = new Vector();
     }
 
     public void addDrivingListener(DrivingListener l) {
@@ -59,14 +44,6 @@ public abstract class GRTDriverStation extends Sensor {
 
     public void removeDrivingListener(DrivingListener l) {
         drivingListeners.removeElement(l);
-    }
-
-    public void addDrivingProfileListener(DrivingProfileListener l) {
-        profileListeners.addElement(l);
-    }
-
-    public void removeDrivingProfileListener(DrivingProfileListener l) {
-        profileListeners.removeElement(l);
     }
 
     protected void notifyLeftDriveSpeed(double speed) {
@@ -80,14 +57,6 @@ public abstract class GRTDriverStation extends Sensor {
         DrivingEvent ev = new DrivingEvent(this, DrivingEvent.SIDE_RIGHT, speed);
         for (int i = 0; i < drivingListeners.size(); i++) {
             ((DrivingListener) drivingListeners.elementAt(i)).driverRightSpeed(ev);
-        }
-    }
-
-    protected void notifyProfileChange(int profileID) {
-        DrivingProfileEvent e = new DrivingProfileEvent(this, curves[profileID]);
-        for (int i = 0; i < profileListeners.size(); i++) {
-            ((DrivingProfileListener) profileListeners.elementAt(i)).drivingProfileChanged(e);
-
         }
     }
 }
