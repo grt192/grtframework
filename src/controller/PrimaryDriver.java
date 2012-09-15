@@ -9,7 +9,6 @@ import event.events.DrivingEvent;
 import event.listeners.DrivingListener;
 import mechanism.GRTRobotBase;
 import sensor.base.GRTDriverStation;
-import sensor.base.IDriverProfile;
 
 /**
  * Robot base driving.
@@ -25,16 +24,14 @@ public class PrimaryDriver extends EventController implements DrivingListener {
     //actuator
     private final GRTRobotBase dt;
     //drive curve
-    private IDriverProfile driveProfile;
     //state
     private double leftVelocity;
     private double rightVelocity;
 
-    public PrimaryDriver(GRTRobotBase dt, GRTDriverStation ds, IDriverProfile driveProfile, String name) {
+    public PrimaryDriver(GRTRobotBase dt, GRTDriverStation ds, String name) {
         super(name);
         this.dt = dt;
         this.ds = ds;
-        this.driveProfile = driveProfile;
     }
 
     protected void startListening() {
@@ -48,12 +45,12 @@ public class PrimaryDriver extends EventController implements DrivingListener {
     public void driverLeftSpeed(DrivingEvent e) {
         leftVelocity = e.getPercentSpeed();
 
-        dt.tankDrive(driveProfile.driveSpeed(leftVelocity), driveProfile.driveSpeed(rightVelocity));
+        dt.tankDrive(leftVelocity, rightVelocity);
     }
 
     public void driverRightSpeed(DrivingEvent e) {
         rightVelocity = e.getPercentSpeed();
 
-        dt.tankDrive(driveProfile.driveSpeed(leftVelocity), driveProfile.driveSpeed(rightVelocity));
+        dt.tankDrive(leftVelocity, rightVelocity);
     }
 }

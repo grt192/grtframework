@@ -64,7 +64,6 @@ public class GRTSolenoid extends Actuator {
         sol.set(command);
     }
 
-//    @Override
     /**
      * Halts the solenoid, and moves it to original position
      */

@@ -71,7 +71,7 @@ public class MainRobot extends GRTRobot {
         System.out.println("Mechanisms initialized");
 
         //Controllers
-        driveControl = new PrimaryDriver(robotBase, driverStation, new LinearDrive(), "driveControl");
+        driveControl = new PrimaryDriver(robotBase, driverStation, "driveControl");
         batteryLogger = new SensorLogger(batterySensor, rpcConn, new int[]{23}, "batterylogger");
         System.out.println("Controllers Initialized");
         
