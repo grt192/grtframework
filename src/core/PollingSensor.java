@@ -16,7 +16,6 @@ package core;
 public abstract class PollingSensor extends Sensor {
 
     private double[] data;
-    private final int sleepTime;
 
     /**
      * Construct a polling sensor. 
@@ -36,23 +35,6 @@ public abstract class PollingSensor extends Sensor {
      * Called to poll sensor.
      */
     protected abstract void poll();
-
-    public void run() {
-        running = true;
-        while (running) {
-
-            //only poll, and thus only send events, if enabled
-            if (enabled) {
-                poll();
-            }
-
-            try {
-                Thread.sleep(sleepTime);
-            } catch (InterruptedException ex) {
-                ex.printStackTrace();
-            }
-        }
-    }
 
     /**
      * Stores a datum, and notifies listeners if the state of it has changed.
@@ -87,11 +69,4 @@ public abstract class PollingSensor extends Sensor {
      * @param newDatum  the datum's new value
      */
     protected abstract void notifyListeners(int id, double oldDatum, double newDatum);
-
-    //Polling sensors do not listen to things, necessarily
-    protected void startListening() {
-    }
-
-    protected void stopListening() {
-    }
 }

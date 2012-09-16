@@ -35,10 +35,10 @@ public class MainRobot extends GRTRobot {
     public MainRobot() {
 
         GRTLogger.getLogger().logInfo("GRTFramework v6 starting up.");
-
+        
         //RPC Connection
-        NetworkRPC rpcConn = new NetworkRPC(180);
-
+        NetworkRPC rpcConn = new NetworkRPC("RPCConn", 180);
+        
         //Driver station components
         GRTAttack3Joystick primary = new GRTAttack3Joystick(1, 12, "primary");
         GRTAttack3Joystick secondary = new GRTAttack3Joystick(2, 12, "secondary");

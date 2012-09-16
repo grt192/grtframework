@@ -12,37 +12,26 @@ import rpc.RPCMessage;
  * @author ajc
  *
  */
-public class StreamedRPC extends RPCConnection implements Runnable {
+public class StreamedRPC extends RPCConnection {
 
     private static final int MAX_STRING_LENGTH = 1024;
     // stores byteform of string until newline
     private byte[] buffer = new byte[MAX_STRING_LENGTH];
     private final InputStream in;
     private final OutputStream out;
-    private boolean running; // TODO grtobject type thing
     private Thread thread;
 
-    public StreamedRPC(InputStream in, OutputStream out) {
+    public StreamedRPC(String name, InputStream in, OutputStream out) {
+        super(name);
         this.in = in;
         this.out = out;
         thread = new Thread(this);
+        
+        sleepTime = 1;  //polls at intervals of 1ms
     }
     
     public void start(){
         thread.start();
-    }
-
-    public void run() {
-        running = true;
-        while (running) {
-            poll();
-            try {
-                Thread.sleep(1);// TODO sleeping
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
     }
 
     private void poll() {

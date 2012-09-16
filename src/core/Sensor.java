@@ -19,7 +19,7 @@ public abstract class Sensor extends GRTLoggedProcess {
     //Constants
     public static final double TRUE = 1.0;
     public static final double FALSE = 0.0;
-    public static final double ERROR = -999;
+    public static final double ERROR = -Double.NaN;
     
     //Instance variables
     private Vector listeners;   //Collection of things that listen to this sensor
@@ -31,14 +31,14 @@ public abstract class Sensor extends GRTLoggedProcess {
     }
 
     /**
-     * Adds listeners.
+     * Enables listening. Sensors need not listen to events, however.
      */
-    protected abstract void startListening();
+    protected void startListening(){};
 
     /**
-     * Removes listeners
+     * Disables listening. Sensors need not listen to events, however.
      */
-    protected abstract void stopListening();
+    protected void stopListening(){};
 
     public void enable() {
         //enable() always works because a Sensor is always running

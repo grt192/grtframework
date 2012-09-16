@@ -1,15 +1,20 @@
 package rpc;
 
+import core.GRTLoggedProcess;
 import java.util.Enumeration;
 import java.util.Vector;
 
-public abstract class RPCConnection {
+public abstract class RPCConnection extends GRTLoggedProcess {
 
     public static final String PREFIX = RPCMessage.PREFIX;
     public static final String PREFIX_CS = RPCMessage.PREFIX_CS;
     private static final boolean USE_CHECKSUM = true;
     protected Vector listeners = new Vector();
 
+    public RPCConnection(String name) {
+        super(name);
+    }
+    
     public abstract void send(RPCMessage message);
 
     public void addMessageListener(RPCMessageListener l) {

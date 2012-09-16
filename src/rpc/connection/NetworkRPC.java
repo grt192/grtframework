@@ -24,12 +24,13 @@ public class NetworkRPC extends RPCConnection implements SocketListener {
      * Opens a new Network RPC connection and starts it.
      * @param port 
      */
-    public NetworkRPC(int port) {
+    public NetworkRPC(String name, int port) {
+        super(name);
         connection = new GRTServer(port);
-        start();
+        initConnection();
     }
 
-    private void start(){
+    private void initConnection(){
         connection.addSocketListener(this);
         connection.start();
     }
