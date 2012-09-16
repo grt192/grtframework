@@ -4,7 +4,7 @@
  */
 package sensor;
 
-import core.PollingSensor;
+import core.Sensor;
 import edu.wpi.first.wpilibj.Joystick;
 import event.events.ButtonEvent;
 import event.events.XboxJoystickEvent;
@@ -16,7 +16,7 @@ import java.util.Vector;
  * 
  * @author ajc
  */
-public class GRTXBoxJoystick extends PollingSensor {
+public class GRTXBoxJoystick extends Sensor {
 
     /**
      * Keys of data

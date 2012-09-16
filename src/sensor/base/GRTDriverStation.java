@@ -7,12 +7,12 @@ package sensor.base;
 import core.Sensor;
 import event.events.DrivingEvent;
 import event.listeners.DrivingListener;
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
  * Superclass for all DriverStations.
  *
- * Handles driver profiles.s
  * @author ajc
  */
 public abstract class GRTDriverStation extends Sensor {
@@ -22,18 +22,15 @@ public abstract class GRTDriverStation extends Sensor {
      */
     public static final int KEY_LEFT_VELOCITY = 0;
     public static final int KEY_RIGHT_VELOCITY = 1;
-    public static final int KEY_PROFILE_ID = 2;
-    
     private final Vector drivingListeners;
 
     /**
-     * 
-     * @param profileButtons
-     * @param curves
-     * @param name
+     * Creates a new driver station.
+     *
+     * @param name name of driver station.
      */
     public GRTDriverStation(String name) {
-        super(name);
+        super(name, 2);
 
         drivingListeners = new Vector();
     }
@@ -47,16 +44,30 @@ public abstract class GRTDriverStation extends Sensor {
     }
 
     protected void notifyLeftDriveSpeed(double speed) {
-        DrivingEvent ev = new DrivingEvent(this, DrivingEvent.SIDE_LEFT, speed);
-        for (int i = 0; i < drivingListeners.size(); i++) {
-            ((DrivingListener) drivingListeners.elementAt(i)).driverLeftSpeed(ev);
-        }
+        setState(KEY_LEFT_VELOCITY, speed);
     }
 
     protected void notifyRightDriveSpeed(double speed) {
-        DrivingEvent ev = new DrivingEvent(this, DrivingEvent.SIDE_RIGHT, speed);
-        for (int i = 0; i < drivingListeners.size(); i++) {
-            ((DrivingListener) drivingListeners.elementAt(i)).driverRightSpeed(ev);
+        setState(KEY_RIGHT_VELOCITY, speed);
+    }
+
+    protected void notifyListeners(int id, double oldValue, double newValue) {
+
+        DrivingEvent ev;
+        switch (id) {
+            case KEY_LEFT_VELOCITY:
+                ev = new DrivingEvent(this, DrivingEvent.SIDE_LEFT, newValue);
+                for (Enumeration e = drivingListeners.elements(); e.hasMoreElements();) {
+                    ((DrivingListener) e.nextElement()).driverLeftSpeed(ev);
+                }
+                break;
+
+            case KEY_RIGHT_VELOCITY:
+                ev = new DrivingEvent(this, DrivingEvent.SIDE_RIGHT, newValue);
+                for (Enumeration e = drivingListeners.elements(); e.hasMoreElements();) {
+                    ((DrivingListener) e.nextElement()).driverRightSpeed(ev);
+                }
+                break;
         }
     }
 }

@@ -9,18 +9,31 @@ package core;
  *
  */
 public abstract class GRTLoggedProcess extends Thread {
-    
+
     protected final String name;
     protected boolean enabled = false;
     protected boolean running = true;
-    
-    /**
-     * How long between executions of poll() to pause for, in milliseconds.
-     */
-    protected int sleepTime = 0;
+    private final int sleepTime;
 
+    /**
+     * Constructs a new GRTLoggedProcess that does not poll.
+     *
+     * @param name name of process.
+     */
     public GRTLoggedProcess(String name) {
+        this(name, -1);
+    }
+
+    /**
+     * Constructs a new GRTLoggedProcess that polls.
+     *
+     * @param name name of process.
+     * @param sleepTime time to pause for between executions of poll(), in
+     * milliseconds.
+     */
+    public GRTLoggedProcess(String name, int sleepTime) {
         this.name = name;
+        this.sleepTime = sleepTime;
     }
 
     /*
@@ -35,8 +48,9 @@ public abstract class GRTLoggedProcess extends Thread {
         while (running && sleepTime >= 0) {
 
             //only poll, and thus only send events, if enabled
-            if (enabled)
+            if (enabled) {
                 poll();
+            }
 
             try {
                 Thread.sleep(sleepTime);
@@ -49,7 +63,7 @@ public abstract class GRTLoggedProcess extends Thread {
     /**
      * In order to poll and have meaningful effects, poll() must be overridden.
      */
-    private void poll() {
+    protected void poll() {
     }
 
     /**
@@ -99,7 +113,7 @@ public abstract class GRTLoggedProcess extends Thread {
     }
 
     /**
-     * Disables actions of this process
+     * Disables actions of this process.
      */
     public void disable() {
         enabled = false;
@@ -122,6 +136,11 @@ public abstract class GRTLoggedProcess extends Thread {
         disable();
     }
 
+    /**
+     * Returns whether or not this process is running.
+     *
+     * @return true if running, false otherwise.
+     */
     public boolean isRunning() {
         return running;
     }

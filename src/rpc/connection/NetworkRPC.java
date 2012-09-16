@@ -26,7 +26,7 @@ public class NetworkRPC extends RPCConnection implements SocketListener {
      */
     public NetworkRPC(String name, int port) {
         super(name);
-        connection = new GRTServer(port);
+        connection = new GRTServer(name + "-server", port);
         initConnection();
     }
 

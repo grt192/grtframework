@@ -14,11 +14,14 @@ import sensor.GRTAttack3Joystick;
  * Driver station using 2 Logitech Attack 3 Joysticks
  * @author dan
  */
-public class GRTAttack3DriverStation extends GRTDriverStation implements Attack3JoystickListener, ButtonListener{
+public class GRTAttack3DriverStation extends GRTDriverStation
+        implements Attack3JoystickListener, ButtonListener {
     private final GRTAttack3Joystick left;
     private final GRTAttack3Joystick right;
     
-    public GRTAttack3DriverStation(GRTAttack3Joystick left, GRTAttack3Joystick right,String name){
+    public GRTAttack3DriverStation(GRTAttack3Joystick left,
+            GRTAttack3Joystick right,
+            String name){
         super(name);
         this.left= left;
         this.right = right;
@@ -26,9 +29,7 @@ public class GRTAttack3DriverStation extends GRTDriverStation implements Attack3
     
     protected void startListening() {
         left.addJoystickListener(this);
-        left.addButtonListener(this);
         right.addJoystickListener(this);
-        right.addButtonListener(this);
     }
 
     protected void stopListening() {
@@ -42,13 +43,11 @@ public class GRTAttack3DriverStation extends GRTDriverStation implements Attack3
     }
 
     public void YAxisMoved(Attack3JoystickEvent e) {
-        if (e.getSource()==left){
+        if (e.getSource() == left){
             notifyLeftDriveSpeed(e.getValue());
-            notifyStateChange(KEY_LEFT_VELOCITY, e.getValue());
         }
-        else if (e.getSource() ==right){
+        else if (e.getSource() == right){
             notifyRightDriveSpeed(e.getValue());
-            notifyStateChange(KEY_RIGHT_VELOCITY, e.getValue());
         }
     }
 
@@ -61,13 +60,4 @@ public class GRTAttack3DriverStation extends GRTDriverStation implements Attack3
     public void buttonReleased(ButtonEvent e) {
     }
 	
-    private static int getIndex(int[] array, int value) {
-        for (int i = 0; i < array.length; i++) {
-            if (value == array[i]) {
-                return i;
-            }
-        }
-        return -1;
-    }
-    
 }

@@ -4,7 +4,7 @@
  */
 package sensor;
 
-import core.PollingSensor;
+import core.Sensor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import event.events.SwitchEvent;
 import event.listeners.SwitchListener;
@@ -14,7 +14,7 @@ import java.util.Vector;
  *
  * @author gerberduffy
  */
-public class GRTSwitch extends PollingSensor {
+public class GRTSwitch extends Sensor {
     
     private DigitalInput in;
     
@@ -38,7 +38,6 @@ public class GRTSwitch extends PollingSensor {
 
     protected void poll() {
         setState(STATE, isOn() ? TRUE : FALSE);
-        System.out.println(getState(STATE));
     }
 
     protected void notifyListeners(int id, double oldDatum, double newDatum) {

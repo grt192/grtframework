@@ -5,8 +5,8 @@
 package sensor.base;
 
 import event.events.ButtonEvent;
-import event.listeners.ButtonListener;
 import event.events.XboxJoystickEvent;
+import event.listeners.ButtonListener;
 import event.listeners.XboxJoystickListener;
 import sensor.GRTXBoxJoystick;
 
@@ -15,18 +15,18 @@ import sensor.GRTXBoxJoystick;
  *
  * @author ajc
  */
-public class GRTXboxDriverStation extends GRTDriverStation implements XboxJoystickListener, ButtonListener {
+public class GRTXboxDriverStation extends GRTDriverStation
+        implements XboxJoystickListener, ButtonListener {
 
     private final GRTXBoxJoystick primary;
     private final GRTXBoxJoystick secondary;
 
     /**
+     * Creates a new driver station using XBox controllers.
      * 
-     * @param primary
-     * @param secondary
-     * @param profileButtons
-     * @param curves
-     * @param name
+     * @param primary primary controller.
+     * @param secondary secondary controller.
+     * @param name name of driver station.
      */
     public GRTXboxDriverStation(GRTXBoxJoystick primary,
             GRTXBoxJoystick secondary,
@@ -56,7 +56,6 @@ public class GRTXboxDriverStation extends GRTDriverStation implements XboxJoysti
     public void leftYAxisMoved(XboxJoystickEvent e) {
         if (e.getSource() == primary) {
             notifyLeftDriveSpeed(e.getValue());
-            notifyStateChange(KEY_LEFT_VELOCITY, e.getValue());
         }
     }
 
@@ -66,7 +65,6 @@ public class GRTXboxDriverStation extends GRTDriverStation implements XboxJoysti
     public void rightYAxisMoved(XboxJoystickEvent e) {
         if (e.getSource() == primary) {
             notifyRightDriveSpeed(e.getValue());
-            notifyStateChange(KEY_RIGHT_VELOCITY, e.getValue());
         }
     }
 
@@ -83,21 +81,6 @@ public class GRTXboxDriverStation extends GRTDriverStation implements XboxJoysti
     }
 
     public void buttonReleased(ButtonEvent e) {
-    }
-
-    /**
-     *
-     * @param array
-     * @param value
-     * @return
-     */
-    private static int getIndex(int[] array, int value) {
-        for (int i = 0; i < array.length; i++) {
-            if (value == array[i]) {
-                return i;
-            }
-        }
-        return -1;
     }
 
     public void leftAngleChanged(XboxJoystickEvent e) {

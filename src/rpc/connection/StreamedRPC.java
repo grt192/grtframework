@@ -19,22 +19,14 @@ public class StreamedRPC extends RPCConnection {
     private byte[] buffer = new byte[MAX_STRING_LENGTH];
     private final InputStream in;
     private final OutputStream out;
-    private Thread thread;
 
     public StreamedRPC(String name, InputStream in, OutputStream out) {
-        super(name);
+        super(name, 1);
         this.in = in;
         this.out = out;
-        thread = new Thread(this);
-        
-        sleepTime = 1;  //polls at intervals of 1ms
-    }
-    
-    public void start(){
-        thread.start();
     }
 
-    private void poll() {
+    protected void poll() {
         int data;
         try {
             int len = 0;
@@ -60,5 +52,4 @@ public class StreamedRPC extends RPCConnection {
             e.printStackTrace();
         }
     }
-
 }

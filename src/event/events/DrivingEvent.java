@@ -14,6 +14,7 @@ public class DrivingEvent {
 
     public static final int SIDE_LEFT = 0;
     public static final int SIDE_RIGHT = 1;
+    
     private final GRTDriverStation source;
     private final int sideID;
     private final double value;

@@ -8,7 +8,7 @@ import event.events.Attack3JoystickEvent;
 import event.events.ButtonEvent;
 import event.listeners.Attack3JoystickListener;
 import event.listeners.ButtonListener;
-import core.PollingSensor;
+import core.Sensor;
 import edu.wpi.first.wpilibj.Joystick;
 import event.*;
 import java.util.Enumeration;
@@ -18,7 +18,7 @@ import java.util.Vector;
  *
  * @author dan
  */
-public class GRTAttack3Joystick extends PollingSensor {
+public class GRTAttack3Joystick extends Sensor {
     private final Vector joystickListeners;
     private final Vector buttonListeners;
     private final Joystick joystick;
@@ -50,7 +50,7 @@ public class GRTAttack3Joystick extends PollingSensor {
     
     protected void poll() {
         for (int i = 0; i < NUM_OF_BUTTONS; ++i){
-            setState(i, joystick.getRawButton(i)?PRESSED:RELEASED);
+            setState(i, joystick.getRawButton(i) ? PRESSED : RELEASED);
         }
         setState(KEY_X, joystick.getX());
         setState(KEY_Y, joystick.getY());

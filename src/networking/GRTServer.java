@@ -15,13 +15,13 @@ import javax.microedition.io.StreamConnection;
  *
  * @author data, ajc
  */
-public class GRTServer extends Thread implements GRTSocket, Runnable {
+public class GRTServer extends GRTLoggedProcess implements GRTSocket {
 
     
     /**
      * A single client connection to the server.
      */
-    private class GRTSingleConnect extends Thread implements GRTSocket {
+    private class GRTSingleConnect extends GRTLoggedProcess implements GRTSocket {
 
         private StreamConnection client;
         private OutputStreamWriter osw;
@@ -29,11 +29,11 @@ public class GRTServer extends Thread implements GRTSocket, Runnable {
 //        private DataInputStream in;
         InputStreamReader isr;
         private OutputStreamWriter out;
-        private boolean running;
         private boolean connected = true;
         Vector serverSocketListeners;
 
-        public GRTSingleConnect(StreamConnection client) {
+        public GRTSingleConnect(String name, StreamConnection client) {
+            super(name, 0);
             try {
                 this.client = client;
 //                GRTRobot.getInstance().getLogger().write("GRTServer", client.toString());
@@ -50,20 +50,16 @@ public class GRTServer extends Thread implements GRTSocket, Runnable {
             }
         }
 
-        public void run() {
-            running = true;
-            while (running) {
-                try {
-//                    System.out.println("Waiting for input...");
-                    String text = in.readLine();
-//                    String text = in.readUTF();
-                    notifyMyListeners(text);
-                } catch (Exception e) {
-                    this.disconnect();
-                    e.printStackTrace();
-                }
-
+        protected void poll(){
+            String text;
+            try {
+                text = in.readLine();
+                notifyMyListeners(text);
+            } catch (IOException ex) {
+                this.disconnect();
+                ex.printStackTrace();
             }
+
         }
 
         public void stop() {
@@ -132,7 +128,8 @@ public class GRTServer extends Thread implements GRTSocket, Runnable {
         }
     }
 
-    public GRTServer(int port) {
+    public GRTServer(String name, int port) {
+        super(name, 0);
         server = null;
         while (server == null) {
             try {
@@ -156,7 +153,6 @@ public class GRTServer extends Thread implements GRTSocket, Runnable {
     }
     private ServerSocketConnection server;
     private Vector clients;
-    private boolean running;
     private Vector serverSocketListeners;
 
     public void sendData(String data) {
@@ -170,10 +166,15 @@ public class GRTServer extends Thread implements GRTSocket, Runnable {
         return clients.size() > 0;
     }
 
+    protected void poll(){
+        connect();
+    }
+    
     public void connect() {
         try {
             StreamConnection client = server.acceptAndOpen();
-            GRTSingleConnect c = new GRTSingleConnect(client);
+            GRTSingleConnect c = new GRTSingleConnect(
+                    name + " single connect #" + clients.size(), client);
             c.start();
             clients.addElement(c);
             notifyConnect(c);
@@ -181,13 +182,6 @@ public class GRTServer extends Thread implements GRTSocket, Runnable {
             e.printStackTrace();
         }
 
-    }
-
-    public void run() {
-        running = true;
-        while (running) {
-            connect();
-        }
     }
 
     public void disconnect() {

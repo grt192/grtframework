@@ -9,20 +9,17 @@ import java.util.Vector;
 import javax.microedition.io.Connector;
 import javax.microedition.io.SocketConnection;
 
-public class GRTClientSocket extends GRTLoggedProcess implements GRTSocket,
-        Runnable {
+public class GRTClientSocket extends GRTLoggedProcess implements GRTSocket {
 
     public static final int POLL_TIME = 50;
     private String host;
     private int port;
     private boolean connected;
-    private boolean running;
     private Vector socketListeners;
     private SocketConnection connection;
     private BufferedReader in;
     private OutputStreamWriter out;
     private String lastData;
-    private Thread thread;
 
     /**
      *
@@ -31,7 +28,8 @@ public class GRTClientSocket extends GRTLoggedProcess implements GRTSocket,
      * @param name
      */
     public GRTClientSocket(String host, int port, String name) {
-        super(name);
+        super(name, POLL_TIME);
+        
         this.host = host;
         this.port = port;
         running = connected = false;
@@ -42,24 +40,6 @@ public class GRTClientSocket extends GRTLoggedProcess implements GRTSocket,
         } catch (IOException e) {
             e.printStackTrace();
             connection = null;
-        }
-        
-        thread = new Thread(this);
-    }
-    
-    public void start() {
-        thread.start();
-    }
-
-    public void run() {
-        running = true;
-        while (running) {
-            poll();
-            try {
-                Thread.sleep(POLL_TIME);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 

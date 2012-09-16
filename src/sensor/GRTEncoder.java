@@ -4,14 +4,14 @@
  */
 package sensor;
 
-import core.PollingSensor;
+import core.Sensor;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.PIDSource;
+
 /**
  *
  * @author gerberduffy
  */
-public class GRTEncoder extends PollingSensor {
+public class GRTEncoder extends Sensor {
 
     private Encoder rotaryEncoder;
     private double distancePerPulse;
@@ -40,6 +40,7 @@ public class GRTEncoder extends PollingSensor {
     }
 
     protected void notifyListeners(int id, double oldDatum, double newDatum) {
+        //TODO
     }
     
 }

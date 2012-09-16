@@ -16,29 +16,29 @@ import sensor.GRTBatterySensor;
 import sensor.base.*;
 
 /**
- *
+ * Constructor for the main robot. Put all robot components here.
+ * 
  * @author ajc
  */
 public class MainRobot extends GRTRobot {
 
-   
-
-    
     //Global Controllers
     private SensorLogger batteryLogger;
     //Teleop Controllers
     private PrimaryDriver driveControl;
     private GRTDriverStation driverStation;
     private GRTRobotBase robotBase;
-    
 
+    /**
+     * Initializer for the robot.
+     */
     public MainRobot() {
 
         GRTLogger.getLogger().logInfo("GRTFramework v6 starting up.");
-        
+
         //RPC Connection
         NetworkRPC rpcConn = new NetworkRPC("RPCConn", 180);
-        
+
         //Driver station components
         GRTAttack3Joystick primary = new GRTAttack3Joystick(1, 12, "primary");
         GRTAttack3Joystick secondary = new GRTAttack3Joystick(2, 12, "secondary");
@@ -75,14 +75,14 @@ public class MainRobot extends GRTRobot {
         driveControl = new PrimaryDriver(robotBase, driverStation, "driveControl");
         batteryLogger = new SensorLogger(batterySensor, rpcConn, new int[]{23}, "batterylogger");
         System.out.println("Controllers Initialized");
-        
-        
+
+
         addTeleopController(driveControl);
-        
+
         GRTLogger.getLogger().logSuccess("Ready to drive.");
     }
-    
-    public void disabled(){
+
+    public void disabled() {
         GRTLogger.getLogger().logInfo("Disabling robot. Halting drivetrain");
         robotBase.tankDrive(0.0, 0.0);
     }

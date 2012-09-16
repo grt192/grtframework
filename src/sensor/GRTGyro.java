@@ -4,7 +4,7 @@
  */
 package sensor;
 
-import core.PollingSensor;
+import core.Sensor;
 import edu.wpi.first.wpilibj.AnalogModule;
 import edu.wpi.first.wpilibj.Gyro;
 import event.events.GyroEvent;
@@ -16,7 +16,7 @@ import java.util.Vector;
  * 
  * @author Calvin
  */
-public class GRTGyro extends PollingSensor {
+public class GRTGyro extends Sensor {
 
     public static final int KEY_ANGLE = 0;
     public static final int NUM_DATA = 1;

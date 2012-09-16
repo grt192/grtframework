@@ -4,7 +4,7 @@
  */
 package event.events;
 
-import core.PollingSensor;
+import core.Sensor;
 import sensor.GRTSwitch;
 
 /**
@@ -17,7 +17,7 @@ public class SwitchEvent {
     private GRTSwitch sw;
     
     public SwitchEvent(GRTSwitch sw, double newState){
-        state = newState == PollingSensor.TRUE;
+        state = newState == Sensor.TRUE;
         this.sw = sw;
     }
     

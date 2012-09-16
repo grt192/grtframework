@@ -14,7 +14,7 @@ import sensor.base.GRTDriverStation;
  * Robot base driving.
  *
  * Operates for any DriverStation
- * 
+ *
  * @author ajc
  */
 public class PrimaryDriver extends EventController implements DrivingListener {
@@ -23,7 +23,6 @@ public class PrimaryDriver extends EventController implements DrivingListener {
     private final GRTDriverStation ds;
     //actuator
     private final GRTRobotBase dt;
-    //drive curve
     //state
     private double leftVelocity;
     private double rightVelocity;

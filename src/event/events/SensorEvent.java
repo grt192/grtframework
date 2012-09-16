@@ -1,18 +1,18 @@
 package event.events;
 
 import core.Sensor;
-import java.util.Hashtable;
 
 /**
+ * Generic sensor event.
  * 
  * @author anand, ajc
  */
 public class SensorEvent {
-    
+
     private Sensor source;
     private int id;
     private double data;
-    
+
     public SensorEvent(Sensor source, int id, double data) {
         this.source = source;
         this.id = id;
@@ -26,9 +26,8 @@ public class SensorEvent {
     public int getId() {
         return id;
     }
-    
+
     public Sensor getSource() {
         return source;
     }
-    
 }

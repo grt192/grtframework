@@ -15,6 +15,10 @@ public abstract class RPCConnection extends GRTLoggedProcess {
         super(name);
     }
     
+    public RPCConnection(String name, int sleepTime) {
+        super(name, sleepTime);
+    }
+    
     public abstract void send(RPCMessage message);
 
     public void addMessageListener(RPCMessageListener l) {

@@ -4,7 +4,7 @@
  */
 package sensor;
 
-import core.PollingSensor;
+import core.Sensor;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
 import event.events.ADXL345Event;
 import event.listeners.ADXL345Listener;
@@ -16,7 +16,7 @@ import java.util.Vector;
  * 
  * @author gerberduffy
  */
-public class GRTADXL345  extends PollingSensor{
+public class GRTADXL345  extends Sensor{
     
     private ADXL345_I2C accelerometer;
     

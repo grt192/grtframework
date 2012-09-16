@@ -4,7 +4,7 @@
  */
 package sensor;
 
-import core.PollingSensor;
+import core.Sensor;
 import edu.wpi.first.wpilibj.DriverStation;
 import event.events.BatteryVoltageEvent;
 import event.listeners.BatteryVoltageListener;
@@ -14,7 +14,7 @@ import java.util.Vector;
  * A battery sensor that retrieves main battery voltage from the analog sidecar
  * @author ajc
  */
-public class GRTBatterySensor extends PollingSensor {
+public class GRTBatterySensor extends Sensor {
 
     public static final int KEY_BATTERY_VOLTAGE = 0;
     

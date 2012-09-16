@@ -12,7 +12,6 @@ import sensor.GRTXBoxJoystick;
  */
 public class XboxJoystickEvent {
 
-    public static final int DEFAULT = 0;
     private GRTXBoxJoystick source;
     private int id;
     private double value;

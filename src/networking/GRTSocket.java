@@ -1,16 +1,16 @@
 package networking;
 
 public interface GRTSocket {
-    
-	public void sendData(String data);
 
-	public boolean isConnected();
+    public void sendData(String data);
 
-	public void connect();
+    public boolean isConnected();
 
-	public void disconnect();
+    public void connect();
 
-	public void addSocketListener(SocketListener s);
+    public void disconnect();
 
-	public void removeSocketListener(SocketListener s);
+    public void addSocketListener(SocketListener s);
+
+    public void removeSocketListener(SocketListener s);
 }
