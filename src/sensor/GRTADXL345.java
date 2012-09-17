@@ -16,7 +16,7 @@ import java.util.Vector;
  * 
  * @author gerberduffy
  */
-public class GRTADXL345  extends Sensor{
+public class GRTADXL345 extends Sensor {
     
     private ADXL345_I2C accelerometer;
     

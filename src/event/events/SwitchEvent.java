@@ -11,21 +11,17 @@ import sensor.GRTSwitch;
  *
  * @author gerberduffy
  */
-public class SwitchEvent {
-    
-    private boolean state;
-    private GRTSwitch sw;
+public class SwitchEvent extends SensorEvent {
     
     public SwitchEvent(GRTSwitch sw, double newState){
-        state = newState == Sensor.TRUE;
-        this.sw = sw;
+        super(sw, 0, newState);
     }
     
-    public GRTSwitch getSource(){
-        return this.sw;
+    public SwitchEvent(GRTSwitch sw, boolean newState) {
+        super(sw, 0, newState ? Sensor.TRUE : Sensor.FALSE);
     }
     
     public boolean getState(){
-        return this.state;
+        return getData() == Sensor.TRUE;
     }
 }

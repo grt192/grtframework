@@ -10,30 +10,20 @@ import sensor.base.GRTDriverStation;
  *
  * @author ajc
  */
-public class DrivingEvent {
+public class DrivingEvent extends SensorEvent {
 
     public static final int SIDE_LEFT = 0;
     public static final int SIDE_RIGHT = 1;
     
-    private final GRTDriverStation source;
-    private final int sideID;
-    private final double value;
-
     public DrivingEvent(GRTDriverStation source, int sideID, double value) {
-        this.source = source;
-        this.sideID = sideID;
-        this.value = value;
+        super(source, sideID, value);
     }
 
     public int getSide() {
-        return sideID;
+        return getID();
     }
 
     public double getPercentSpeed() {
-        return value;
-    }
-
-    public GRTDriverStation getSource() {
-        return source;
+        return getData();
     }
 }

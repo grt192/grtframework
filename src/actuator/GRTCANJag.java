@@ -16,6 +16,13 @@ public class GRTCANJag extends Motor {
 
     private final CANJaguar jag;
 
+    /**
+     * Instantiates a new CAN Jag.
+     *
+     * @param id id of Jag on CAN bus.
+     * @param name name of motor.
+     * @throws CANTimeoutException
+     */
     public GRTCANJag(int id, String name) throws CANTimeoutException {
         super(name);
         jag = new CANJaguar(id);
@@ -29,9 +36,5 @@ public class GRTCANJag extends Motor {
                 ex.printStackTrace();
             }
         }
-    }
-
-    public void executeCommand(double command) {
-        setSpeed(command);
     }
 }

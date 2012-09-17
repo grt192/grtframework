@@ -9,21 +9,13 @@ import sensor.GRTGyro;
  *
  * @author calvin
  */
-public class GyroEvent {
-
-    private GRTGyro source;
-    private double rotation;
+public class GyroEvent extends SensorEvent {
 
     public GyroEvent(GRTGyro source, double rotation) {
-        this.source = source;
-        this.rotation = rotation;
+        super(source, 0, rotation);
     }
 
     public double getAngle() {
-        return rotation;
-    }
-
-    public GRTGyro getSource() {
-        return source;
+        return getData();
     }
 }

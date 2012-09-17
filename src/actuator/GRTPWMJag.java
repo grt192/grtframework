@@ -7,6 +7,7 @@ package actuator;
 import edu.wpi.first.wpilibj.Jaguar;
 
 /**
+ * Wrapper class for PWM Jag.
  *
  * @author Calvin
  */
@@ -16,7 +17,7 @@ public class GRTPWMJag extends Motor {
 
     /**
      * Instantiates a Jag controller on the default digital module.
-     * 
+     *
      * @param channel number of PWM output this Jag is attached to
      * @param name name of motor
      */
@@ -24,10 +25,10 @@ public class GRTPWMJag extends Motor {
         super(name);
         jag = new Jaguar(channel);
     }
-    
+
     /**
      * Instantiates a Jag controller.
-     * 
+     *
      * @param slot digital module number
      * @param channel number of PWM output this Jag is attached to
      * @param name name of motor
@@ -41,9 +42,5 @@ public class GRTPWMJag extends Motor {
         if (enabled) {
             jag.set(speed);
         }
-    }
-
-    public void executeCommand(double command) {
-        setSpeed(command);
     }
 }

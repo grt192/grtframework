@@ -12,21 +12,13 @@ import sensor.GRTBatterySensor;
  *
  * @author ajc
  */
-public class BatteryVoltageEvent {
-    private final GRTBatterySensor sensor;
-    private final double voltage;
+public class BatteryVoltageEvent extends SensorEvent {
 
     public BatteryVoltageEvent(GRTBatterySensor sensor, double voltage){
-        this.sensor = sensor;
-        this.voltage = voltage;
+        super(sensor, 0, voltage);
     }
-
-    public GRTBatterySensor getSource(){
-        return sensor;
-    }
-
+    
     public double getVoltage(){
-        return voltage;
+        return getData();
     }
-
 }

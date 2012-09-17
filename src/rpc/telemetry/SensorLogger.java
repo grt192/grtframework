@@ -6,8 +6,8 @@ package rpc.telemetry;
 
 import core.EventController;
 import core.Sensor;
-import event.listeners.SensorChangeListener;
 import event.events.SensorEvent;
+import event.listeners.SensorChangeListener;
 import rpc.RPCConnection;
 import rpc.RPCMessage;
 
@@ -44,6 +44,6 @@ public class SensorLogger extends EventController implements SensorChangeListene
     }
 
     public void sensorStateChanged(SensorEvent e) {
-        conn.send(new RPCMessage(rpcKeys[e.getId()], e.getData()));
+        conn.send(new RPCMessage(rpcKeys[e.getID()], e.getData()));
     }
 }

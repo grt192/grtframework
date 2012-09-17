@@ -10,31 +10,17 @@ import core.Sensor;
  *
  * @author ajc
  */
-public class ButtonEvent {
-    private final Sensor source;
-    private final int id;
-    private final boolean pressed;
+public class ButtonEvent extends SensorEvent {
     
     public ButtonEvent(Sensor source, int id, boolean pressed){
-        this.source = source;
-        this.id = id;
-        this.pressed = pressed;
-    }
-    
-    public Sensor getSource(){
-        return source;
+        super(source, id, pressed ? Sensor.TRUE : Sensor.FALSE);
     }
     
     public int getButtonID(){
-        return id;
+        return getID() ;
     }
     
     public boolean isPressed(){
-        return pressed;
-    }
-    
-    public boolean isReleased(){
-        return !pressed;
-    }
-    
+        return getData() == Sensor.TRUE;
+    }  
 }

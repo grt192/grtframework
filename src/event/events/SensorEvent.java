@@ -23,7 +23,7 @@ public class SensorEvent {
         return data;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 

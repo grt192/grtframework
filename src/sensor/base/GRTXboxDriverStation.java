@@ -55,7 +55,7 @@ public class GRTXboxDriverStation extends GRTDriverStation
 
     public void leftYAxisMoved(XboxJoystickEvent e) {
         if (e.getSource() == primary) {
-            notifyLeftDriveSpeed(e.getValue());
+            notifyLeftDriveSpeed(e.getData());
         }
     }
 
@@ -64,7 +64,7 @@ public class GRTXboxDriverStation extends GRTDriverStation
 
     public void rightYAxisMoved(XboxJoystickEvent e) {
         if (e.getSource() == primary) {
-            notifyRightDriveSpeed(e.getValue());
+            notifyRightDriveSpeed(e.getData());
         }
     }
 

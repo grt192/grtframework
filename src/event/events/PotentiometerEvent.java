@@ -10,22 +10,13 @@ import sensor.Potentiometer;
  *
  * @author calvin
  */
-public class PotentiometerEvent {
-    
-    private Potentiometer source;
-    private double value;
+public class PotentiometerEvent extends SensorEvent {
 
     public PotentiometerEvent(Potentiometer source, double value) {
-        this.source = source;
-        this.value = value;
+        super(source, 0, value);
     }
 
     public double getAngle() {
-        return value;
-    }
-
-    public Potentiometer getSource() {
-        return source;
-    }
-    
+        return getData();
+    }   
 }

@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Relay;
 
 /**
  * Relay wrapper class
- * 
+ *
  * @author calvin
  */
 public class GRTRelay extends Actuator {
@@ -18,18 +18,19 @@ public class GRTRelay extends Actuator {
 
     /**
      * Instantiates a relay.
-     * 
+     *
      * @param slot digital module number
      * @param channel channel relay is connected to
      * @param name name of relay
      */
-    public GRTRelay(int slot, int channel, String name){
+    public GRTRelay(int slot, int channel, String name) {
         super(name);
         relay = new Relay(slot, channel);
     }
-    
+
     /**
      * Instantiates a relay on the default digital module.
+     *
      * @param channel channel relay is connected to
      * @param name name of relay
      */
@@ -47,19 +48,20 @@ public class GRTRelay extends Actuator {
      */
     public void executeCommand(double command) {
         if (enabled) {
-            if (command == OFF)
+            if (command == OFF) {
                 relay.set(Relay.Value.kOff);
-            else if (command == FORWARD)
+            } else if (command == FORWARD) {
                 relay.set(Relay.Value.kForward);
-            else if (command == REVERSE)
+            } else if (command == REVERSE) {
                 relay.set(Relay.Value.kReverse);
-            else if (command == ON)
+            } else if (command == ON) {
                 relay.set(Relay.Value.kOn);
+            }
         }
     }
 
     /**
-     * Sets the state of the relay to off, and disables it
+     * Sets the state of the relay to off, and disables it.
      */
     public void halt() {
         relay.set(Relay.Value.kOff);

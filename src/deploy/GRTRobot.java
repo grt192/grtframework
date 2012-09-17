@@ -22,8 +22,8 @@ import java.util.Vector;
  */
 public abstract class GRTRobot extends SimpleRobot {
 
-    private Vector autoControllers;
-    private Vector teleopControllers;
+    private final Vector autoControllers;
+    private final Vector teleopControllers;
 
     public GRTRobot() {
         autoControllers = new Vector();

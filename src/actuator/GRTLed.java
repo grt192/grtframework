@@ -22,21 +22,21 @@ public class GRTLed extends Actuator {
 
     /**
      * Instantiates an LED.
-     * 
+     *
      * @param slot digital module number
      * @param channel channel LED is attached to
-     * @param name name of LED 
+     * @param name name of LED
      */
     public GRTLed(int slot, int channel, String name) {
         super(name);
-        
+
         led = new PWM(slot, channel);
         led.setRaw(brightness);
     }
-    
+
     /**
      * Instantiates an LED on the default digital module.
-     * 
+     *
      * @param channel channel LED is attached to
      * @param name name of LED
      */
@@ -53,28 +53,32 @@ public class GRTLed extends Actuator {
      * @param brightness brightness of LED by varying duty cycle (0-255)
      */
     public void setBrightness(int brightness) {
-        if (brightness > MAX_BRIGHTNESS) {
-            brightness = MAX_BRIGHTNESS;
-        } else if (brightness < OFF_BRIGHTNESS) {
-            brightness = OFF_BRIGHTNESS;
+        if (enabled) {
+            if (brightness > MAX_BRIGHTNESS) {
+                brightness = MAX_BRIGHTNESS;
+            } else if (brightness < OFF_BRIGHTNESS) {
+                brightness = OFF_BRIGHTNESS;
+            }
+
+            led.setRaw(brightness);
+
+            this.brightness = brightness;
         }
-
-        led.setRaw(brightness);
-
-        this.brightness = brightness;
     }
 
     /**
      * Turns LED off if it is on, and vice versa.
      */
     public void toggleState() {
-        if (isOn()) {
-            led.setRaw(OFF_BRIGHTNESS);
-            brightness = OFF_BRIGHTNESS;
+        if (enabled) {
+            if (isOn()) {
+                led.setRaw(OFF_BRIGHTNESS);
+                brightness = OFF_BRIGHTNESS;
 
-        } else {
-            led.setRaw(MAX_BRIGHTNESS);
-            brightness = MAX_BRIGHTNESS;
+            } else {
+                led.setRaw(MAX_BRIGHTNESS);
+                brightness = MAX_BRIGHTNESS;
+            }
         }
     }
 
@@ -96,9 +100,15 @@ public class GRTLed extends Actuator {
         return this.brightness > OFF_BRIGHTNESS;
     }
 
+    /**
+     * Sets the brightness of this LED.
+     *
+     * @param command brightness of LED (0 to 1)
+     */
     public void executeCommand(double command) {
-        brightness = (int) command * MAX_BRIGHTNESS;
-        led.setRaw(brightness);
-
+        if (enabled) {
+            brightness = (int) command * MAX_BRIGHTNESS;
+            led.setRaw(brightness);
+        }
     }
 }

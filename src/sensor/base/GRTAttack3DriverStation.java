@@ -5,8 +5,8 @@
 package sensor.base;
 
 import event.events.Attack3JoystickEvent;
-import event.listeners.Attack3JoystickListener;
 import event.events.ButtonEvent;
+import event.listeners.Attack3JoystickListener;
 import event.listeners.ButtonListener;
 import sensor.GRTAttack3Joystick;
 
@@ -44,10 +44,10 @@ public class GRTAttack3DriverStation extends GRTDriverStation
 
     public void YAxisMoved(Attack3JoystickEvent e) {
         if (e.getSource() == left){
-            notifyLeftDriveSpeed(e.getValue());
+            notifyLeftDriveSpeed(e.getData());
         }
         else if (e.getSource() == right){
-            notifyRightDriveSpeed(e.getValue());
+            notifyRightDriveSpeed(e.getData());
         }
     }
 

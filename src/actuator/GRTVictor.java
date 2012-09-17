@@ -7,6 +7,7 @@ package actuator;
 import edu.wpi.first.wpilibj.Victor;
 
 /**
+ * Victor wrapper class.
  *
  * @author ajc
  */
@@ -16,7 +17,7 @@ public class GRTVictor extends Motor {
 
     /**
      * Instantiates a Victor controller on the default digital module
-     * 
+     *
      * @param channel number of PWM output this Victor is attached to
      * @param name name of motor
      */
@@ -24,10 +25,10 @@ public class GRTVictor extends Motor {
         super(name);
         victor = new Victor(channel);
     }
-    
+
     /**
      * Instantiates a Victor controller
-     * 
+     *
      * @param slot digital module number
      * @param channel number of PWM output this Victor is attached to
      * @param name name of motor
@@ -37,23 +38,9 @@ public class GRTVictor extends Motor {
         victor = new Victor(slot, channel);
     }
 
-    /**
-     * Set the Victor's speed. Identical to setSpeed(command)
-     *
-     * @param speed set the new speed to command
-     */
-    public void executeCommand(double command) {
-        if (enabled) {
-            victor.set(command);
-        }
-    }
-
-    /**
-     * Set the Victor's speed (-1 to 1)
-     *
-     * @param speed the new speed to set
-     */
     public void setSpeed(double speed) {
-        executeCommand(speed);
+        if (enabled) {
+            victor.set(speed);
+        }
     }
 }

@@ -29,7 +29,7 @@ public class GRTClientSocket extends GRTLoggedProcess implements GRTSocket {
      */
     public GRTClientSocket(String host, int port, String name) {
         super(name, POLL_TIME);
-        
+
         this.host = host;
         this.port = port;
         running = connected = false;

@@ -11,9 +11,8 @@ import java.util.Vector;
 
 /**
  * A sensor sends numeric sensor event data. They only send data when running.
- * Sensors can either receive data through events, or by polling.
- * It additionally stores the state of variables and performs state
- * change checks.
+ * Sensors can either receive data through events, or by polling. It
+ * additionally stores the state of variables and performs state change checks.
  *
  * @author ajc
  */
@@ -23,9 +22,8 @@ public abstract class Sensor extends GRTLoggedProcess {
     public static final double TRUE = 1.0;
     public static final double FALSE = 0.0;
     public static final double ERROR = Double.NaN;
-    
     //Instance variables
-    private Vector stateChangeListeners;   //Collection of things that listen to this sensor
+    private final Vector stateChangeListeners;   //Collection of things that listen to this sensor
     private double[] data;
 
     /**
@@ -75,14 +73,15 @@ public abstract class Sensor extends GRTLoggedProcess {
      * @return representative sensor data.
      */
     public double getState(int id) {
-        if (id >= data.length || id < 0)
+        if (id >= data.length || id < 0) {
             return ERROR;
+        }
         return data[id];
     }
-    
+
     /**
      * Returns the number of different data stored by this sensor.
-     * 
+     *
      * @return number of data.
      */
     public int numData() {
@@ -120,7 +119,7 @@ public abstract class Sensor extends GRTLoggedProcess {
      * @param newDatum the datum's new value
      */
     protected abstract void notifyListeners(int id, double oldDatum, double newDatum);
-    
+
     protected void notifyStateChange(int id, double oldDatum, double newDatum) {
         notifyListeners(id, oldDatum, newDatum);
         SensorEvent e = new SensorEvent(this, id, newDatum);
@@ -131,7 +130,7 @@ public abstract class Sensor extends GRTLoggedProcess {
 
     /**
      * Adds a sensor state change listener.
-     * 
+     *
      * @param l state change listener to add.
      */
     public void addSensorStateChangeListener(SensorChangeListener l) {
@@ -140,7 +139,7 @@ public abstract class Sensor extends GRTLoggedProcess {
 
     /**
      * Removes a sensor state change listener.
-     * 
+     *
      * @param l state change listener to remove.
      */
     public void removeSensorStateChangeListener(SensorChangeListener l) {

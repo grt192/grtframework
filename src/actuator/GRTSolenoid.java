@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 /**
  * Solenoid wrapper class
- * 
+ *
  * @author gerberduffy
  */
 public class GRTSolenoid extends Actuator {
@@ -43,25 +43,29 @@ public class GRTSolenoid extends Actuator {
     }
 
     /**
-     * Engage or disengage the solenoid
+     * Engage or disengage the solenoid.
      *
      * @param command ON if on, OFF if off
      */
     public void executeCommand(double command) {
-        if (command == ON) {
-            sol.set(true);
-        } else if (command == OFF) {
-            sol.set(false);
+        if (enabled) {
+            if (command == ON && enabled) {
+                sol.set(true);
+            } else if (command == OFF) {
+                sol.set(false);
+            }
         }
     }
-    
+
     /**
-     * Engage or disengage the solenoid
-     * 
+     * Engage or disengage the solenoid.
+     *
      * @param command true if on, false if off
      */
-    public void engage(boolean command){
-        sol.set(command);
+    public void engage(boolean command) {
+        if (enabled) {
+            sol.set(command);
+        }
     }
 
     /**

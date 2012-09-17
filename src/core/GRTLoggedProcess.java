@@ -1,5 +1,7 @@
 package core;
 
+import logger.GRTLogger;
+
 /**
  * A GRTLoggedProcess is a controllable process. It can be initiated/terminated.
  *
@@ -14,6 +16,7 @@ public abstract class GRTLoggedProcess extends Thread {
     protected boolean enabled = false;
     protected boolean running = true;
     private final int sleepTime;
+    private final GRTLogger logger = GRTLogger.getLogger();
 
     /**
      * Constructs a new GRTLoggedProcess that does not poll.
@@ -69,40 +72,28 @@ public abstract class GRTLoggedProcess extends Thread {
     /**
      * Logs a message.
      *
-     * @param message message to log
-     */
-    protected void log(String message) {
-        System.out.println(toString() + "\t" + message);
-    }
-
-    /**
-     * Logs in format: "[[ClassName:Id]]	name	message"
-     *
-     * @param name name to log.
      * @param message message to log.
      */
-    protected void log(String name, String message) {
-        System.out.println(toString() + "\t" + name + "\t" + message);
+    protected void log(String message) {
+        logger.logInfo(toString() + "\t" + message);
     }
 
     /**
-     * Logs in format: "[[ClassName:Id]]	data"
+     * Logs an error message.
      *
-     * @param data data to log.
+     * @param message message to log.
      */
-    protected void log(double data) {
-        System.out.println(toString() + "\t" + data);
-
+    protected void logError(String message) {
+        logger.logError(toString() + "\t" + message);
     }
 
     /**
-     * Logs in format: "[[ClassName:Id]]	name	data"
+     * Logs a success message.
      *
-     * @param name name to log.
-     * @param data data to log.
+     * @param message message to log.
      */
-    protected void log(String name, double data) {
-        System.out.println(toString() + "\t" + name + "\t" + data);
+    protected void logSuccess(String message) {
+        logger.logSuccess(toString() + "\t" + message);
     }
 
     /**
@@ -161,6 +152,6 @@ public abstract class GRTLoggedProcess extends Thread {
      * @return loggable string.
      */
     public String toString() {
-        return "[[" + getClass().getName() + ":" + getID();
+        return "[[" + getClass().getName() + ":" + getID() + "]]";
     }
 }
