@@ -4,6 +4,9 @@
  */
 package logger;
 
+import com.sun.cldc.util.j2me.CalendarImpl;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Vector;
 import rpc.RPCConnection;
 import rpc.RPCMessage;
@@ -63,7 +66,7 @@ public class GRTLogger {
      * @param data message to log.
      */
     public void logInfo(String data) {
-        String message = LOG_INFO_PREFIX + data;
+        String message = formattedTime() + ' ' + LOG_INFO_PREFIX + data;
         System.out.println(message);
 
         if (rpcEnabled) {
@@ -74,13 +77,14 @@ public class GRTLogger {
         }
     }
 
+    
     /**
      * Log an error message.
      *
      * @param data message to log.
      */
     public void logError(String data) {
-        String message = LOG_ERROR_PREFIX + data;
+        String message = formattedTime() + ' ' + LOG_ERROR_PREFIX + data;
         System.out.println(message);
         if (rpcEnabled) {
             for (int i = 0; i < logReceivers.size(); i++) {
@@ -96,7 +100,7 @@ public class GRTLogger {
      * @param data message to log.
      */
     public void logSuccess(String data) {
-        String message = LOG_SUCCESS_PREFIX + data;
+        String message = formattedTime() + ' ' + LOG_SUCCESS_PREFIX + data;
         System.out.println(message);
         if (rpcEnabled) {
             for (int i = 0; i < logReceivers.size(); i++) {
@@ -104,5 +108,9 @@ public class GRTLogger {
                 conn.send(new RPCMessage(LOG_SUCCESS_KEY, message));
             }
         }
+    }
+
+    private String formattedTime() {
+        return new Date().toString();
     }
 }
