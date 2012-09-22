@@ -85,8 +85,8 @@ public abstract class RPCConnection extends GRTLoggedProcess {
     protected void notifyListeners(String received) {
         if (isTelemetryLine(received)) {
             RPCMessage message = decode(received);
-            for (Enumeration e = listeners.elements(); e.hasMoreElements();) {
-                ((RPCMessageListener) e.nextElement()).messageReceived(message);
+            for (Enumeration en = listeners.elements(); en.hasMoreElements();) {
+                ((RPCMessageListener) en.nextElement()).messageReceived(message);
             }
 
         }

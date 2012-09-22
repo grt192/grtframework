@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.AnalogModule;
 import edu.wpi.first.wpilibj.Gyro;
 import event.events.GyroEvent;
 import event.listeners.GyroListener;
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
@@ -35,15 +36,13 @@ public class GRTGyro extends Sensor {
 
     protected void poll() {
         setState(KEY_ANGLE, gyro.getAngle());
-        
-        System.out.println("Gyro: \t" +  getState(KEY_ANGLE));
     }
 
     protected void notifyListeners(int id, double oldDatum, double newDatum) {
         if (id == KEY_ANGLE) {
             GyroEvent e = new GyroEvent(this, newDatum);
-            for (int i = 0; i < gyroListeners.size(); i++) {
-                ((GyroListener) gyroListeners.elementAt(i)).angleChanged(e);
+            for (Enumeration en = gyroListeners.elements(); en.hasMoreElements();) {
+                ((GyroListener) en.nextElement()).angleChanged(e);
             }
         }
     }

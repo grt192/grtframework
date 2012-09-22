@@ -4,9 +4,8 @@
  */
 package logger;
 
-import com.sun.cldc.util.j2me.CalendarImpl;
-import java.util.Calendar;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Vector;
 import rpc.RPCConnection;
 import rpc.RPCMessage;
@@ -70,9 +69,9 @@ public class GRTLogger {
         System.out.println(message);
 
         if (rpcEnabled) {
-            for (int i = 0; i < logReceivers.size(); i++) {
-                RPCConnection conn = ((RPCConnection) logReceivers.elementAt(i));
-                conn.send(new RPCMessage(LOG_INFO_KEY, message));
+            RPCMessage e = new RPCMessage(LOG_INFO_KEY, message);
+            for (Enumeration en = logReceivers.elements(); en.hasMoreElements();) {
+                ((RPCConnection) en.nextElement()).send(e);
             }
         }
     }
@@ -87,9 +86,9 @@ public class GRTLogger {
         String message = formattedTime() + ' ' + LOG_ERROR_PREFIX + data;
         System.out.println(message);
         if (rpcEnabled) {
-            for (int i = 0; i < logReceivers.size(); i++) {
-                RPCConnection conn = ((RPCConnection) logReceivers.elementAt(i));
-                conn.send(new RPCMessage(LOG_ERROR_KEY, message));
+            RPCMessage e = new RPCMessage(LOG_ERROR_KEY, message);
+            for (Enumeration en = logReceivers.elements(); en.hasMoreElements();) {
+                ((RPCConnection) en.nextElement()).send(e);
             }
         }
     }
@@ -103,9 +102,9 @@ public class GRTLogger {
         String message = formattedTime() + ' ' + LOG_SUCCESS_PREFIX + data;
         System.out.println(message);
         if (rpcEnabled) {
-            for (int i = 0; i < logReceivers.size(); i++) {
-                RPCConnection conn = ((RPCConnection) logReceivers.elementAt(i));
-                conn.send(new RPCMessage(LOG_SUCCESS_KEY, message));
+            RPCMessage e = new RPCMessage(LOG_SUCCESS_KEY, message);
+            for (Enumeration en = logReceivers.elements(); en.hasMoreElements();) {
+                ((RPCConnection) en.nextElement()).send(e);
             }
         }
     }

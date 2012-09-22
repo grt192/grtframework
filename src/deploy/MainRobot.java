@@ -28,13 +28,15 @@ public class MainRobot extends GRTRobot {
     private PrimaryDriver driveControl;
     private GRTDriverStation driverStation;
     private GRTRobotBase robotBase;
+    
+    private GRTLogger logger = GRTLogger.getLogger();
 
     /**
      * Initializer for the robot.
      */
     public MainRobot() {
 
-        GRTLogger.getLogger().logInfo("GRTFramework v6 starting up.");
+        logger.logInfo("GRTFramework v6 starting up.");
 
         //RPC Connection
         NetworkRPC rpcConn = new NetworkRPC("RPCConn", 180);
@@ -46,7 +48,7 @@ public class MainRobot extends GRTRobot {
         secondary.start();
         primary.enable();
         secondary.enable();
-        System.out.println("Joysticks initialized");
+        logger.logInfo("Joysticks initialized");
 
         //Battery Sensor
         GRTBatterySensor batterySensor = new GRTBatterySensor(10, "battery");
@@ -62,28 +64,28 @@ public class MainRobot extends GRTRobot {
         leftDT2.enable();
         rightDT1.enable();
         rightDT2.enable();
-        System.out.println("Motors initialized");
+        logger.logInfo("Motors initialized");
 
         //Mechanisms
         GRTDriveTrain dt = new GRTDriveTrain(leftDT1, leftDT2, rightDT1, rightDT2);
         robotBase = new GRTRobotBase(dt, batterySensor);
         driverStation = new GRTAttack3DriverStation(primary, secondary, "driverStation");
         driverStation.enable();
-        System.out.println("Mechanisms initialized");
+        logger.logInfo("Mechanisms initialized");
 
         //Controllers
         driveControl = new PrimaryDriver(robotBase, driverStation, "driveControl");
         batteryLogger = new SensorLogger(batterySensor, rpcConn, new int[]{23}, "batterylogger");
-        System.out.println("Controllers Initialized");
+        logger.logInfo("Controllers Initialized");
 
 
         addTeleopController(driveControl);
 
-        GRTLogger.getLogger().logSuccess("Ready to drive.");
+        logger.logSuccess("Ready to drive.");
     }
 
     public void disabled() {
-        GRTLogger.getLogger().logInfo("Disabling robot. Halting drivetrain");
+        logger.logInfo("Disabling robot. Halting drivetrain");
         robotBase.tankDrive(0.0, 0.0);
     }
 }

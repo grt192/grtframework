@@ -33,10 +33,8 @@ public class GRTEncoder extends Sensor {
 
     protected void poll() {
         setState(DISTANCE, rotaryEncoder.getDistance());
-        setState(DEGREES, rotaryEncoder.getDistance()/distancePerPulse);
+        setState(DEGREES, rotaryEncoder.getDistance() / distancePerPulse);
         setState(DIRECTION, rotaryEncoder.getDirection() ? TRUE : FALSE);
-        
-        System.out.println(getState(DISTANCE) + "\t" + getState(DEGREES) + "\t" + getState(DIRECTION));
     }
 
     protected void notifyListeners(int id, double oldDatum, double newDatum) {

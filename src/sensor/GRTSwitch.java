@@ -8,6 +8,7 @@ import core.Sensor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import event.events.SwitchEvent;
 import event.listeners.SwitchListener;
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
@@ -44,8 +45,8 @@ public class GRTSwitch extends Sensor {
         
         SwitchEvent e = new SwitchEvent(this, newDatum);
         
-        for (int i=0; i < listeners.size(); i++){
-            ((SwitchListener)listeners.elementAt(i)).switchStateChanged(e);
+        for (Enumeration en = listeners.elements(); en.hasMoreElements();){
+            ((SwitchListener) en.nextElement()).switchStateChanged(e);
         }
     }
 

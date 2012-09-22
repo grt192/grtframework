@@ -5,6 +5,7 @@ import core.GRTLoggedProcess;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.io.Connector;
 import javax.microedition.io.SocketConnection;
@@ -116,26 +117,23 @@ public class GRTClientSocket extends GRTLoggedProcess implements GRTSocket {
     }
 
     private void notifyListeners() {
-        for (int i = 0; i < socketListeners.size(); i++) {
-            ((SocketListener) socketListeners.elementAt(i))
-                    .dataRecieved(new SocketEvent(this, SocketEvent.ON_DATA,
-                    lastData));
+        SocketEvent e = new SocketEvent(this, SocketEvent.ON_DATA, lastData);
+        for (Enumeration en = socketListeners.elements(); en.hasMoreElements();) {
+            ((SocketListener) en.nextElement()).dataRecieved(e);
         }
     }
 
     private void notifyConnected() {
-        for (int i = 0; i < socketListeners.size(); i++) {
-            ((SocketListener) socketListeners.elementAt(i))
-                    .dataRecieved(new SocketEvent(this,
-                    SocketEvent.ON_CONNECT, null));
+        SocketEvent e = new SocketEvent(this, SocketEvent.ON_CONNECT, null);
+        for (Enumeration en = socketListeners.elements(); en.hasMoreElements();) {
+            ((SocketListener) en.nextElement()).dataRecieved(e);
         }
     }
 
     private void notifyDisconnected() {
-        for (int i = 0; i < socketListeners.size(); i++) {
-            ((SocketListener) socketListeners.elementAt(i))
-                    .dataRecieved(new SocketEvent(this,
-                    SocketEvent.ON_DISCONNECT, null));
+        SocketEvent e = new SocketEvent(this, SocketEvent.ON_DISCONNECT, null);
+        for (Enumeration en = socketListeners.elements(); en.hasMoreElements();) {
+            ((SocketListener) en.nextElement()).dataRecieved(e);
         }
     }
 

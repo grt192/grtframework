@@ -57,15 +57,15 @@ public abstract class GRTDriverStation extends Sensor {
         switch (id) {
             case KEY_LEFT_VELOCITY:
                 ev = new DrivingEvent(this, DrivingEvent.SIDE_LEFT, newValue);
-                for (Enumeration e = drivingListeners.elements(); e.hasMoreElements();) {
-                    ((DrivingListener) e.nextElement()).driverLeftSpeed(ev);
+                for (Enumeration en = drivingListeners.elements(); en.hasMoreElements();) {
+                    ((DrivingListener) en.nextElement()).driverLeftSpeed(ev);
                 }
                 break;
 
             case KEY_RIGHT_VELOCITY:
                 ev = new DrivingEvent(this, DrivingEvent.SIDE_RIGHT, newValue);
-                for (Enumeration e = drivingListeners.elements(); e.hasMoreElements();) {
-                    ((DrivingListener) e.nextElement()).driverRightSpeed(ev);
+                for (Enumeration en = drivingListeners.elements(); en.hasMoreElements();) {
+                    ((DrivingListener) en.nextElement()).driverRightSpeed(ev);
                 }
                 break;
         }

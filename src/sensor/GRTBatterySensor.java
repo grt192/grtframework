@@ -8,6 +8,7 @@ import core.Sensor;
 import edu.wpi.first.wpilibj.DriverStation;
 import event.events.BatteryVoltageEvent;
 import event.listeners.BatteryVoltageListener;
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
@@ -35,8 +36,8 @@ public class GRTBatterySensor extends Sensor {
 
         BatteryVoltageEvent e = new BatteryVoltageEvent(this, newDatum);
 
-        for (int i = 0; i < listeners.size(); i++) {
-            ((BatteryVoltageListener) listeners.elementAt(i)).batteryVoltageChanged(e);
+        for (Enumeration en = listeners.elements(); en.hasMoreElements();) {
+            ((BatteryVoltageListener) en.nextElement()).batteryVoltageChanged(e);
         }
     }
 

@@ -8,6 +8,7 @@ import core.Sensor;
 import edu.wpi.first.wpilibj.ADXL345_I2C;
 import event.events.ADXL345Event;
 import event.listeners.ADXL345Listener;
+import java.util.Enumeration;
 import java.util.Vector;
 /**
  * Wrapper for the ADXL345 accelerometer.
@@ -38,10 +39,6 @@ public class GRTADXL345 extends Sensor {
         setState(X_AXIS, accelerometer.getAcceleration(ADXL345_I2C.Axes.kX));
         setState(Y_AXIS, accelerometer.getAcceleration(ADXL345_I2C.Axes.kY));
         setState(Z_AXIS, accelerometer.getAcceleration(ADXL345_I2C.Axes.kZ));
-        
-        System.out.println("ADXL345:\t" + getState(X_AXIS) +
-                "\t" + getState(Y_AXIS) +
-                "\t" + getState(Z_AXIS));
     }
     
     public void addADXL345Listener(ADXL345Listener l){
@@ -57,20 +54,20 @@ public class GRTADXL345 extends Sensor {
         
         switch (id){
             case X_AXIS: {
-                for (int i=0; i < listeners.size(); i++){
-                    ((ADXL345Listener)listeners.elementAt(i)).XAccelChange(e);
+                for (Enumeration en = listeners.elements(); en.hasMoreElements();){
+                    ((ADXL345Listener) en.nextElement()).XAccelChange(e);
                 }
             }
             
             case Y_AXIS: {
-                for (int i=0; i < listeners.size(); i++){
-                    ((ADXL345Listener)listeners.elementAt(i)).YAccelChange(e);
+                for (Enumeration en = listeners.elements(); en.hasMoreElements();){
+                    ((ADXL345Listener) en.nextElement()).YAccelChange(e);
                 }
             }
             
             case Z_AXIS: {
-                for (int i=0; i < listeners.size(); i++){
-                    ((ADXL345Listener)listeners.elementAt(i)).ZAccelChange(e);
+                for (Enumeration en = listeners.elements(); en.hasMoreElements();){
+                    ((ADXL345Listener) en.nextElement()).ZAccelChange(e);
                 }
             }
         }

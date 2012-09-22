@@ -8,6 +8,7 @@ package deploy;
 
 import core.EventController;
 import edu.wpi.first.wpilibj.SimpleRobot;
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
@@ -35,11 +36,11 @@ public abstract class GRTRobot extends SimpleRobot {
      * All Autonomous controllers are started/resumed, and all teleop controllers are paused.
      */
     public void autonomous() {
-        for (int i = 0; i < teleopControllers.size(); i++) {
-            ((EventController) teleopControllers.elementAt(i)).disable();
+        for (Enumeration en = teleopControllers.elements(); en.hasMoreElements();) {
+            ((EventController) en.nextElement()).disable();
         }
-        for (int i = 0; i < autoControllers.size(); i++) {
-            ((EventController) autoControllers.elementAt(i)).enable();
+        for (Enumeration en = autoControllers.elements(); en.hasMoreElements();) {
+            ((EventController) en.nextElement()).enable();
         }
 
     }
@@ -49,11 +50,11 @@ public abstract class GRTRobot extends SimpleRobot {
      * All Teleop controllers are started/resumed, and all autonomous controllers are paused.
      */
     public void operatorControl() {
-        for (int i = 0; i < autoControllers.size(); i++) {
-            ((EventController) autoControllers.elementAt(i)).disable();
+        for (Enumeration en = autoControllers.elements(); en.hasMoreElements();) {
+            ((EventController) en.nextElement()).disable();
         }
-        for (int i = 0; i < teleopControllers.size(); i++) {
-            ((EventController) teleopControllers.elementAt(i)).enable();
+        for (Enumeration en = teleopControllers.elements(); en.hasMoreElements();) {
+            ((EventController) en.nextElement()).enable();
         }
         
     }

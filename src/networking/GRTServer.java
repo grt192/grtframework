@@ -5,6 +5,7 @@ import core.GRTLoggedProcess;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.util.Enumeration;
 import java.util.Vector;
 import javax.microedition.io.Connector;
 import javax.microedition.io.ServerSocketConnection;
@@ -17,7 +18,6 @@ import javax.microedition.io.StreamConnection;
  */
 public class GRTServer extends GRTLoggedProcess implements GRTSocket {
 
-    
     /**
      * A single client connection to the server.
      */
@@ -50,7 +50,7 @@ public class GRTServer extends GRTLoggedProcess implements GRTSocket {
             }
         }
 
-        protected void poll(){
+        protected void poll() {
             String text;
             try {
                 text = in.readLine();
@@ -112,17 +112,17 @@ public class GRTServer extends GRTLoggedProcess implements GRTSocket {
             if (text == null) {
                 return;
             }
-            for (int i = 0; i < serverSocketListeners.size(); i++) {
-                SocketListener s = (SocketListener) serverSocketListeners.elementAt(i);
-                s.dataRecieved(new SocketEvent(this, SocketEvent.ON_DATA, text));
+            SocketEvent e = new SocketEvent(this, SocketEvent.ON_DATA, text);
+            for (Enumeration en = serverSocketListeners.elements(); en.hasMoreElements();) {
+                ((SocketListener) en.nextElement()).dataRecieved(e);
             }
             notifyListeners(text, this);
         }
 
         private void notifyMyDisconnect() {
-            for (int i = 0; i < serverSocketListeners.size(); i++) {
-                SocketListener s = (SocketListener) serverSocketListeners.elementAt(i);
-                s.onDisconnect(new SocketEvent(this, SocketEvent.ON_DISCONNECT, null));
+            SocketEvent e = new SocketEvent(this, SocketEvent.ON_DISCONNECT, null);
+            for (Enumeration en = serverSocketListeners.elements(); en.hasMoreElements();) {
+                ((SocketListener) en.nextElement()).onDisconnect(e);
             }
             notifyDisconnect(this);
         }
@@ -137,7 +137,7 @@ public class GRTServer extends GRTLoggedProcess implements GRTSocket {
                 server = (ServerSocketConnection) Connector.open("socket://:" + port);
             } catch (IOException e) {
                 e.printStackTrace();
-                System.out.println("Failed to open socket!!!!!!!!");
+                logError("Failed to open socket!");
                 server = null;
             }
             try {
@@ -156,9 +156,8 @@ public class GRTServer extends GRTLoggedProcess implements GRTSocket {
     private Vector serverSocketListeners;
 
     public void sendData(String data) {
-        for (int i = 0; i < clients.size(); i++) {
-            GRTSingleConnect c = (GRTSingleConnect) clients.elementAt(i);
-            c.sendData(data);
+        for (Enumeration en = clients.elements(); en.hasMoreElements();) {
+            ((GRTSingleConnect) en.nextElement()).sendData(data);
         }
     }
 
@@ -166,10 +165,10 @@ public class GRTServer extends GRTLoggedProcess implements GRTSocket {
         return clients.size() > 0;
     }
 
-    protected void poll(){
+    protected void poll() {
         connect();
     }
-    
+
     public void connect() {
         try {
             StreamConnection client = server.acceptAndOpen();
@@ -185,8 +184,8 @@ public class GRTServer extends GRTLoggedProcess implements GRTSocket {
     }
 
     public void disconnect() {
-        for (int i = 0; i < clients.size(); i++) {
-            ((GRTSingleConnect) clients.elementAt(i)).stop();
+        for (Enumeration en = clients.elements(); en.hasMoreElements();) {
+            ((GRTSingleConnect) en.nextElement()).stop();
         }
     }
 
@@ -199,23 +198,23 @@ public class GRTServer extends GRTLoggedProcess implements GRTSocket {
     }
 
     private void notifyListeners(String text, GRTSocket source) {
-        for (int i = 0; i < serverSocketListeners.size(); i++) {
-            SocketListener s = (SocketListener) serverSocketListeners.elementAt(i);
-            s.dataRecieved(new SocketEvent(source, SocketEvent.ON_DATA, text));
+        SocketEvent e = new SocketEvent(source, SocketEvent.ON_DATA, text);
+        for (Enumeration en = serverSocketListeners.elements(); en.hasMoreElements();) {
+            ((SocketListener) en.nextElement()).dataRecieved(e);
         }
     }
 
     private void notifyDisconnect(GRTSocket source) {
-        for (int i = 0; i < serverSocketListeners.size(); i++) {
-            SocketListener s = (SocketListener) serverSocketListeners.elementAt(i);
-            s.onDisconnect(new SocketEvent(source, SocketEvent.ON_DISCONNECT, null));
+        SocketEvent e = new SocketEvent(source, SocketEvent.ON_DISCONNECT, null);
+        for (Enumeration en = serverSocketListeners.elements(); en.hasMoreElements();) {
+            ((SocketListener) en.nextElement()).onDisconnect(e);
         }
     }
 
     private void notifyConnect(GRTSocket source) {
-        for (int i = 0; i < serverSocketListeners.size(); i++) {
-            SocketListener s = (SocketListener) serverSocketListeners.elementAt(i);
-            s.onConnect(new SocketEvent(source, SocketEvent.ON_CONNECT, null));
+        SocketEvent e = new SocketEvent(source, SocketEvent.ON_DISCONNECT, null);
+        for (Enumeration en = serverSocketListeners.elements(); en.hasMoreElements();) {
+            ((SocketListener) en.nextElement()).onConnect(e);
         }
     }
 }

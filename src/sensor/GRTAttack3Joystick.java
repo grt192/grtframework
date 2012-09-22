@@ -49,7 +49,7 @@ public class GRTAttack3Joystick extends Sensor {
     }
     
     protected void poll() {
-        for (int i = 0; i < NUM_OF_BUTTONS; ++i){
+        for (int i = 0; i < NUM_OF_BUTTONS; i++){
             setState(i, joystick.getRawButton(i) ? PRESSED : RELEASED);
         }
         setState(KEY_X, joystick.getX());

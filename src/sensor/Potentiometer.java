@@ -6,9 +6,6 @@ package sensor;
 
 import core.Sensor;
 import edu.wpi.first.wpilibj.AnalogChannel;
-import event.events.PotentiometerEvent;
-import event.listeners.PotentiometerListener;
-import java.util.Vector;
 
 /**
  *
@@ -42,7 +39,6 @@ public class Potentiometer extends Sensor {
                 break;
             default:
                 scaledValue = rawValue / 5;
-                System.out.println("log is broken as of right now");
         }
 
         return scaledValue;

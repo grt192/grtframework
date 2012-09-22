@@ -10,6 +10,7 @@ import event.events.ButtonEvent;
 import event.events.XboxJoystickEvent;
 import event.listeners.ButtonListener;
 import event.listeners.XboxJoystickListener;
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
@@ -86,12 +87,12 @@ public class GRTXBoxJoystick extends Sensor {
             //ID maps directly to button ID
             ButtonEvent e = new ButtonEvent(this, id, newDatum == PRESSED);
             if (newDatum == PRESSED) { //true
-                for (int i = 0; i < buttonListeners.size(); i++) {
-                    ((ButtonListener) buttonListeners.elementAt(i)).buttonPressed(e);
+                for (Enumeration en = buttonListeners.elements(); en.hasMoreElements();) {
+                    ((ButtonListener) en.nextElement()).buttonPressed(e);
                 }
             } else {
-                for (int i = 0; i < buttonListeners.size(); i++) {
-                    ((ButtonListener) buttonListeners.elementAt(i)).buttonReleased(e);
+                for (Enumeration en = buttonListeners.elements(); en.hasMoreElements();) {
+                    ((ButtonListener) en.nextElement()).buttonReleased(e);
                 }
             }
 
@@ -102,44 +103,44 @@ public class GRTXBoxJoystick extends Sensor {
             //call various events based on which datum we are
             switch (id) {
                 case KEY_LEFT_X: {
-                    for (int i = 0; i < joystickListeners.size(); i++) {
-                        ((XboxJoystickListener) joystickListeners.elementAt(i)).leftXAxisMoved(e);
+                    for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
+                        ((XboxJoystickListener) en.nextElement()).leftXAxisMoved(e);
                     }
-
+                    break;
                 }
                 case KEY_LEFT_Y: {
-                    for (int i = 0; i < joystickListeners.size(); i++) {
-                        ((XboxJoystickListener) joystickListeners.elementAt(i)).leftYAxisMoved(e);
+                    for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
+                        ((XboxJoystickListener) en.nextElement()).leftYAxisMoved(e);
                     }
                     break;
                 }
                 case KEY_RIGHT_X: {
-                    for (int i = 0; i < joystickListeners.size(); i++) {
-                        ((XboxJoystickListener) joystickListeners.elementAt(i)).rightXAxisMoved(e);
+                    for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
+                        ((XboxJoystickListener) en.nextElement()).rightXAxisMoved(e);
                     }
                     break;
                 }
                 case KEY_RIGHT_Y: {
-                    for (int i = 0; i < joystickListeners.size(); i++) {
-                        ((XboxJoystickListener) joystickListeners.elementAt(i)).rightYAxisMoved(e);
+                    for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
+                        ((XboxJoystickListener) en.nextElement()).rightYAxisMoved(e);
                     }
                     break;
                 }
                 case KEY_JOYSTICK_ANGLE: {
-                    for (int i = 0; i < joystickListeners.size(); i++) {
-                        ((XboxJoystickListener) joystickListeners.elementAt(i)).leftAngleChanged(e);
+                    for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
+                        ((XboxJoystickListener) en.nextElement()).leftAngleChanged(e);
                     }
                     break;
                 }
                 case KEY_TRIGGER: {
-                    for (int i = 0; i < joystickListeners.size(); i++) {
-                        ((XboxJoystickListener) joystickListeners.elementAt(i)).triggerMoved(e);
+                    for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
+                        ((XboxJoystickListener) en.nextElement()).triggerMoved(e);
                     }
                     break;
                 }
                 case KEY_PAD: {
-                    for (int i = 0; i < joystickListeners.size(); i++) {
-                        ((XboxJoystickListener) joystickListeners.elementAt(i)).padMoved(e);
+                    for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
+                        ((XboxJoystickListener) en.nextElement()).padMoved(e);
                     }
                     break;
                 }
