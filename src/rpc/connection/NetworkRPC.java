@@ -22,7 +22,9 @@ public class NetworkRPC extends RPCConnection implements SocketListener {
 
     /**
      * Opens a new Network RPC connection and starts it.
-     * @param port 
+     * 
+     * @param name name of connection
+     * @param port connection port
      */
     public NetworkRPC(String name, int port) {
         super(name);
@@ -32,7 +34,7 @@ public class NetworkRPC extends RPCConnection implements SocketListener {
 
     private void initConnection(){
         connection.addSocketListener(this);
-        connection.start();
+        connection.startPolling();
     }
 
     //TODO enable sending to a single host

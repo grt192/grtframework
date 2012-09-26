@@ -32,6 +32,8 @@ public class GRTLogger {
     /**
      * Get the logger singleton that can be used to log messages to the system
      * and external RPCConnections.
+     * 
+     * @return logger instance
      */
     public static GRTLogger getLogger() {
         return logger;

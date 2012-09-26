@@ -6,6 +6,10 @@ package sensor;
 
 import core.Sensor;
 import edu.wpi.first.wpilibj.AnalogChannel;
+import event.events.PotentiometerEvent;
+import event.listeners.PotentiometerListener;
+import java.util.Enumeration;
+import java.util.Vector;
 
 /**
  *
@@ -19,6 +23,8 @@ public class Potentiometer extends Sensor {
     private AnalogChannel channel;
     public static final int LINEAR = 0;
     public static final int LOGARITHMIC = 1;
+    
+    private Vector potentiometerListeners = new Vector();
 
     public Potentiometer(AnalogChannel channel, int type, int pollTime, String name) {
         super(name, pollTime, NUM_DATA);
@@ -45,5 +51,17 @@ public class Potentiometer extends Sensor {
     }
 
     protected void notifyListeners(int id, double oldDatum, double newDatum) {
+        PotentiometerEvent e = new PotentiometerEvent(this, newDatum);
+        for (Enumeration en = potentiometerListeners.elements();
+                en.hasMoreElements();)
+            ((PotentiometerListener) en.nextElement()).valueChanged(e);
+    }
+    
+    public void addListener(PotentiometerListener l) {
+        potentiometerListeners.addElement(l);
+    }
+
+    public void removeListener(PotentiometerListener l) {
+        potentiometerListeners.removeElement(l);
     }
 }

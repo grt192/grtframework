@@ -44,15 +44,15 @@ public class MainRobot extends GRTRobot {
         //Driver station components
         GRTAttack3Joystick primary = new GRTAttack3Joystick(1, 12, "primary");
         GRTAttack3Joystick secondary = new GRTAttack3Joystick(2, 12, "secondary");
-        primary.start();
-        secondary.start();
+        primary.startPolling();
+        secondary.startPolling();
         primary.enable();
         secondary.enable();
         logger.logInfo("Joysticks initialized");
 
         //Battery Sensor
         GRTBatterySensor batterySensor = new GRTBatterySensor(10, "battery");
-        batterySensor.start();
+        batterySensor.startPolling();
         batterySensor.enable();
 
         // PWM outputs

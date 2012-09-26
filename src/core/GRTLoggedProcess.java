@@ -10,7 +10,7 @@ import logger.GRTLogger;
  * @author ajc
  *
  */
-public abstract class GRTLoggedProcess extends Thread {
+public abstract class GRTLoggedProcess implements Runnable {
 
     protected final String name;
     protected boolean enabled = false;
@@ -61,6 +61,14 @@ public abstract class GRTLoggedProcess extends Thread {
                 ex.printStackTrace();
             }
         }
+    }
+    
+    /**
+     * Starts polling.
+     */
+    public void startPolling() {
+        if (sleepTime >= 0)
+            new Thread(this, this.name).start();
     }
 
     /**

@@ -174,7 +174,7 @@ public class GRTServer extends GRTLoggedProcess implements GRTSocket {
             StreamConnection client = server.acceptAndOpen();
             GRTSingleConnect c = new GRTSingleConnect(
                     name + " single connect #" + clients.size(), client);
-            c.start();
+            c.startPolling();
             clients.addElement(c);
             notifyConnect(c);
         } catch (Exception e) {

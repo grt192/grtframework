@@ -38,14 +38,14 @@ public abstract class Sensor extends GRTLoggedProcess {
 
     /**
      * Construct a polling sensor. Subclasses need to start themselves--make a
-     * call to start();
+     * call to startPolling();
      *
      * @param name name of the sensor.
      * @param sleepTime time between polls [ms].
      * @param numData number of pieces of data.
      */
-    public Sensor(String name, int pollTime, int numData) {
-        super(name, pollTime);
+    public Sensor(String name, int sleepTime, int numData) {
+        super(name, sleepTime);
         stateChangeListeners = new Vector();
         running = true;
         data = new double[numData];
