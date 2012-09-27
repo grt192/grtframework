@@ -49,11 +49,10 @@ public class GRTSolenoid extends Actuator {
      */
     public void executeCommand(double command) {
         if (enabled) {
-            if (command == ON && enabled) {
+            if (command == ON)
                 sol.set(true);
-            } else if (command == OFF) {
+            else if (command == OFF)
                 sol.set(false);
-            }
         }
     }
 
@@ -63,9 +62,17 @@ public class GRTSolenoid extends Actuator {
      * @param command true if on, false if off
      */
     public void engage(boolean command) {
-        if (enabled) {
+        if (enabled)
             sol.set(command);
-        }
+    }
+    
+    /**
+     * Toggles the solenoid--turns on if currently off,
+     * turns off if currently on
+     */
+    public void toggle() {
+        if (enabled)
+            sol.set(!sol.get());
     }
 
     /**
