@@ -9,8 +9,6 @@ import controller.PrimaryDriver;
 import logger.GRTLogger;
 import mechanism.GRTDriveTrain;
 import mechanism.GRTRobotBase;
-import rpc.connection.NetworkRPC;
-import rpc.telemetry.SensorLogger;
 import sensor.GRTAttack3Joystick;
 import sensor.GRTBatterySensor;
 import sensor.base.*;
@@ -22,8 +20,6 @@ import sensor.base.*;
  */
 public class MainRobot extends GRTRobot {
 
-    //Global Controllers
-    private SensorLogger batteryLogger;
     //Teleop Controllers
     private PrimaryDriver driveControl;
     private GRTDriverStation driverStation;
@@ -37,9 +33,6 @@ public class MainRobot extends GRTRobot {
     public MainRobot() {
 
         logger.logInfo("GRTFramework v6 starting up.");
-
-        //RPC Connection
-        NetworkRPC rpcConn = new NetworkRPC("RPCConn", 180);
 
         //Driver station components
         GRTAttack3Joystick primary = new GRTAttack3Joystick(1, 12, "primary");
@@ -75,7 +68,6 @@ public class MainRobot extends GRTRobot {
 
         //Controllers
         driveControl = new PrimaryDriver(robotBase, driverStation, "driveControl");
-        batteryLogger = new SensorLogger(batterySensor, rpcConn, new int[]{23}, "batterylogger");
         logger.logInfo("Controllers Initialized");
 
 
