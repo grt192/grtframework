@@ -78,11 +78,10 @@ public class GRTLogger {
      * @param data message to log.
      */
     public void logInfo(String data) {
-        String message = formattedTime() + ' ' + LOG_INFO_PREFIX + data;
+        String message = LOG_INFO_PREFIX + data;
         System.out.println(message);
-        dash.println(DriverStationLCD.Line.kUser2, 1, data);
-        dash.updateLCD();
-
+        dsPrintln(data);
+        
         if (rpcEnabled) {
             RPCMessage e = new RPCMessage(LOG_INFO_KEY, message);
             for (Enumeration en = logReceivers.elements(); en.hasMoreElements();) {
@@ -98,11 +97,11 @@ public class GRTLogger {
      * @param data message to log.
      */
     public void logError(String data) {
-        String message = formattedTime() + ' ' + LOG_ERROR_PREFIX + data;
+        String message = LOG_ERROR_PREFIX + data;
+        
         System.out.println(message);
-        dash.println(DriverStationLCD.Line.kMain6, 1, data);
-        dash.updateLCD();
-
+        dsPrintln(data);
+       
         if (rpcEnabled) {
             RPCMessage e = new RPCMessage(LOG_ERROR_KEY, message);
             for (Enumeration en = logReceivers.elements(); en.hasMoreElements();) {
@@ -117,11 +116,10 @@ public class GRTLogger {
      * @param data message to log.
      */
     public void logSuccess(String data) {
-        String message = formattedTime() + ' ' + LOG_SUCCESS_PREFIX + data;
+        String message = LOG_SUCCESS_PREFIX + data;
         System.out.println(message);
-        dash.println(DriverStationLCD.Line.kMain6, 1, data);
-        dash.updateLCD();
-
+        dsPrintln(data);
+        
         if (rpcEnabled) {
             RPCMessage e = new RPCMessage(LOG_SUCCESS_KEY, message);
             for (Enumeration en = logReceivers.elements(); en.hasMoreElements();) {
@@ -130,18 +128,16 @@ public class GRTLogger {
         }
     }
 
-    private String formattedTime() {
-        return new Date().toString();
-    }
-    private void DSprintln(String data){
+    private void dsPrintln(String data){
         dsBuffer.addElement(data);
         dsBuffer.removeElementAt(1);
-        dash.println(DriverStationLCD.Line.kUser2, 1, (String)dsBuffer.elementAt(6));
-        dash.println(DriverStationLCD.Line.kUser3, 1, (String)dsBuffer.elementAt(5));
-        dash.println(DriverStationLCD.Line.kUser4, 1, (String)dsBuffer.elementAt(4));
-        dash.println(DriverStationLCD.Line.kUser5, 1, (String)dsBuffer.elementAt(3));
-        dash.println(DriverStationLCD.Line.kUser6, 1, (String)dsBuffer.elementAt(2));
+        dash.println(DriverStationLCD.Line.kUser2, 1, (String)dsBuffer.elementAt(5));
+        dash.println(DriverStationLCD.Line.kUser3, 1, (String)dsBuffer.elementAt(4));
+        dash.println(DriverStationLCD.Line.kUser4, 1, (String)dsBuffer.elementAt(3));
+        dash.println(DriverStationLCD.Line.kUser5, 1, (String)dsBuffer.elementAt(2));
         dash.println(DriverStationLCD.Line.kMain6, 1, (String)dsBuffer.elementAt(1));
+        dash.println(DriverStationLCD.Line.kMain6, 1, (String)dsBuffer.elementAt(0));
+
         dash.updateLCD();
     }
 }
