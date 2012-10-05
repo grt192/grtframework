@@ -5,12 +5,10 @@
 package logger;
 
 import edu.wpi.first.wpilibj.DriverStationLCD;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.Vector;
 import rpc.RPCConnection;
 import rpc.RPCMessage;
-
 
 /**
  * Singleton class that is responsible for all system logging.
@@ -18,11 +16,11 @@ import rpc.RPCMessage;
  * @author agd
  */
 public class GRTLogger {
-    
+
     private DriverStationLCD dash = DriverStationLCD.getInstance();
     //PREFIXES: Prefix to every message of the three categories
     private static final String LOG_INFO_PREFIX = "[INFO]:";
-    private static final String LOG_ERROR_PREFIX = "[ERROR]";
+    private static final String LOG_ERROR_PREFIX = "[ERROR]:";
     private static final String LOG_SUCCESS_PREFIX = "[SUCCESS]";
     //RPC Keys for the three kinds of log messages
     private static final int LOG_INFO_KEY = 100;
@@ -32,20 +30,20 @@ public class GRTLogger {
     private static GRTLogger logger = new GRTLogger();
     private Vector logReceivers = new Vector();
     private boolean rpcEnabled = false;
+    
+    private long startTimeMillis = System.currentTimeMillis();
+
+    private GRTLogger() {
+        for (int i = 0; i < 6; i++)
+            dsBuffer.addElement("");
+    }
 
     /**
      * Get the logger singleton that can be used to log messages to the system
      * and external RPCConnections.
-     * 
+     *
      * @return logger instance
      */
-    public GRTLogger(){
-      dsBuffer.addElement("");      dsBuffer.addElement("");
-      dsBuffer.addElement("");      dsBuffer.addElement("");
-      dsBuffer.addElement("");      dsBuffer.addElement("");
-
-
-    }
     public static GRTLogger getLogger() {
         return logger;
     }
@@ -78,36 +76,50 @@ public class GRTLogger {
      * @param data message to log.
      */
     public void logInfo(String data) {
-        String message = LOG_INFO_PREFIX + data;
+        String message = elapsedTime() + " " + LOG_INFO_PREFIX + data;
         System.out.println(message);
-        dsPrintln(data);
-        
+
         if (rpcEnabled) {
             RPCMessage e = new RPCMessage(LOG_INFO_KEY, message);
-            for (Enumeration en = logReceivers.elements(); en.hasMoreElements();) {
+            for (Enumeration en = logReceivers.elements(); en.hasMoreElements();)
                 ((RPCConnection) en.nextElement()).send(e);
-            }
         }
     }
-
     
+    /**
+     * Logs a general message, and displays it on the driver station.
+     * 
+     * @param data message to log
+     */
+    public void dsLogInfo(String data) {
+        dsPrintln(LOG_INFO_PREFIX + data);
+        logInfo(data);
+    }
+
     /**
      * Log an error message.
      *
      * @param data message to log.
      */
     public void logError(String data) {
-        String message = LOG_ERROR_PREFIX + data;
-        
+        String message = elapsedTime() + " " + LOG_ERROR_PREFIX + data;
         System.out.println(message);
-        dsPrintln(data);
-       
+
         if (rpcEnabled) {
             RPCMessage e = new RPCMessage(LOG_ERROR_KEY, message);
-            for (Enumeration en = logReceivers.elements(); en.hasMoreElements();) {
+            for (Enumeration en = logReceivers.elements(); en.hasMoreElements();)
                 ((RPCConnection) en.nextElement()).send(e);
-            }
         }
+    }
+    
+    /**
+     * Logs an error message, and displays it on the driver station.
+     * 
+     * @param data message to log
+     */
+    public void dsLogError(String data) {
+        dsPrintln(LOG_ERROR_PREFIX + data);
+        logError(data);
     }
 
     /**
@@ -116,27 +128,50 @@ public class GRTLogger {
      * @param data message to log.
      */
     public void logSuccess(String data) {
-        String message = LOG_SUCCESS_PREFIX + data;
+        String message = elapsedTime() + " " + LOG_SUCCESS_PREFIX + data;
         System.out.println(message);
-        dsPrintln(data);
-        
+
         if (rpcEnabled) {
             RPCMessage e = new RPCMessage(LOG_SUCCESS_KEY, message);
-            for (Enumeration en = logReceivers.elements(); en.hasMoreElements();) {
+            for (Enumeration en = logReceivers.elements(); en.hasMoreElements();)
                 ((RPCConnection) en.nextElement()).send(e);
-            }
         }
     }
+    
+    /**
+     * Logs a success message, and displays it on the driver station.
+     * 
+     * @param data message to log
+     */
+    public void dsLogSuccess(String data) {
+        dsPrintln(LOG_ERROR_PREFIX + data);
+        logSuccess(data);
+    }
+    
+    private String elapsedTime() {
+        long secElapsed = (System.currentTimeMillis() - startTimeMillis) / 1000;
+        int minElapsed = (int) secElapsed / 60;
+        int hrElapsed = minElapsed / 60;
+        
+        return (hrElapsed) + ":" + (minElapsed % 60) + ":" + (secElapsed % 60);
+    }
 
-    private void dsPrintln(String data){
+    private void dsPrintln(String data) {
         dsBuffer.addElement(data);
-        dsBuffer.removeElementAt(1);
-        dash.println(DriverStationLCD.Line.kUser2, 1, (String)dsBuffer.elementAt(5));
-        dash.println(DriverStationLCD.Line.kUser3, 1, (String)dsBuffer.elementAt(4));
-        dash.println(DriverStationLCD.Line.kUser4, 1, (String)dsBuffer.elementAt(3));
-        dash.println(DriverStationLCD.Line.kUser5, 1, (String)dsBuffer.elementAt(2));
-        dash.println(DriverStationLCD.Line.kMain6, 1, (String)dsBuffer.elementAt(1));
-        dash.println(DriverStationLCD.Line.kMain6, 1, (String)dsBuffer.elementAt(0));
+        dsBuffer.removeElementAt(0);
+        
+        dash.println(DriverStationLCD.Line.kMain6, 1,
+                (String) dsBuffer.elementAt(5));
+        dash.println(DriverStationLCD.Line.kUser6, 1,
+                (String) dsBuffer.elementAt(4));
+        dash.println(DriverStationLCD.Line.kUser5, 1,
+                (String) dsBuffer.elementAt(3));
+        dash.println(DriverStationLCD.Line.kUser4, 1,
+                (String) dsBuffer.elementAt(2));
+        dash.println(DriverStationLCD.Line.kUser3, 1,
+                (String) dsBuffer.elementAt(1));
+        dash.println(DriverStationLCD.Line.kUser2, 1, 
+                (String) dsBuffer.elementAt(0));
 
         dash.updateLCD();
     }
