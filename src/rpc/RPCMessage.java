@@ -1,7 +1,7 @@
 package rpc;
 
 /**
- * Generates a message with an integer key and data
+ * Generates a message with an integer key and string or double data
  *
  * @author ajc
  */
@@ -12,6 +12,12 @@ public class RPCMessage {
     public static final String PREFIX = "RPC";
     public static final String PREFIX_CS = "PPC";
 
+	/**
+	 * Creates a new RPCMessage.
+	 * 
+	 * @param key integer identifier of message contents
+	 * @param data data of message
+	 */
     public RPCMessage(int key, String data) {
         this.key = key;
         if (data.indexOf(':') >= 0) {
@@ -21,16 +27,32 @@ public class RPCMessage {
         this.data = data;
     }
 
+	/**
+	 * Creates a new RPCMessage.
+	 * 
+	 * @param key integer identifier of message contents
+	 * @param data data of message
+	 */
     public RPCMessage(int key, double data) {
         this.key = key;
         this.data = Double.toString(data);
     }
 
+	/**
+	 * Returns the key of the message
+	 * 
+	 * @return key
+	 */
     public int getKey() {
         return key;
     }
 
-    public boolean isDoubleData() {
+	/**
+	 * Checks whether or not the data in this message is a number
+	 * 
+	 * @return whether or not data is parsable to a double
+	 */
+    public boolean isNumericData() {
         try {
             Double.parseDouble(data);
             return true;
@@ -39,10 +61,34 @@ public class RPCMessage {
         }
     }
 
+	/**
+	 * Returns the data of this message
+	 * 
+	 * @return data
+	 */
     public String getData() {
         return data;
     }
+	
+	/**
+	 * Returns the data of this message as a number
+	 * 
+	 * @return data, or Double.NaN if data is not numeric
+	 */
+	public double getNumericData() {
+		try {
+            return Double.parseDouble(data);
+        } catch (NumberFormatException e) {
+			return Double.NaN;
+        }
+	}
 
+	/**
+	 * toString() method. Returns a string in the form
+	 * [prefix] + [key] + : + [data]
+	 * 
+	 * @return string form of this message
+	 */
     public String toString() {
         return PREFIX + key + ":" + data;
     }
@@ -53,7 +99,8 @@ public class RPCMessage {
      * [prefix] + : + [key] + [data]
      * and concatenating with it the first 16 bits of its hashcode
      * in hex form.
-     * @return 
+	 * 
+     * @return string form of this message, with a checksum
      */
     public String toStringWithChecksum() {
         String s = PREFIX_CS + key + ":" + data;
