@@ -5,7 +5,7 @@
 package deploy;
 
 import actuator.GRTVictor;
-import controller.PrimaryDriver;
+import controller.PrimaryDriveController;
 import logger.GRTLogger;
 import mechanism.GRTDriveTrain;
 import mechanism.GRTRobotBase;
@@ -21,7 +21,7 @@ import sensor.base.*;
 public class MainRobot extends GRTRobot {
 
     //Teleop Controllers
-    private PrimaryDriver driveControl;
+    private PrimaryDriveController driveControl;
     private GRTDriverStation driverStation;
     private GRTRobotBase robotBase;
     
@@ -67,7 +67,7 @@ public class MainRobot extends GRTRobot {
         logger.logInfo("Mechanisms initialized");
 
         //Controllers
-        driveControl = new PrimaryDriver(robotBase, driverStation, "driveControl");
+        driveControl = new PrimaryDriveController(robotBase, driverStation, "driveControl");
         logger.logInfo("Controllers Initialized");
 
 

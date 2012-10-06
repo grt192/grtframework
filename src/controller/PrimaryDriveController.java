@@ -17,7 +17,7 @@ import sensor.base.GRTDriverStation;
  *
  * @author ajc
  */
-public class PrimaryDriver extends EventController implements DrivingListener {
+public class PrimaryDriveController extends EventController implements DrivingListener {
 
     //sensor
     private final GRTDriverStation ds;
@@ -27,7 +27,7 @@ public class PrimaryDriver extends EventController implements DrivingListener {
     private double leftVelocity;
     private double rightVelocity;
 
-    public PrimaryDriver(GRTRobotBase dt, GRTDriverStation ds, String name) {
+    public PrimaryDriveController(GRTRobotBase dt, GRTDriverStation ds, String name) {
         super(name);
         this.dt = dt;
         this.ds = ds;
