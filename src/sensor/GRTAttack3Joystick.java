@@ -10,7 +10,6 @@ import event.listeners.Attack3JoystickListener;
 import event.listeners.ButtonListener;
 import core.Sensor;
 import edu.wpi.first.wpilibj.Joystick;
-import event.*;
 import java.util.Enumeration;
 import java.util.Vector;
 
@@ -76,16 +75,19 @@ public class GRTAttack3Joystick extends Sensor {
          Attack3JoystickEvent e = new Attack3JoystickEvent(this, id, newDatum);
          switch (id){
              case (KEY_X):
-                 for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) 
+                 for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) { 
                     ((Attack3JoystickListener) en.nextElement()).XAxisMoved(e);
+                 }
                  break;
              case (KEY_Y):
-                 for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) 
+                 for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
                     ((Attack3JoystickListener) en.nextElement()).YAxisMoved(e);
+                 }
                  break;
              case (KEY_JOYSTICK_ANGLE):
-                 for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) 
+                 for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
                     ((Attack3JoystickListener) en.nextElement()).AngleChanged(e);
+                 }
                  break;
          }
         }
