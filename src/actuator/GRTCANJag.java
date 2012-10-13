@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.can.CANTimeoutException;
 
 /**
- * Wrapper class for the Jag speed controller on a CAN bus
+ * Wrapper class for the Jag speed controller on a CAN bus.
  *
  * @author Calvin
  */

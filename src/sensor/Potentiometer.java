@@ -12,42 +12,55 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 /**
- *
+ * Linear potentiometer on analog channel.
+ * 
  * @author calvin
  */
 public class Potentiometer extends Sensor {
 
     public static final int KEY_VALUE = 0;
     public static final int NUM_DATA = 1;
-    private int potentiometerType;
     private AnalogChannel channel;
-    public static final int LINEAR = 0;
-    public static final int LOGARITHMIC = 1;
     
     private Vector potentiometerListeners = new Vector();
 
-    public Potentiometer(AnalogChannel channel, int type, int pollTime, String name) {
+    /**
+     * Instantiates a new potentiometer on the default analog channel.
+     * 
+     * @param channel channel on analog module potentiometer is connected to
+     * @param pollTime how often to poll the sensor
+     * @param name name of potentiometer
+     */
+    public Potentiometer(int channel, int pollTime, String name) {
         super(name, pollTime, NUM_DATA);
-        potentiometerType = type;
-        this.channel = channel;
+        this.channel = new AnalogChannel(channel);
+    }
+    
+    /**
+     * Instantiates a new potentiometer.
+     * 
+     * @param moduleNum analog module number
+     * @param channel channel on analog module potentiometer is connected to
+     * @param pollTime how often to poll the sensor
+     * @param name name of potentiometer
+     */
+    public Potentiometer(int moduleNum, int channel,
+            int pollTime, String name) {
+        super(name, pollTime, NUM_DATA);
+        this.channel = new AnalogChannel(channel);
     }
 
     protected void poll() {
-        setState(KEY_VALUE, updateScaledValue());
+        setState(KEY_VALUE, getValue());
     }
-
-    private double updateScaledValue() {
-        double rawValue = channel.getVoltage();
-        double scaledValue;
-        switch (potentiometerType) {
-            case LINEAR:
-                scaledValue = rawValue / 5;
-                break;
-            default:
-                scaledValue = rawValue / 5;
-        }
-
-        return scaledValue;
+    
+    /**
+     * Returns how far the potentiometer has been moved.
+     * 
+     * @return value from 0 - 1
+     */
+    public double getValue() {
+        return channel.getVoltage() / 5.0;
     }
 
     protected void notifyListeners(int id, double oldDatum, double newDatum) {

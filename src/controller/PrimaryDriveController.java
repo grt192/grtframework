@@ -11,9 +11,9 @@ import mechanism.GRTRobotBase;
 import sensor.base.GRTDriverStation;
 
 /**
- * Robot base driving.
+ * Robot base driver.
  *
- * Operates for any DriverStation
+ * Operates for any DriverStation.
  *
  * @author ajc
  */
@@ -27,6 +27,13 @@ public class PrimaryDriveController extends EventController implements DrivingLi
     private double leftVelocity;
     private double rightVelocity;
 
+    /**
+     * Creates a new driving controller.
+     * 
+     * @param dt robot base to drive
+     * @param ds driver station to control with
+     * @param name name of controller
+     */
     public PrimaryDriveController(GRTRobotBase dt, GRTDriverStation ds, String name) {
         super(name);
         this.dt = dt;
@@ -42,13 +49,13 @@ public class PrimaryDriveController extends EventController implements DrivingLi
     }
 
     public void driverLeftSpeed(DrivingEvent e) {
-        leftVelocity = e.getPercentSpeed();
+        leftVelocity = e.getSpeed();
 
         dt.tankDrive(leftVelocity, rightVelocity);
     }
 
     public void driverRightSpeed(DrivingEvent e) {
-        rightVelocity = e.getPercentSpeed();
+        rightVelocity = e.getSpeed();
 
         dt.tankDrive(leftVelocity, rightVelocity);
     }

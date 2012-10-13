@@ -29,13 +29,13 @@ public class GRTPWMJag extends Motor {
     /**
      * Instantiates a Jag controller.
      *
-     * @param slot digital module number
+     * @param moduleNum digital module number
      * @param channel number of PWM output this Jag is attached to
      * @param name name of motor
      */
-    public GRTPWMJag(int slot, int channel, String name) {
+    public GRTPWMJag(int moduleNum, int channel, String name) {
         super(name);
-        jag = new Jaguar(slot, channel);
+        jag = new Jaguar(moduleNum, channel);
     }
 
     public void setSpeed(double speed) {

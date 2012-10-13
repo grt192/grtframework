@@ -24,12 +24,39 @@ public class GRTGyro extends Sensor {
     private Gyro gyro;
     private Vector gyroListeners;
 
+    /**
+     * Instantiates a new gyroscope on the default analog module.
+     * 
+     * @param channel channel gyro is connected to
+     * @param pollTime how often to poll
+     * @param name name of sensor
+     */
     public GRTGyro(int channel, int pollTime, String name) {
         super(name, pollTime, NUM_DATA);
-        gyro = new Gyro(AnalogModule.getDefaultAnalogModule(), channel);
+        gyro = new Gyro(channel);
         gyroListeners = new Vector();
     }
     
+    /**
+     * Instantiates a new gyroscope.
+     * 
+     * @param moduleNum number of analog module
+     * @param channel channel gyro is connected to
+     * @param pollTime how often to poll
+     * @param name name of sensor
+     */
+    public GRTGyro(int moduleNum, int channel, int pollTime, String name) {
+        super(name, pollTime, NUM_DATA);
+        gyro = new Gyro(moduleNum, channel);
+        gyroListeners = new Vector();
+    }
+    
+    /**
+     * Returns the total rotation of the gyro.
+     * 
+     * @return the amount the gyroscope has rotated since its initialization,
+     * in degrees
+     */
     public double getAngle(){
         return gyro.getAngle();
     }

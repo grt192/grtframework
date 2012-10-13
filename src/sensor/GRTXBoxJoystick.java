@@ -14,6 +14,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 /**
+ * Wrapper class for an XBox controller.
  * 
  * @author ajc
  */
@@ -54,7 +55,7 @@ public class GRTXBoxJoystick extends Sensor {
     private final Vector joystickListeners;
 
     /**
-     * Instantiates a new GRTXBoxJoystick
+     * Instantiates a new GRTXBoxJoystick.
      * 
      * @param channel USB channel joystick is plugged into
      * @param pollTime how often to poll the joystick

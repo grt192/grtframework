@@ -67,7 +67,7 @@ public abstract class Sensor extends GRTLoggedProcess {
     }
 
     /**
-     * Retrieves sensor data
+     * Retrieves sensor data.
      *
      * @param id numeric identifier of data.
      * @return representative sensor data.

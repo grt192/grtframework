@@ -12,7 +12,8 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 /**
- * A battery sensor that retrieves main battery voltage from the analog sidecar
+ * A battery sensor that retrieves main battery voltage from the analog sidecar.
+ * 
  * @author ajc
  */
 public class GRTBatterySensor extends Sensor {
@@ -22,6 +23,12 @@ public class GRTBatterySensor extends Sensor {
     private final DriverStation ds;
     private final Vector listeners;
 
+    /**
+     * Instantiates a new battery sensor.
+     * 
+     * @param pollTime how often to poll
+     * @param name name of sensor
+     */
     public GRTBatterySensor(int pollTime, String name) {
         super(name, pollTime, 1);
         ds = DriverStation.getInstance();
@@ -30,6 +37,15 @@ public class GRTBatterySensor extends Sensor {
 
     protected void poll() {
         setState(KEY_BATTERY_VOLTAGE, ds.getBatteryVoltage());
+    }
+    
+    /**
+     * Returns the current voltage of the battery.
+     * 
+     * @return battery voltage, ideally >12V
+     */
+    public double getVoltage() {
+        return getState(KEY_BATTERY_VOLTAGE);
     }
 
     protected void notifyListeners(int id, double oldDatum, double newDatum) {

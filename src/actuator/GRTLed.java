@@ -8,14 +8,13 @@ import core.Actuator;
 import edu.wpi.first.wpilibj.PWM;
 
 /**
- * Abstraction of a standard LED
+ * Abstraction of a standard LED.
  *
  * @author gerberduffy
  */
 public class GRTLed extends Actuator {
 
     private static final int MAX_BRIGHTNESS = 255;
-    private static final int DEFAULT_BRIGHTNESS = MAX_BRIGHTNESS;
     private static final int OFF_BRIGHTNESS = 0;
     private final PWM led;      //The PWM input controlling the LED
     private int brightness = 0;
@@ -23,14 +22,14 @@ public class GRTLed extends Actuator {
     /**
      * Instantiates an LED.
      *
-     * @param slot digital module number
+     * @param moduleNum digital module number
      * @param channel channel LED is attached to
      * @param name name of LED
      */
-    public GRTLed(int slot, int channel, String name) {
+    public GRTLed(int moduleNum, int channel, String name) {
         super(name);
 
-        led = new PWM(slot, channel);
+        led = new PWM(moduleNum, channel);
         led.setRaw(brightness);
     }
 

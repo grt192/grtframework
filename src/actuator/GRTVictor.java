@@ -16,7 +16,7 @@ public class GRTVictor extends Motor {
     Victor victor;
 
     /**
-     * Instantiates a Victor controller on the default digital module
+     * Instantiates a Victor controller on the default digital module.
      *
      * @param channel number of PWM output this Victor is attached to
      * @param name name of motor
@@ -27,15 +27,15 @@ public class GRTVictor extends Motor {
     }
 
     /**
-     * Instantiates a Victor controller
+     * Instantiates a Victor controller.
      *
-     * @param slot digital module number
+     * @param moduleNum digital module number
      * @param channel number of PWM output this Victor is attached to
      * @param name name of motor
      */
-    public GRTVictor(int slot, int channel, String name) {
+    public GRTVictor(int moduleNum, int channel, String name) {
         super(name);
-        victor = new Victor(slot, channel);
+        victor = new Victor(moduleNum, channel);
     }
 
     public void setSpeed(double speed) {

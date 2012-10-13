@@ -8,7 +8,8 @@ import core.Sensor;
 import edu.wpi.first.wpilibj.Encoder;
 
 /**
- *
+ * Wrapper class for a quadrature encoder.
+ * 
  * @author gerberduffy
  */
 public class GRTEncoder extends Sensor {
@@ -22,9 +23,40 @@ public class GRTEncoder extends Sensor {
     
     public static final int NUM_DATA = 3;
     
-    public GRTEncoder(int channelA, int channelB, double pulseDistance, int pollTime, String id){
-        super(id, pollTime, NUM_DATA);
+    /**
+     * Instantiates an encoder on the default digital module.
+     * 
+     * @param channelA digital channel for encoder channel A
+     * @param channelB digital channel for encoder channel B
+     * @param pulseDistance distance traveled for each pulse
+     * (typically 1 degree of rotation per pulse)
+     * @param pollTime how often to poll
+     * @param name name of encoder
+     */
+    public GRTEncoder(int channelA, int channelB,
+            double pulseDistance, int pollTime, String name){
+        super(name, pollTime, NUM_DATA);
         rotaryEncoder = new Encoder(channelA, channelB);
+        rotaryEncoder.start();
+        
+        distancePerPulse = pulseDistance;
+    }
+    
+    /**
+     * Instantiates an encoder.
+     * 
+     * @param moduleNum number of digital module
+     * @param channelA digital channel for encoder channel A
+     * @param channelB digital channel for encoder channel B
+     * @param pulseDistance distance traveled for each pulse
+     * (typically 1 degree of rotation per pulse)
+     * @param pollTime how often to poll
+     * @param name name of encoder
+     */
+    public GRTEncoder(int moduleNum, int channelA, int channelB,
+            double pulseDistance, int pollTime, String name){
+        super(name, pollTime, NUM_DATA);
+        rotaryEncoder = new Encoder(moduleNum, channelA, moduleNum, channelB);
         rotaryEncoder.start();
         
         distancePerPulse = pulseDistance;

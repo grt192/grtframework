@@ -4,7 +4,7 @@ import core.Actuator;
 import edu.wpi.first.wpilibj.Relay;
 
 /**
- * Relay wrapper class
+ * Relay wrapper class.
  *
  * @author calvin
  */
@@ -19,13 +19,13 @@ public class GRTRelay extends Actuator {
     /**
      * Instantiates a relay.
      *
-     * @param slot digital module number
+     * @param moduleNum digital module number
      * @param channel channel relay is connected to
      * @param name name of relay
      */
-    public GRTRelay(int slot, int channel, String name) {
+    public GRTRelay(int moduleNum, int channel, String name) {
         super(name);
-        relay = new Relay(slot, channel);
+        relay = new Relay(moduleNum, channel);
     }
 
     /**

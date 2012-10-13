@@ -8,7 +8,7 @@ import core.Actuator;
 import edu.wpi.first.wpilibj.Solenoid;
 
 /**
- * Solenoid wrapper class
+ * Solenoid wrapper class.
  *
  * @author gerberduffy
  */
@@ -19,7 +19,7 @@ public class GRTSolenoid extends Actuator {
     public static final double OFF = 0.0;
 
     /**
-     * Instantiates a solenoid on the HV digital module.
+     * Instantiates a solenoid on the default HV digital module.
      *
      * @param channel channel solenoid is connected to
      * @param name name of solenoid
@@ -32,14 +32,14 @@ public class GRTSolenoid extends Actuator {
     /**
      * Instantiates a solenoid.
      *
-     * @param slot slot of HV digital module
+     * @param moduleNum number of HV digital module
      * @param channel channel solenoid is connected to
      * @param name name of solenoid
      */
-    public GRTSolenoid(int slot, int channel, String name) {
+    public GRTSolenoid(int moduleNum, int channel, String name) {
         super(name);
 
-        sol = new Solenoid(slot, channel);
+        sol = new Solenoid(moduleNum, channel);
     }
 
     /**
@@ -68,7 +68,7 @@ public class GRTSolenoid extends Actuator {
     
     /**
      * Toggles the solenoid--turns on if currently off,
-     * turns off if currently on
+     * turns off if currently on.
      */
     public void toggle() {
         if (enabled)
@@ -76,7 +76,7 @@ public class GRTSolenoid extends Actuator {
     }
 
     /**
-     * Halts the solenoid, and moves it to original position
+     * Halts the solenoid, and moves it to original position.
      */
     public void halt() {
         sol.set(false);
