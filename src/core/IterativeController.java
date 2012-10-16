@@ -2,25 +2,23 @@ package core;
 
 public abstract class IterativeController extends GRTLoggedProcess {
 
-	public IterativeController(String name) {
-		super(name);
-	}
-	
-	/**
-	 * Performs one iteration cycle
-	 */
-	public abstract void iterate();
+    public IterativeController(String name) {
+        super(name);
+    }
 
-	
-	/**
-	 * Overrides GRTLoggedProcess.poll(); 
-	 * When it's time to poll, we do another
-	 * iteration cycle.
-	 */
-	public void poll(){
-		iterate();
-	}
-	
+    /**
+     * Performs one iteration cycle
+     */
+    public abstract void iterate();
+
+    /**
+     * Overrides GRTLoggedProcess.poll(); When it's time to poll, we do another
+     * iteration cycle.
+     */
+    public void poll() {
+        iterate();
+    }
+
     /**
      * Enables actions, and begins listening
      */
@@ -36,5 +34,4 @@ public abstract class IterativeController extends GRTLoggedProcess {
     public void disable() {
         super.disable();
     }
-
 }
