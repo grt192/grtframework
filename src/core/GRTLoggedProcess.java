@@ -15,7 +15,7 @@ public abstract class GRTLoggedProcess implements Runnable {
     protected final String name;
     protected boolean enabled = false;
     protected boolean running = true;
-    private final int sleepTime;
+    private int sleepTime;
     private final GRTLogger logger = GRTLogger.getLogger();
 
     /**
@@ -43,6 +43,8 @@ public abstract class GRTLoggedProcess implements Runnable {
      * The run method of GRTLoggedProcess, by default, performs an action at
      * some interval, but only if poll() is overridden and pollTime is
      * nonnegative.
+     * 
+     * Polls, then sleeps.
      *
      * Instead of calling run(), call start() instead.
      */
@@ -132,7 +134,6 @@ public abstract class GRTLoggedProcess implements Runnable {
      */
     public void halt() {
         running = false;
-        disable();
     }
 
     /**
@@ -145,7 +146,7 @@ public abstract class GRTLoggedProcess implements Runnable {
     }
 
     /**
-     * Returns the name of this process
+     * Returns the name of this process.
      *
      * @return name of this process.
      */
@@ -161,5 +162,14 @@ public abstract class GRTLoggedProcess implements Runnable {
      */
     public String toString() {
         return "[[" + getClass().getName() + ":" + getID() + "]]";
+    }
+    
+    /**
+     * Sets how long to sleep for.
+     * 
+     * @param millis time to sleep for between polls, in milliseconds
+     */
+    protected void setSleepTime(int millis) {
+        sleepTime = millis;
     }
 }
