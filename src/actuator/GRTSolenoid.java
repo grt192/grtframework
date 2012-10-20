@@ -76,10 +76,10 @@ public class GRTSolenoid extends Actuator {
     }
 
     /**
-     * Halts the solenoid, and moves it to original position.
+     * Disables the solenoid, and moves it to original position.
      */
-    public void halt() {
+    public void stop() {
         sol.set(false);
-        super.halt();
+        super.disable();
     }
 }

@@ -63,8 +63,8 @@ public class GRTRelay extends Actuator {
     /**
      * Sets the state of the relay to off, and disables it.
      */
-    public void halt() {
+    public void stop() {
         relay.set(Relay.Value.kOff);
-        super.halt();
+        super.disable();
     }
 }
