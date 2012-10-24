@@ -39,7 +39,6 @@ public class StreamedRPC extends RPCConnection {
                 notifyListeners(new String(buffer, 0, len));
         } catch (IOException e) {
             e.printStackTrace();
-            System.exit(-1);
         }
     }
 
