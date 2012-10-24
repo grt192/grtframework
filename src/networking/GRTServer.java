@@ -24,9 +24,7 @@ public class GRTServer extends GRTLoggedProcess implements GRTSocket {
     private class GRTSingleConnect extends GRTLoggedProcess implements GRTSocket {
 
         private StreamConnection client;
-        private OutputStreamWriter osw;
         private BufferedReader in;
-//        private DataInputStream in;
         InputStreamReader isr;
         private OutputStreamWriter out;
         private boolean connected = true;
