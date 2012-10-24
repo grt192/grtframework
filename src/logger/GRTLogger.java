@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package logger;
 
 import edu.wpi.first.wpilibj.DriverStationLCD;
@@ -30,7 +26,6 @@ public class GRTLogger {
     private static GRTLogger logger = new GRTLogger();
     private Vector logReceivers = new Vector();
     private boolean rpcEnabled = false;
-    
     private long startTimeMillis = System.currentTimeMillis();
 
     private GRTLogger() {
@@ -85,10 +80,10 @@ public class GRTLogger {
                 ((RPCConnection) en.nextElement()).send(e);
         }
     }
-    
+
     /**
      * Logs a general message, and displays it on the driver station.
-     * 
+     *
      * @param data message to log
      */
     public void dsLogInfo(String data) {
@@ -111,10 +106,10 @@ public class GRTLogger {
                 ((RPCConnection) en.nextElement()).send(e);
         }
     }
-    
+
     /**
      * Logs an error message, and displays it on the driver station.
-     * 
+     *
      * @param data message to log
      */
     public void dsLogError(String data) {
@@ -137,29 +132,29 @@ public class GRTLogger {
                 ((RPCConnection) en.nextElement()).send(e);
         }
     }
-    
+
     /**
      * Logs a success message, and displays it on the driver station.
-     * 
+     *
      * @param data message to log
      */
     public void dsLogSuccess(String data) {
         dsPrintln(LOG_ERROR_PREFIX + data);
         logSuccess(data);
     }
-    
+
     private String elapsedTime() {
         long secElapsed = (System.currentTimeMillis() - startTimeMillis) / 1000;
         int minElapsed = (int) secElapsed / 60;
         int hrElapsed = minElapsed / 60;
-        
+
         return (hrElapsed) + ":" + (minElapsed % 60) + ":" + (secElapsed % 60);
     }
 
     private void dsPrintln(String data) {
         dsBuffer.addElement(data);
         dsBuffer.removeElementAt(0);
-        
+
         dash.println(DriverStationLCD.Line.kMain6, 1,
                 (String) dsBuffer.elementAt(5));
         dash.println(DriverStationLCD.Line.kUser6, 1,
@@ -170,7 +165,7 @@ public class GRTLogger {
                 (String) dsBuffer.elementAt(2));
         dash.println(DriverStationLCD.Line.kUser3, 1,
                 (String) dsBuffer.elementAt(1));
-        dash.println(DriverStationLCD.Line.kUser2, 1, 
+        dash.println(DriverStationLCD.Line.kUser2, 1,
                 (String) dsBuffer.elementAt(0));
 
         dash.updateLCD();

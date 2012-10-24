@@ -1,12 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package event.events;
 
 import sensor.GRTBatterySensor;
-
 
 /**
  *
@@ -14,11 +8,11 @@ import sensor.GRTBatterySensor;
  */
 public class BatteryVoltageEvent extends SensorEvent {
 
-    public BatteryVoltageEvent(GRTBatterySensor sensor, double voltage){
+    public BatteryVoltageEvent(GRTBatterySensor sensor, double voltage) {
         super(sensor, 0, voltage);
     }
-    
-    public double getVoltage(){
+
+    public double getVoltage() {
         return getData();
     }
 }

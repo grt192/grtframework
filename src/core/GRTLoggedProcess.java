@@ -6,6 +6,8 @@ import logger.GRTLogger;
  * A GRTLoggedProcess is a controllable process. It can be initiated/terminated.
  *
  * When a GRTLoggedProcess is constructed, it is neither run nor enabled.
+ * 
+ * Logging is done to the singleton GRTLogger.
  *
  * @author ajc
  *
@@ -69,7 +71,7 @@ public abstract class GRTLoggedProcess implements Runnable {
      * Starts polling.
      */
     public void startPolling() {
-        if (sleepTime >= 0)
+        if (sleepTime >= 0 && !running)
             new Thread(this, this.name).start();
     }
 

@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sensor.base;
 
 import event.events.Attack3JoystickEvent;
@@ -12,21 +8,23 @@ import sensor.GRTAttack3Joystick;
 
 /**
  * Driver station using 2 Logitech Attack 3 Joysticks
+ *
  * @author dan
  */
 public class GRTAttack3DriverStation extends GRTDriverStation
         implements Attack3JoystickListener, ButtonListener {
+
     private final GRTAttack3Joystick left;
     private final GRTAttack3Joystick right;
-    
+
     public GRTAttack3DriverStation(GRTAttack3Joystick left,
             GRTAttack3Joystick right,
-            String name){
+            String name) {
         super(name);
-        this.left= left;
+        this.left = left;
         this.right = right;
     }
-    
+
     protected void startListening() {
         left.addJoystickListener(this);
         right.addJoystickListener(this);
@@ -43,12 +41,10 @@ public class GRTAttack3DriverStation extends GRTDriverStation
     }
 
     public void YAxisMoved(Attack3JoystickEvent e) {
-        if (e.getSource() == left){
+        if (e.getSource() == left)
             notifyLeftDriveSpeed(e.getData());
-        }
-        else if (e.getSource() == right){
+        else if (e.getSource() == right)
             notifyRightDriveSpeed(e.getData());
-        }
     }
 
     public void AngleChanged(Attack3JoystickEvent e) {
@@ -59,5 +55,4 @@ public class GRTAttack3DriverStation extends GRTDriverStation
 
     public void buttonReleased(ButtonEvent e) {
     }
-	
 }

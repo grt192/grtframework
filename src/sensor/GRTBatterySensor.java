@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sensor;
 
 import core.Sensor;
@@ -13,19 +9,18 @@ import java.util.Vector;
 
 /**
  * A battery sensor that retrieves main battery voltage from the analog sidecar.
- * 
+ *
  * @author ajc
  */
 public class GRTBatterySensor extends Sensor {
 
     public static final int KEY_BATTERY_VOLTAGE = 0;
-    
     private final DriverStation ds;
     private final Vector listeners;
 
     /**
      * Instantiates a new battery sensor.
-     * 
+     *
      * @param pollTime how often to poll
      * @param name name of sensor
      */
@@ -38,10 +33,10 @@ public class GRTBatterySensor extends Sensor {
     protected void poll() {
         setState(KEY_BATTERY_VOLTAGE, ds.getBatteryVoltage());
     }
-    
+
     /**
      * Returns the current voltage of the battery.
-     * 
+     *
      * @return battery voltage, ideally >12V
      */
     public double getVoltage() {
@@ -52,9 +47,8 @@ public class GRTBatterySensor extends Sensor {
 
         BatteryVoltageEvent e = new BatteryVoltageEvent(this, newDatum);
 
-        for (Enumeration en = listeners.elements(); en.hasMoreElements();) {
+        for (Enumeration en = listeners.elements(); en.hasMoreElements();)
             ((BatteryVoltageListener) en.nextElement()).batteryVoltageChanged(e);
-        }
     }
 
     public void addBatteryVoltageListener(BatteryVoltageListener l) {

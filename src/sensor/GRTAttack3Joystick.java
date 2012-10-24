@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sensor;
 
 import core.Sensor;
@@ -58,9 +54,8 @@ public class GRTAttack3Joystick extends Sensor {
     }
 
     protected void poll() {
-        for (int i = 0; i < NUM_OF_BUTTONS; i++) {
+        for (int i = 0; i < NUM_OF_BUTTONS; i++)
             setState(i, joystick.getRawButton(i) ? PRESSED : RELEASED);
-        }
         setState(KEY_X, joystick.getX());
         setState(KEY_Y, joystick.getY());
         setState(KEY_JOYSTICK_ANGLE, joystick.getDirectionRadians());
@@ -70,34 +65,37 @@ public class GRTAttack3Joystick extends Sensor {
         if (id < NUM_OF_BUTTONS) {
             //ID maps directly to button ID
             ButtonEvent e = new ButtonEvent(this, id, newDatum == PRESSED);
-            if (newDatum == PRESSED) { //true
-                for (Enumeration en = buttonListeners.elements(); en.hasMoreElements();) {
+            if (newDatum == PRESSED) //true
+                for (Enumeration en = buttonListeners.elements(); en.
+                        hasMoreElements();)
                     ((ButtonListener) en.nextElement()).buttonPressed(e);
-                }
-            } else {
-                for (Enumeration en = buttonListeners.elements(); en.hasMoreElements();) {
+            else
+                for (Enumeration en = buttonListeners.elements(); en.
+                        hasMoreElements();)
                     ((ButtonListener) en.nextElement()).buttonReleased(e);
-                }
-            }
 
         } else { //we are now a joystick
             //only reach here if not a button
-            Attack3JoystickEvent e = new Attack3JoystickEvent(this, id, newDatum);
+            Attack3JoystickEvent e =
+                    new Attack3JoystickEvent(this, id, newDatum);
             switch (id) {
                 case (KEY_X):
-                    for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
-                        ((Attack3JoystickListener) en.nextElement()).XAxisMoved(e);
-                    }
+                    for (Enumeration en = joystickListeners.elements(); en.
+                            hasMoreElements();)
+                        ((Attack3JoystickListener) en.nextElement()).XAxisMoved(
+                                e);
                     break;
                 case (KEY_Y):
-                    for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
-                        ((Attack3JoystickListener) en.nextElement()).YAxisMoved(e);
-                    }
+                    for (Enumeration en = joystickListeners.elements(); en.
+                            hasMoreElements();)
+                        ((Attack3JoystickListener) en.nextElement()).YAxisMoved(
+                                e);
                     break;
                 case (KEY_JOYSTICK_ANGLE):
-                    for (Enumeration en = joystickListeners.elements(); en.hasMoreElements();) {
-                        ((Attack3JoystickListener) en.nextElement()).AngleChanged(e);
-                    }
+                    for (Enumeration en = joystickListeners.elements(); en.
+                            hasMoreElements();)
+                        ((Attack3JoystickListener) en.nextElement()).
+                                AngleChanged(e);
                     break;
             }
         }

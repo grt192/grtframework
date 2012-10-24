@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sensor.base;
 
 import event.events.ButtonEvent;
@@ -23,7 +19,7 @@ public class GRTXboxDriverStation extends GRTDriverStation
 
     /**
      * Creates a new driver station using XBox controllers.
-     * 
+     *
      * @param primary primary controller.
      * @param secondary secondary controller.
      * @param name name of driver station.
@@ -54,18 +50,16 @@ public class GRTXboxDriverStation extends GRTDriverStation
     }
 
     public void leftYAxisMoved(XboxJoystickEvent e) {
-        if (e.getSource() == primary) {
+        if (e.getSource() == primary)
             notifyLeftDriveSpeed(e.getData());
-        }
     }
 
     public void rightXAxisMoved(XboxJoystickEvent e) {
     }
 
     public void rightYAxisMoved(XboxJoystickEvent e) {
-        if (e.getSource() == primary) {
+        if (e.getSource() == primary)
             notifyRightDriveSpeed(e.getData());
-        }
     }
 
     public void padMoved(XboxJoystickEvent e) {

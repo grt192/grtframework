@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package event.events;
 
 import core.Sensor;
@@ -11,16 +7,16 @@ import core.Sensor;
  * @author ajc
  */
 public class ButtonEvent extends SensorEvent {
-    
-    public ButtonEvent(Sensor source, int id, boolean pressed){
+
+    public ButtonEvent(Sensor source, int id, boolean pressed) {
         super(source, id, pressed ? Sensor.TRUE : Sensor.FALSE);
     }
-    
-    public int getButtonID(){
-        return getID() ;
+
+    public int getButtonID() {
+        return getID();
     }
-    
-    public boolean isPressed(){
+
+    public boolean isPressed() {
         return getData() == Sensor.TRUE;
-    }  
+    }
 }

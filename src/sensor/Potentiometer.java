@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sensor;
 
 import core.Sensor;
@@ -13,7 +9,7 @@ import java.util.Vector;
 
 /**
  * Linear potentiometer on analog channel.
- * 
+ *
  * @author calvin
  */
 public class Potentiometer extends Sensor {
@@ -21,12 +17,11 @@ public class Potentiometer extends Sensor {
     public static final int KEY_VALUE = 0;
     public static final int NUM_DATA = 1;
     private AnalogChannel channel;
-    
     private Vector potentiometerListeners = new Vector();
 
     /**
      * Instantiates a new potentiometer on the default analog channel.
-     * 
+     *
      * @param channel channel on analog module potentiometer is connected to
      * @param pollTime how often to poll the sensor
      * @param name name of potentiometer
@@ -35,10 +30,10 @@ public class Potentiometer extends Sensor {
         super(name, pollTime, NUM_DATA);
         this.channel = new AnalogChannel(channel);
     }
-    
+
     /**
      * Instantiates a new potentiometer.
-     * 
+     *
      * @param moduleNum analog module number
      * @param channel channel on analog module potentiometer is connected to
      * @param pollTime how often to poll the sensor
@@ -53,10 +48,10 @@ public class Potentiometer extends Sensor {
     protected void poll() {
         setState(KEY_VALUE, getValue());
     }
-    
+
     /**
      * Returns how far the potentiometer has been moved.
-     * 
+     *
      * @return value from 0 - 1
      */
     public double getValue() {
@@ -69,7 +64,7 @@ public class Potentiometer extends Sensor {
                 en.hasMoreElements();)
             ((PotentiometerListener) en.nextElement()).valueChanged(e);
     }
-    
+
     public void addListener(PotentiometerListener l) {
         potentiometerListeners.addElement(l);
     }

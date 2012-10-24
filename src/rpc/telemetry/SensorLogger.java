@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package rpc.telemetry;
 
 import core.EventController;
@@ -13,16 +9,18 @@ import rpc.RPCMessage;
 
 /**
  * Automatically sends all data from any sensor.
+ *
  * @author ajc
  */
-public class SensorLogger extends EventController implements SensorChangeListener {
+public class SensorLogger extends EventController implements
+        SensorChangeListener {
 
     private final Sensor s;
     private final RPCConnection conn;
     private final int[] rpcKeys;
 
     /**
-     * 
+     *
      * @param s sensor to read from
      * @param conn connection to send data with
      * @param rpcKeys rpc keys to send data with for each index of sensor

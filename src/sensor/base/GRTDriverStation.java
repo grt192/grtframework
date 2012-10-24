@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sensor.base;
 
 import core.Sensor;
@@ -57,16 +53,16 @@ public abstract class GRTDriverStation extends Sensor {
         switch (id) {
             case KEY_LEFT_VELOCITY:
                 ev = new DrivingEvent(this, DrivingEvent.SIDE_LEFT, newValue);
-                for (Enumeration en = drivingListeners.elements(); en.hasMoreElements();) {
+                for (Enumeration en = drivingListeners.elements(); en.
+                        hasMoreElements();)
                     ((DrivingListener) en.nextElement()).driverLeftSpeed(ev);
-                }
                 break;
 
             case KEY_RIGHT_VELOCITY:
                 ev = new DrivingEvent(this, DrivingEvent.SIDE_RIGHT, newValue);
-                for (Enumeration en = drivingListeners.elements(); en.hasMoreElements();) {
+                for (Enumeration en = drivingListeners.elements(); en.
+                        hasMoreElements();)
                     ((DrivingListener) en.nextElement()).driverRightSpeed(ev);
-                }
                 break;
         }
     }

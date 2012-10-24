@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sensor;
 
 import core.Sensor;
-import edu.wpi.first.wpilibj.AnalogModule;
 import edu.wpi.first.wpilibj.Gyro;
 import event.events.GyroEvent;
 import event.listeners.GyroListener;
@@ -14,7 +9,7 @@ import java.util.Vector;
 
 /**
  * Provides angular position along a single axis through an analog sensor
- * 
+ *
  * @author Calvin
  */
 public class GRTGyro extends Sensor {
@@ -26,7 +21,7 @@ public class GRTGyro extends Sensor {
 
     /**
      * Instantiates a new gyroscope on the default analog module.
-     * 
+     *
      * @param channel channel gyro is connected to
      * @param pollTime how often to poll
      * @param name name of sensor
@@ -36,10 +31,10 @@ public class GRTGyro extends Sensor {
         gyro = new Gyro(channel);
         gyroListeners = new Vector();
     }
-    
+
     /**
      * Instantiates a new gyroscope.
-     * 
+     *
      * @param moduleNum number of analog module
      * @param channel channel gyro is connected to
      * @param pollTime how often to poll
@@ -50,14 +45,14 @@ public class GRTGyro extends Sensor {
         gyro = new Gyro(moduleNum, channel);
         gyroListeners = new Vector();
     }
-    
+
     /**
      * Returns the total rotation of the gyro.
-     * 
-     * @return the amount the gyroscope has rotated since its initialization,
-     * in degrees
+     *
+     * @return the amount the gyroscope has rotated since its initialization, in
+     * degrees
      */
-    public double getAngle(){
+    public double getAngle() {
         return gyro.getAngle();
     }
 
@@ -68,9 +63,8 @@ public class GRTGyro extends Sensor {
     protected void notifyListeners(int id, double oldDatum, double newDatum) {
         if (id == KEY_ANGLE) {
             GyroEvent e = new GyroEvent(this, newDatum);
-            for (Enumeration en = gyroListeners.elements(); en.hasMoreElements();) {
+            for (Enumeration en = gyroListeners.elements(); en.hasMoreElements();)
                 ((GyroListener) en.nextElement()).angleChanged(e);
-            }
         }
     }
 
