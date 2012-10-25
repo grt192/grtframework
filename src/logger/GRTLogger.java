@@ -144,11 +144,25 @@ public class GRTLogger {
     }
 
     private String elapsedTime() {
+        StringBuffer s = new StringBuffer();
+        
         long secElapsed = (System.currentTimeMillis() - startTimeMillis) / 1000;
         int minElapsed = (int) secElapsed / 60;
         int hrElapsed = minElapsed / 60;
-
-        return (hrElapsed) + ":" + (minElapsed % 60) + ":" + (secElapsed % 60);
+        
+        if (hrElapsed < 10)
+            s.append("0");
+        s.append(hrElapsed).append(":");
+        
+        if (minElapsed % 60 < 10)
+            s.append("0");
+        s.append(minElapsed % 60).append(":");
+        
+        if (secElapsed % 60 < 10)
+            s.append("0");
+        s.append(secElapsed % 60);
+        
+        return s.toString();
     }
 
     private void dsPrintln(String data) {
