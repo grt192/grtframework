@@ -1,6 +1,7 @@
 package logger;
 
 import edu.wpi.first.wpilibj.DriverStationLCD;
+import edu.wpi.first.wpilibj.Timer;
 import java.util.Enumeration;
 import java.util.Vector;
 import rpc.RPCConnection;
@@ -26,7 +27,6 @@ public class GRTLogger {
     private static GRTLogger logger = new GRTLogger();
     private Vector logReceivers = new Vector();
     private boolean rpcEnabled = false;
-    private long startTimeMillis = System.currentTimeMillis();
 
     private GRTLogger() {
         for (int i = 0; i < 6; i++)
@@ -146,8 +146,8 @@ public class GRTLogger {
     private String elapsedTime() {
         StringBuffer s = new StringBuffer();
         
-        long secElapsed = (System.currentTimeMillis() - startTimeMillis) / 1000;
-        int minElapsed = (int) secElapsed / 60;
+        int secElapsed = (int) Timer.getFPGATimestamp();
+        int minElapsed = secElapsed / 60;
         int hrElapsed = minElapsed / 60;
         
         if (hrElapsed < 10)
