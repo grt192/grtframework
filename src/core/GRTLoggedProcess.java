@@ -16,9 +16,11 @@ public abstract class GRTLoggedProcess implements Runnable {
 
     protected final String name;
     protected boolean enabled = false;
-    protected boolean running = true;
+    protected boolean running = false;
     private int sleepTime;
     private final GRTLogger logger = GRTLogger.getLogger();
+    
+    private Thread thread = null;
 
     /**
      * Constructs a new GRTLoggedProcess that does not poll.
@@ -53,7 +55,6 @@ public abstract class GRTLoggedProcess implements Runnable {
     public void run() {
         running = true;
         while (running && sleepTime >= 0) {
-
             //only poll, and thus only send events, if enabled
             if (enabled) {
                 poll();
@@ -65,14 +66,17 @@ public abstract class GRTLoggedProcess implements Runnable {
                 ex.printStackTrace();
             }
         }
+        thread = null;
     }
     
     /**
      * Starts polling.
      */
     public void startPolling() {
-        if (sleepTime >= 0 && !running)
-            new Thread(this, this.name).start();
+        if (sleepTime >= 0 && !isRunning()) {
+            thread = new Thread(this);
+            thread.start();
+        }
     }
 
     /**
@@ -144,7 +148,7 @@ public abstract class GRTLoggedProcess implements Runnable {
      * @return true if running, false otherwise.
      */
     public boolean isRunning() {
-        return running;
+        return thread != null && thread.isAlive();
     }
 
     /**
