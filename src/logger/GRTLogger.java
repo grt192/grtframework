@@ -28,6 +28,13 @@ public class GRTLogger {
     private Vector logReceivers = new Vector();
     private boolean rpcEnabled = false;
 
+    private boolean fileLogging = false;
+    private String loggingFileNames[];     //File to which we log our output.
+    public static final int FILE_INFO_LOG = 0;
+    public static final int FILE_ERROR_LOG = 1;
+    public static final int FILE_SUCCESS_LOG = 2;
+    public static final int FILE_CONSOLIDATED_LOG = 3;
+
     private GRTLogger() {
         for (int i = 0; i < 6; i++)
             dsBuffer.addElement("");
@@ -66,6 +73,28 @@ public class GRTLogger {
     }
 
     /**
+     * Enable logging to a file.
+     */
+    public void enableFileLogging(){
+	fileLogging = true;
+    }
+
+    /**
+     * Disable logging to a file.
+     */
+    public void disableFileLogging(){
+	fileLogging = false;
+    }
+
+    public void setLoggingFiles(String[] filename){
+	this.loggingFileNames = filename;
+    }
+    
+    //TODO: implement this stuff
+    private void logToFile(String message, int fileDescriptor){
+    }
+
+    /**
      * Log a general message.
      *
      * @param data message to log.
@@ -79,6 +108,10 @@ public class GRTLogger {
             for (Enumeration en = logReceivers.elements(); en.hasMoreElements();)
                 ((RPCConnection) en.nextElement()).send(e);
         }
+	if (fileLogging){
+	    logToFile(message, FILE_INFO_LOG);
+	    logToFile(message, FILE_CONSOLIDATED_LOG);
+	}
     }
 
     /**
@@ -105,6 +138,10 @@ public class GRTLogger {
             for (Enumeration en = logReceivers.elements(); en.hasMoreElements();)
                 ((RPCConnection) en.nextElement()).send(e);
         }
+	if (fileLogging){
+	    logToFile(message, FILE_ERROR_LOG);
+	    logToFile(message, FILE_CONSOLIDATED_LOG);
+	}
     }
 
     /**
@@ -131,6 +168,10 @@ public class GRTLogger {
             for (Enumeration en = logReceivers.elements(); en.hasMoreElements();)
                 ((RPCConnection) en.nextElement()).send(e);
         }
+	if (fileLogging){
+	    logToFile(message, FILE_SUCCESS_LOG);
+	    logToFile(message, FILE_CONSOLIDATED_LOG);
+	}
     }
 
     /**

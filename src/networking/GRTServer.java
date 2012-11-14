@@ -34,14 +34,9 @@ public class GRTServer extends GRTLoggedProcess implements GRTSocket {
             super(name, 0);
             try {
                 this.client = client;
-//                GRTRobot.getInstance().getLogger().write("GRTServer", client.toString());
                 serverSocketListeners = new Vector();
-//                isr = new InputStreamReader(client.openInputStream());
-//                isr.reads
                 in = new BufferedReader(new InputStreamReader(client.openInputStream()), 1);
 
-//                client.openDataInputStream().readUT
-//                in = client.openDataInputStream();
                 out = new OutputStreamWriter(client.openOutputStream());
             } catch (Exception e) {
                 e.printStackTrace();
@@ -68,7 +63,6 @@ public class GRTServer extends GRTLoggedProcess implements GRTSocket {
             try {
                 out.write(data + "\n");
             } catch (IOException e) {
-                //GRTRobot.getInstance().getLogger().write("GRTServer", "disconnected from client");
                 this.disconnect();
             } catch (Exception e) {
                 e.printStackTrace();
