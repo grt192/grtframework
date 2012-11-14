@@ -1,9 +1,12 @@
 package logger;
 
+import com.sun.squawk.microedition.io.FileConnection;
 import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.Timer;
+import java.io.OutputStreamWriter;
 import java.util.Enumeration;
 import java.util.Vector;
+import javax.microedition.io.Connector;
 import rpc.RPCConnection;
 import rpc.RPCMessage;
 
@@ -92,6 +95,16 @@ public class GRTLogger {
     
     //TODO: implement this stuff
     private void logToFile(String message, int fileDescriptor){
+		String url = "file://" + loggingFileNames[fileDescriptor];	//Note: because it only prepends "file://" with 2 slashes, loggingFileNames[fileDescriptor] should return an absolute path (ex: /logging/info_081912-001253.txt)
+		try {
+			FileConnection c = (FileConnection) Connector.open(url);
+			OutputStreamWriter writer = new OutputStreamWriter(c
+					.openOutputStream());
+			writer.write(message);
+			c.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 
     /**
