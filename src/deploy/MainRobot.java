@@ -1,7 +1,11 @@
 package deploy;
 
 import actuator.GRTVictor;
+import com.sun.squawk.pragma.ForceInlinedPragma;
 import controller.PrimaryDriveController;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
 import logger.GRTLogger;
 import mechanism.GRTDriveTrain;
 import mechanism.GRTRobotBase;
@@ -28,7 +32,16 @@ public class MainRobot extends GRTRobot {
      */
     public MainRobot() {
 
-        logger.logInfo("GRTFramework v6 starting up.");
+		//Init the logging files.
+		Date d = new Date();
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+		String dateStr = "" + cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH)+1 + "T" + cal.get(Calendar.HOUR_OF_DAY)+cal.get(Calendar.MINUTE) + cal.get(Calendar.SECOND);	
+		logger.logInfo("Date string = " + dateStr);
+		String loggingFiles[] = new String[] { "/logs/" + dateStr + "_info.log", "/logs/" + dateStr + "_success.log", "/logs/" + dateStr + "_error.log", "/logs/" + dateStr + "_all.log"  } ;
+		logger.setLoggingFiles(loggingFiles);
+		logger.enableFileLogging();
+        
+		logger.logInfo("GRTFramework v6 starting up.");
 
         //Driver station components
         GRTAttack3Joystick primary = new GRTAttack3Joystick(1, 12, "primary");
