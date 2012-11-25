@@ -18,7 +18,6 @@ public abstract class GRTLoggedProcess implements Runnable {
     protected boolean enabled = false;
     protected boolean running = false;
     private int sleepTime;
-    private final GRTLogger logger = GRTLogger.getLogger();
     
     private Thread thread = null;
 
@@ -91,7 +90,7 @@ public abstract class GRTLoggedProcess implements Runnable {
      * @param message message to log.
      */
     protected void log(String message) {
-        logger.logInfo(toString() + "\t" + message);
+        GRTLogger.logInfo(toString() + "\t" + message);
     }
 
     /**
@@ -100,7 +99,7 @@ public abstract class GRTLoggedProcess implements Runnable {
      * @param message message to log.
      */
     protected void logError(String message) {
-        logger.logError(toString() + "\t" + message);
+        GRTLogger.logError(toString() + "\t" + message);
     }
 
     /**
@@ -109,7 +108,7 @@ public abstract class GRTLoggedProcess implements Runnable {
      * @param message message to log.
      */
     protected void logSuccess(String message) {
-        logger.logSuccess(toString() + "\t" + message);
+        GRTLogger.logSuccess(toString() + "\t" + message);
     }
 
     /**

@@ -63,7 +63,7 @@ public class GRTDriveTrain {
      * @param rightVelocity right drivetrain velocity
      */
     public void tankDrive(double leftVelocity, double rightVelocity) {
-        GRTLogger.getLogger().logInfo("" + leftVelocity);
+        GRTLogger.logInfo("" + leftVelocity);
         leftFront.setSpeed(leftVelocity * leftFrontSF);
         leftBack.setSpeed(leftVelocity * leftBackSF);
         rightFront.setSpeed(rightVelocity * rightFrontSF);
