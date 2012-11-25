@@ -16,7 +16,9 @@ import rpc.RPCMessage;
  *
  * @author agd
  */
-public class GRTLogger {
+public final class GRTLogger {
+    
+    private GRTLogger(){}
 
     private static final DriverStationLCD dash =
             DriverStationLCD.getInstance();
