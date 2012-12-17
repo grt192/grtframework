@@ -15,9 +15,9 @@ public class GRTDriveTrain {
     private final Motor rightFront;
     private final Motor rightBack;
     private double leftFrontSF = 1;
-    private double leftBackSF = -1;
+    private double leftBackSF = 1;
     private double rightFrontSF = -1;
-    private double rightBackSF = 1;
+    private double rightBackSF = -1;
 
     /**
      * Constructs a new drivetrain.

@@ -3,7 +3,9 @@ package controller;
 import core.EventController;
 import event.events.DrivingEvent;
 import event.listeners.DrivingListener;
+import mechanism.GRTDriveTrain;
 import mechanism.GRTRobotBase;
+import mechanism.ShiftingDriveTrain;
 import sensor.base.GRTDriverStation;
 
 /**
@@ -18,7 +20,7 @@ public class PrimaryDriveController extends EventController implements DrivingLi
     //sensor
     private final GRTDriverStation ds;
     //actuator
-    private final GRTRobotBase dt;
+    private final GRTRobotBase base;
     //state
     private double leftVelocity;
     private double rightVelocity;
@@ -26,13 +28,13 @@ public class PrimaryDriveController extends EventController implements DrivingLi
     /**
      * Creates a new driving controller.
      * 
-     * @param dt robot base to drive
+     * @param base robot base to drive
      * @param ds driver station to control with
      * @param name name of controller
      */
-    public PrimaryDriveController(GRTRobotBase dt, GRTDriverStation ds, String name) {
+    public PrimaryDriveController(GRTRobotBase base, GRTDriverStation ds, String name) {
         super(name);
-        this.dt = dt;
+        this.base = base;
         this.ds = ds;
     }
 
@@ -47,12 +49,22 @@ public class PrimaryDriveController extends EventController implements DrivingLi
     public void driverLeftSpeed(DrivingEvent e) {
         leftVelocity = e.getSpeed();
 
-        dt.tankDrive(leftVelocity, rightVelocity);
+        base.tankDrive(leftVelocity, rightVelocity);
     }
 
     public void driverRightSpeed(DrivingEvent e) {
         rightVelocity = e.getSpeed();
 
-        dt.tankDrive(leftVelocity, rightVelocity);
+        base.tankDrive(leftVelocity, rightVelocity);
     }
+
+	public void shiftEvent(DrivingEvent e) {
+		GRTDriveTrain dt = base.getDriveTrain();
+		if (dt instanceof ShiftingDriveTrain) {
+			if (e.getData() == DrivingEvent.SHIFT_DOWN)
+				((ShiftingDriveTrain) dt).shiftDown();
+			else
+				((ShiftingDriveTrain) dt).shiftUp();
+		}
+	}
 }

@@ -11,6 +11,9 @@ public class DrivingEvent extends SensorEvent {
 
     public static final int SIDE_LEFT = 0;
     public static final int SIDE_RIGHT = 1;
+	
+	public static final int SHIFT_UP = 1;
+	public static final int SHIFT_DOWN = 0;
 
     /**
      * Creates a new DrivingEvent.
