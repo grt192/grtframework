@@ -2,11 +2,9 @@ package deploy;
 
 import actuator.GRTSolenoid;
 import actuator.GRTVictor;
-import com.sun.squawk.pragma.ForceInlinedPragma;
 import controller.PrimaryDriveController;
 import edu.wpi.first.wpilibj.Compressor;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.TimeZone;
 import logger.GRTLogger;
 import mechanism.GRTDriveTrain;
@@ -18,7 +16,7 @@ import sensor.base.*;
 
 /**
  * Constructor for the main robot. Put all robot components here.
- * 
+ *
  * @author ajc
  */
 public class MainRobot extends GRTRobot {
@@ -27,32 +25,35 @@ public class MainRobot extends GRTRobot {
     private PrimaryDriveController driveControl;
     private GRTDriverStation driverStation;
     private GRTRobotBase robotBase;
-    
-    private GRTLogger logger = GRTLogger.getLogger();
 
     /**
      * Initializer for the robot.
      */
     public MainRobot() {
 
-		//Init the logging files.
-		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
-		String dateStr = "" + cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH)+1 + "T" + cal.get(Calendar.HOUR_OF_DAY)+cal.get(Calendar.MINUTE) + cal.get(Calendar.SECOND);	
-		logger.logInfo("Date string = " + dateStr);
-		String loggingFiles[] = new String[] { "/logs/" + dateStr + "_info.log", "/logs/" + dateStr + "_success.log", "/logs/" + dateStr + "_error.log", "/logs/" + dateStr + "_all.log"  } ;
-		//logger.setLoggingFiles(loggingFiles);
-		//logger.enableFileLogging();
-        
-		logger.logInfo("GRTFramework v6 starting up.");
+        //Init the logging files.
+        Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("GMT"));
+        String dateStr = "" + cal.get(Calendar.YEAR) + "-" + cal.get(
+                Calendar.MONTH) + 1 + "T" + cal.get(Calendar.HOUR_OF_DAY) + cal.
+                get(Calendar.MINUTE) + cal.get(Calendar.SECOND);
+        GRTLogger.logInfo("Date string = " + dateStr);
+        String loggingFiles[] = new String[]{"/logs/" + dateStr + "_info.log",
+            "/logs/" + dateStr + "_success.log", "/logs/" + dateStr
+            + "_error.log", "/logs/" + dateStr + "_all.log"};
+        GRTLogger.setLoggingFiles(loggingFiles);
+        GRTLogger.enableFileLogging();
+
+        GRTLogger.logInfo("GRTFramework v6 starting up.");
 
         //Driver station components
         GRTAttack3Joystick primary = new GRTAttack3Joystick(1, 12, "primary");
-        GRTAttack3Joystick secondary = new GRTAttack3Joystick(2, 12, "secondary");
+        GRTAttack3Joystick secondary =
+                new GRTAttack3Joystick(2, 12, "secondary");
         primary.startPolling();
         secondary.startPolling();
         primary.enable();
         secondary.enable();
-        logger.logInfo("Joysticks initialized");
+        GRTLogger.logInfo("Joysticks initialized");
 
         //Battery Sensor
         GRTBatterySensor batterySensor = new GRTBatterySensor(10, "battery");
@@ -76,29 +77,32 @@ public class MainRobot extends GRTRobot {
         leftDT2.enable();
         rightDT1.enable();
         rightDT2.enable();
-        logger.logInfo("Motors initialized");
+        GRTLogger.logInfo("Motors initialized");
 
         //Mechanisms
-        GRTDriveTrain dt = new ShiftingDriveTrain(leftDT1, leftDT2,
-				rightDT1, rightDT2,
-				leftShifter, rightShifter);
-        robotBase = new GRTRobotBase(dt, batterySensor);
-        driverStation = new GRTAttack3DriverStation(primary, secondary, "driverStation");
+
+        GRTDriveTrain dt = new GRTDriveTrain(leftDT1, leftDT2, rightDT1,
+                rightDT2);
+
+		robotBase = new GRTRobotBase(dt, batterySensor);
+        driverStation = new GRTAttack3DriverStation(primary, secondary,
+                "driverStation");
         driverStation.enable();
-        logger.logInfo("Mechanisms initialized");
+        GRTLogger.logInfo("Mechanisms initialized");
 
         //Controllers
-        driveControl = new PrimaryDriveController(robotBase, driverStation, "driveControl");
-        logger.logInfo("Controllers Initialized");
+        driveControl = new PrimaryDriveController(robotBase, driverStation,
+                "driveControl");
+        GRTLogger.logInfo("Controllers Initialized");
 
 
         addTeleopController(driveControl);
 
-        logger.logSuccess("Ready to drive.");
+        GRTLogger.logSuccess("Ready to drive.");
     }
 
     public void disabled() {
-        logger.logInfo("Disabling robot. Halting drivetrain");
+        GRTLogger.logInfo("Disabling robot. Halting drivetrain");
         robotBase.tankDrive(0.0, 0.0);
     }
 }
