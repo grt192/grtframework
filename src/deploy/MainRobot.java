@@ -3,6 +3,7 @@ package deploy;
 import actuator.GRTSolenoid;
 import actuator.GRTVictor;
 import controller.PrimaryDriveController;
+import controller.ShiftingDriveController;
 import edu.wpi.first.wpilibj.Compressor;
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -22,7 +23,7 @@ import sensor.base.*;
 public class MainRobot extends GRTRobot {
 
     //Teleop Controllers
-    private PrimaryDriveController driveControl;
+    private ShiftingDriveController shiftingControl;
     private GRTDriverStation driverStation;
     private GRTRobotBase robotBase;
 
@@ -41,7 +42,7 @@ public class MainRobot extends GRTRobot {
             "/logs/" + dateStr + "_success.log", "/logs/" + dateStr
             + "_error.log", "/logs/" + dateStr + "_all.log"};
         GRTLogger.setLoggingFiles(loggingFiles);
-        GRTLogger.enableFileLogging();
+        //GRTLogger.enableFileLogging();
 
         GRTLogger.logInfo("GRTFramework v6 starting up.");
 
@@ -60,14 +61,14 @@ public class MainRobot extends GRTRobot {
         batterySensor.startPolling();
         batterySensor.enable();
 		
-		//Shifter solenoids
-		GRTSolenoid leftShifter = new GRTSolenoid(1, "leftShifter");
-		GRTSolenoid rightShifter = new GRTSolenoid(1, "rightShifter");
-		
-		//Compressor
-		Compressor compressor = new Compressor(14, 1);
-		compressor.start();
-
+	//Shifter solenoids
+	GRTSolenoid leftShifter = new GRTSolenoid(1, "leftShifter");
+	GRTSolenoid rightShifter = new GRTSolenoid(2, "rightShifter");
+	
+	//Compressor
+	Compressor compressor = new Compressor(14, 1);
+	compressor.start();
+	
         // PWM outputs
         GRTVictor leftDT1 = new GRTVictor(9, "leftDT1");
         GRTVictor leftDT2 = new GRTVictor(10, "leftDT2");
@@ -80,23 +81,20 @@ public class MainRobot extends GRTRobot {
         GRTLogger.logInfo("Motors initialized");
 
         //Mechanisms
-
-        GRTDriveTrain dt = new GRTDriveTrain(leftDT1, leftDT2, rightDT1,
-                rightDT2);
-
-		robotBase = new GRTRobotBase(dt, batterySensor);
+        ShiftingDriveTrain dt = new ShiftingDriveTrain(leftDT1, leftDT2, rightDT1, rightDT2, leftShifter, rightShifter);
+        
+        robotBase = new GRTRobotBase(dt, batterySensor);
         driverStation = new GRTAttack3DriverStation(primary, secondary,
                 "driverStation");
         driverStation.enable();
         GRTLogger.logInfo("Mechanisms initialized");
 
         //Controllers
-        driveControl = new PrimaryDriveController(robotBase, driverStation,
-                "driveControl");
+        shiftingControl = new ShiftingDriveController(dt, driverStation, "driveControl");
         GRTLogger.logInfo("Controllers Initialized");
-
-
-        addTeleopController(driveControl);
+        driverStation.addDrivingListener(shiftingControl);
+        
+        addTeleopController(shiftingControl);
 
         GRTLogger.logSuccess("Ready to drive.");
     }

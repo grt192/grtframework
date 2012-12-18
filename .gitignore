@@ -2,3 +2,5 @@ build/
 j2meclasses/
 suite/
 nbproject/private/
+*~
+.DS_Store

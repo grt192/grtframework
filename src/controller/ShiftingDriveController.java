@@ -15,12 +15,12 @@ import sensor.base.GRTDriverStation;
  *
  * @author ajc
  */
-public class PrimaryDriveController extends EventController implements DrivingListener {
+public class ShiftingDriveController extends EventController implements DrivingListener {
 
     //sensor
     private final GRTDriverStation ds;
     //actuator
-    private final GRTRobotBase base;
+    private final ShiftingDriveTrain dt;
     //state
     private double leftVelocity;
     private double rightVelocity;
@@ -32,9 +32,9 @@ public class PrimaryDriveController extends EventController implements DrivingLi
      * @param ds driver station to control with
      * @param name name of controller
      */
-    public PrimaryDriveController(GRTRobotBase base, GRTDriverStation ds, String name) {
+    public ShiftingDriveController(ShiftingDriveTrain dt, GRTDriverStation ds, String name) {
         super(name);
-        this.base = base;
+        this.dt = dt;
         this.ds = ds;
     }
 
@@ -49,24 +49,21 @@ public class PrimaryDriveController extends EventController implements DrivingLi
     public void driverLeftSpeed(DrivingEvent e) {
         leftVelocity = e.getSpeed();
 
-        base.tankDrive(leftVelocity, rightVelocity);
+        dt.tankDrive(leftVelocity, rightVelocity);
     }
 
     public void driverRightSpeed(DrivingEvent e) {
         rightVelocity = e.getSpeed();
 
-        base.tankDrive(leftVelocity, rightVelocity);
+        dt.tankDrive(leftVelocity, rightVelocity);
     }
 
     public void shiftEvent(DrivingEvent e) {
-        GRTDriveTrain dt = base.getDriveTrain();
-        if (dt instanceof ShiftingDriveTrain) {
-            if (e.getData() == DrivingEvent.SHIFT_DOWN){
-                ((ShiftingDriveTrain) dt).shiftDown();
-            }
-            else{
-                ((ShiftingDriveTrain) dt).shiftUp();
-            }
+        if (e.getData() == DrivingEvent.SHIFT_DOWN){
+            ((ShiftingDriveTrain) dt).shiftDown();
+        }
+        else{
+            ((ShiftingDriveTrain) dt).shiftUp();
         }
     }
 }

@@ -2,6 +2,7 @@ package sensor.base;
 
 import event.events.Attack3JoystickEvent;
 import event.events.ButtonEvent;
+import event.events.DrivingEvent;
 import event.listeners.Attack3JoystickListener;
 import event.listeners.ButtonListener;
 import sensor.GRTAttack3Joystick;
@@ -14,6 +15,9 @@ import sensor.GRTAttack3Joystick;
 public class GRTAttack3DriverStation extends GRTDriverStation
         implements Attack3JoystickListener, ButtonListener {
 
+    public static final int KEY_SHIFT_RIGHT = 100;
+    public static final int KEY_SHIFT_LEFT = 101;
+    
     private final GRTAttack3Joystick left;
     private final GRTAttack3Joystick right;
 
@@ -51,6 +55,10 @@ public class GRTAttack3DriverStation extends GRTDriverStation
     }
 
     public void buttonPressed(ButtonEvent e) {
+	if(e.getButtonID() == GRTAttack3Joystick.KEY_BUTTON_1 && e.getSource() == left){
+            notifyListeners(KEY_SHIFT_RIGHT, DrivingEvent.SHIFT_UP, DrivingEvent.SHIFT_DOWN);
+        } else if (e.getButtonID() == GRTAttack3Joystick.KEY_BUTTON_1 && e.getSource() == right){
+        }
     }
 
     public void buttonReleased(ButtonEvent e) {
