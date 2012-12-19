@@ -65,6 +65,8 @@ public class MainRobot extends GRTRobot {
 	GRTSolenoid leftShifter = new GRTSolenoid(1, "leftShifter");
 	GRTSolenoid rightShifter = new GRTSolenoid(2, "rightShifter");
 	
+	leftShifter.enable(); rightShifter.enable();
+	
 	//Compressor
 	Compressor compressor = new Compressor(14, 1);
 	compressor.start();
@@ -93,6 +95,7 @@ public class MainRobot extends GRTRobot {
         shiftingControl = new ShiftingDriveController(dt, driverStation, "driveControl");
         GRTLogger.logInfo("Controllers Initialized");
         driverStation.addDrivingListener(shiftingControl);
+		driverStation.addShiftListener(shiftingControl);
         
         addTeleopController(shiftingControl);
 
