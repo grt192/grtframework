@@ -5,7 +5,6 @@ import event.events.ButtonEvent;
 import event.events.ShiftEvent;
 import event.listeners.Attack3JoystickListener;
 import event.listeners.ButtonListener;
-import logger.GRTLogger;
 import sensor.GRTAttack3Joystick;
 
 /**
@@ -15,7 +14,7 @@ import sensor.GRTAttack3Joystick;
  */
 public class GRTAttack3DriverStation extends GRTDriverStation
         implements Attack3JoystickListener, ButtonListener {
-    
+
     private final GRTAttack3Joystick left;
     private final GRTAttack3Joystick right;
 
@@ -30,7 +29,7 @@ public class GRTAttack3DriverStation extends GRTDriverStation
     protected void startListening() {
         left.addJoystickListener(this);
         right.addJoystickListener(this);
-		left.addButtonListener(this);
+        left.addButtonListener(this);
         right.addButtonListener(this);
     }
 
@@ -45,24 +44,24 @@ public class GRTAttack3DriverStation extends GRTDriverStation
     }
 
     public void YAxisMoved(Attack3JoystickEvent e) {
-        if (e.getSource() == left)
+        if (e.getSource() == left) {
             notifyLeftDriveSpeed(e.getData());
-        else if (e.getSource() == right)
+        } else if (e.getSource() == right) {
             notifyRightDriveSpeed(e.getData());
+        }
     }
 
     public void AngleChanged(Attack3JoystickEvent e) {
     }
 
     public void buttonPressed(ButtonEvent e) {
-		if(e.getButtonID() == GRTAttack3Joystick.KEY_BUTTON_1 && e.getSource() == left){
+        if (e.getButtonID() == GRTAttack3Joystick.KEY_BUTTON_1 && e.getSource() == left) {
             notifyListeners(KEY_LEFT_SHIFT, ShiftEvent.KEY_SHIFT_UP);
             notifyListeners(KEY_RIGHT_SHIFT, ShiftEvent.KEY_SHIFT_UP);
 
-        } else if (e.getButtonID() == GRTAttack3Joystick.KEY_BUTTON_1 && e.getSource() == right){
+        } else if (e.getButtonID() == GRTAttack3Joystick.KEY_BUTTON_1 && e.getSource() == right) {
             notifyListeners(KEY_LEFT_SHIFT, ShiftEvent.KEY_SHIFT_DOWN);
             notifyListeners(KEY_RIGHT_SHIFT, ShiftEvent.KEY_SHIFT_DOWN);
-
         }
     }
 

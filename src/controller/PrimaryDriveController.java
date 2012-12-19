@@ -3,9 +3,7 @@ package controller;
 import core.EventController;
 import event.events.DrivingEvent;
 import event.listeners.DrivingListener;
-import mechanism.GRTDriveTrain;
 import mechanism.GRTRobotBase;
-import mechanism.ShiftingDriveTrain;
 import sensor.base.GRTDriverStation;
 
 /**
@@ -27,7 +25,7 @@ public class PrimaryDriveController extends EventController implements DrivingLi
 
     /**
      * Creates a new driving controller.
-     * 
+     *
      * @param base robot base to drive
      * @param ds driver station to control with
      * @param name name of controller

@@ -3,17 +3,19 @@ package event.events;
 import sensor.base.GRTDriverStation;
 
 /**
- * Event specifying the speed of either the left or right side of the robot.
+ * Event specifying the the gear of the right or left side of the robot.
  *
- * @author ajc
+ * @author danfrei
  */
 public class ShiftEvent extends SensorEvent {
 
-	public static final int KEY_SHIFT_UP = 1;
-	public static final int KEY_SHIFT_DOWN = 0;
-	
+    public static final int KEY_SHIFT_UP = 1;
+    public static final int KEY_SHIFT_DOWN = 0;
+    public static final int SIDE_LEFT = 0;
+    public static final int SIDE_RIGHT = 1;
+
     /**
-     * Creates a new DrivingEvent.
+     * Creates a new ShiftEvent.
      *
      * @param source source of event
      * @param sideID left or right side
@@ -26,7 +28,7 @@ public class ShiftEvent extends SensorEvent {
     /**
      * Whether or not this is a left side event or a right side event.
      *
-     * @return DrivingEvent.SIDE_LEFT or DrivingEvent.SIDE_RIGHT
+     * @return ShiftEvent.SIDE_LEFT or ShiftEvent.SIDE_RIGHT
      */
     public int getSide() {
         return getID();

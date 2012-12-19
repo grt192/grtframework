@@ -2,13 +2,11 @@ package deploy;
 
 import actuator.GRTSolenoid;
 import actuator.GRTVictor;
-import controller.PrimaryDriveController;
 import controller.ShiftingDriveController;
 import edu.wpi.first.wpilibj.Compressor;
 import java.util.Calendar;
 import java.util.TimeZone;
 import logger.GRTLogger;
-import mechanism.GRTDriveTrain;
 import mechanism.GRTRobotBase;
 import mechanism.ShiftingDriveTrain;
 import sensor.GRTAttack3Joystick;
@@ -47,13 +45,14 @@ public class MainRobot extends GRTRobot {
         GRTLogger.logInfo("GRTFramework v6 starting up.");
 
         //Driver station components
-        GRTAttack3Joystick primary = new GRTAttack3Joystick(1, 12, "primary");
-        GRTAttack3Joystick secondary =
-                new GRTAttack3Joystick(2, 12, "secondary");
-        primary.startPolling();
-        secondary.startPolling();
-        primary.enable();
-        secondary.enable();
+        GRTAttack3Joystick leftJoystick =
+                new GRTAttack3Joystick(2, 12, "leftStick");
+        GRTAttack3Joystick rightJoystick =
+                new GRTAttack3Joystick(1, 12, "rightStick");
+        leftJoystick.startPolling();
+        rightJoystick.startPolling();
+        leftJoystick.enable();
+        rightJoystick.enable();
         GRTLogger.logInfo("Joysticks initialized");
 
         //Battery Sensor
@@ -62,20 +61,20 @@ public class MainRobot extends GRTRobot {
         batterySensor.enable();
 		
 	//Shifter solenoids
-	GRTSolenoid leftShifter = new GRTSolenoid(1, "leftShifter");
-	GRTSolenoid rightShifter = new GRTSolenoid(2, "rightShifter");
-	
-	leftShifter.enable(); rightShifter.enable();
+	GRTSolenoid leftShifter = new GRTSolenoid(2, "leftShifter");
+	GRTSolenoid rightShifter = new GRTSolenoid(1, "rightShifter");
+	leftShifter.enable();
+        rightShifter.enable();
 	
 	//Compressor
 	Compressor compressor = new Compressor(14, 1);
 	compressor.start();
 	
         // PWM outputs
-        GRTVictor leftDT1 = new GRTVictor(9, "leftDT1");
-        GRTVictor leftDT2 = new GRTVictor(10, "leftDT2");
-        GRTVictor rightDT1 = new GRTVictor(1, "rightDT1");
-        GRTVictor rightDT2 = new GRTVictor(2, "rightDT2");
+        GRTVictor leftDT1 = new GRTVictor(1, "leftDT1");
+        GRTVictor leftDT2 = new GRTVictor(2, "leftDT2");
+        GRTVictor rightDT1 = new GRTVictor(9, "rightDT1");
+        GRTVictor rightDT2 = new GRTVictor(10, "rightDT2");
         leftDT1.enable();
         leftDT2.enable();
         rightDT1.enable();
@@ -83,16 +82,19 @@ public class MainRobot extends GRTRobot {
         GRTLogger.logInfo("Motors initialized");
 
         //Mechanisms
-        ShiftingDriveTrain dt = new ShiftingDriveTrain(leftDT1, leftDT2, rightDT1, rightDT2, leftShifter, rightShifter);
+        ShiftingDriveTrain dt = new ShiftingDriveTrain(leftDT1, leftDT2,
+                rightDT1, rightDT2,
+                leftShifter, rightShifter);
         
         robotBase = new GRTRobotBase(dt, batterySensor);
-        driverStation = new GRTAttack3DriverStation(primary, secondary,
+        driverStation = new GRTAttack3DriverStation(leftJoystick, rightJoystick,
                 "driverStation");
         driverStation.enable();
         GRTLogger.logInfo("Mechanisms initialized");
 
         //Controllers
-        shiftingControl = new ShiftingDriveController(dt, driverStation, "driveControl");
+        shiftingControl =
+                new ShiftingDriveController(dt, driverStation, "driveControl");
         GRTLogger.logInfo("Controllers Initialized");
         driverStation.addDrivingListener(shiftingControl);
 		driverStation.addShiftListener(shiftingControl);
