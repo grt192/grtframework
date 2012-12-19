@@ -52,7 +52,7 @@ public class GRTADXL345 extends Sensor {
         listeners.removeElement(l);
     }
 
-    protected void notifyListeners(int id, double oldDatum, double newDatum) {
+    protected void notifyListeners(int id, double newDatum) {
         ADXL345Event e = new ADXL345Event(this, id, newDatum);
 
         switch (id) {

@@ -67,7 +67,7 @@ public class GRTSwitch extends Sensor {
         setState(STATE, isPressed() ? TRUE : FALSE);
     }
 
-    protected void notifyListeners(int id, double oldDatum, double newDatum) {
+    protected void notifyListeners(int id, double newDatum) {
 
         SwitchEvent e = new SwitchEvent(this, newDatum);
 

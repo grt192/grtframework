@@ -43,7 +43,7 @@ public class GRTBatterySensor extends Sensor {
         return getState(KEY_BATTERY_VOLTAGE);
     }
 
-    protected void notifyListeners(int id, double oldDatum, double newDatum) {
+    protected void notifyListeners(int id,  double newDatum) {
 
         BatteryVoltageEvent e = new BatteryVoltageEvent(this, newDatum);
 

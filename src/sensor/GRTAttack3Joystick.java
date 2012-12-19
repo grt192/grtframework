@@ -61,7 +61,7 @@ public class GRTAttack3Joystick extends Sensor {
         setState(KEY_JOYSTICK_ANGLE, joystick.getDirectionRadians());
     }
 
-    protected void notifyListeners(int id, double oldDatum, double newDatum) {
+    protected void notifyListeners(int id, double newDatum) {
         if (id < NUM_OF_BUTTONS) {
             //ID maps directly to button ID
             ButtonEvent e = new ButtonEvent(this, id, newDatum == PRESSED);

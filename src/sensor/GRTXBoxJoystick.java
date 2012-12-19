@@ -75,7 +75,7 @@ public class GRTXBoxJoystick extends Sensor {
         setState(KEY_PAD, joystick.getRawAxis(6));
     }
 
-    protected void notifyListeners(int id, double oldDatum, double newDatum) {
+    protected void notifyListeners(int id, double newDatum) {
         if (id < NUM_OF_BUTTONS) {
             //ID maps directly to button ID
             ButtonEvent e = new ButtonEvent(this, id, newDatum == PRESSED);

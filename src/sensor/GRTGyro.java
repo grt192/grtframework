@@ -60,7 +60,7 @@ public class GRTGyro extends Sensor {
         setState(KEY_ANGLE, gyro.getAngle());
     }
 
-    protected void notifyListeners(int id, double oldDatum, double newDatum) {
+    protected void notifyListeners(int id, double newDatum) {
         if (id == KEY_ANGLE) {
             GyroEvent e = new GyroEvent(this, newDatum);
             for (Enumeration en = gyroListeners.elements(); en.hasMoreElements();)

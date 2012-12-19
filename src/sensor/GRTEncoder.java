@@ -69,7 +69,7 @@ public class GRTEncoder extends Sensor {
         setState(STOPPED, rotaryEncoder.getStopped() ? TRUE : FALSE);
     }
 
-    protected void notifyListeners(int id, double oldDatum, double newDatum) {
+    protected void notifyListeners(int id, double newDatum) {
         EncoderEvent e = new EncoderEvent(this, id, newDatum);
 
         switch (id) {

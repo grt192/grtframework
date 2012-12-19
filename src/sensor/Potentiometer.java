@@ -58,7 +58,7 @@ public class Potentiometer extends Sensor {
         return channel.getVoltage() / 5.0;
     }
 
-    protected void notifyListeners(int id, double oldDatum, double newDatum) {
+    protected void notifyListeners(int id, double newDatum) {
         PotentiometerEvent e = new PotentiometerEvent(this, newDatum);
         for (Enumeration en = potentiometerListeners.elements();
                 en.hasMoreElements();)

@@ -57,7 +57,7 @@ public abstract class Sensor extends GRTLoggedProcess {
         double previous = data[id];
         //notify self and state change listeners if the datum has changed
         if (previous != datum) {
-            notifyStateChange(id, previous, datum);
+            notifyStateChange(id, datum);
         }
         data[id] = datum;
     }
@@ -111,13 +111,12 @@ public abstract class Sensor extends GRTLoggedProcess {
      * Calls the listener events based on what has changed
      *
      * @param id the key of the data that changed
-     * @param oldDatum the datum's previous value
      * @param newDatum the datum's new value
      */
-    protected abstract void notifyListeners(int id, double oldDatum, double newDatum);
+    protected abstract void notifyListeners(int id, double newDatum);
 
-    protected void notifyStateChange(int id, double oldDatum, double newDatum) {
-        notifyListeners(id, oldDatum, newDatum);
+    protected void notifyStateChange(int id, double newDatum) {
+        notifyListeners(id, newDatum);
         SensorEvent e = new SensorEvent(this, id, newDatum);
         for (Enumeration en = stateChangeListeners.elements(); en.hasMoreElements();) {
             ((SensorChangeListener) en.nextElement()).sensorStateChanged(e);
