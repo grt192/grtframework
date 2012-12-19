@@ -58,12 +58,10 @@ public class GRTAttack3DriverStation extends GRTDriverStation
 		if(e.getButtonID() == GRTAttack3Joystick.KEY_BUTTON_1 && e.getSource() == left){
             notifyListeners(KEY_LEFT_SHIFT, ShiftEvent.KEY_SHIFT_UP);
             notifyListeners(KEY_RIGHT_SHIFT, ShiftEvent.KEY_SHIFT_UP);
-					GRTLogger.logInfo("atk3 l trigger pressed");
 
         } else if (e.getButtonID() == GRTAttack3Joystick.KEY_BUTTON_1 && e.getSource() == right){
             notifyListeners(KEY_LEFT_SHIFT, ShiftEvent.KEY_SHIFT_DOWN);
             notifyListeners(KEY_RIGHT_SHIFT, ShiftEvent.KEY_SHIFT_DOWN);
-					GRTLogger.logInfo("atk3 r trigger pressed");
 
         }
     }
