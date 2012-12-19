@@ -2,9 +2,9 @@ package controller;
 
 import core.EventController;
 import event.events.DrivingEvent;
+import event.events.ShiftEvent;
 import event.listeners.DrivingListener;
-import mechanism.GRTDriveTrain;
-import mechanism.GRTRobotBase;
+import event.listeners.ShiftListener;
 import mechanism.ShiftingDriveTrain;
 import sensor.base.GRTDriverStation;
 
@@ -15,7 +15,7 @@ import sensor.base.GRTDriverStation;
  *
  * @author ajc
  */
-public class ShiftingDriveController extends EventController implements DrivingListener {
+public class ShiftingDriveController extends EventController implements DrivingListener, ShiftListener {
 
     //sensor
     private final GRTDriverStation ds;
@@ -57,13 +57,14 @@ public class ShiftingDriveController extends EventController implements DrivingL
 
         dt.tankDrive(leftVelocity, rightVelocity);
     }
+   
 
-    public void shiftEvent(DrivingEvent e) {
-        if (e.getData() == DrivingEvent.SHIFT_DOWN){
+	public void shift(ShiftEvent e) {
+		if (e.getData() == ShiftEvent.KEY_SHIFT_DOWN){
             ((ShiftingDriveTrain) dt).shiftDown();
         }
         else{
             ((ShiftingDriveTrain) dt).shiftUp();
         }
-    }
+	}
 }

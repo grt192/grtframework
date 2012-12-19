@@ -57,16 +57,4 @@ public class PrimaryDriveController extends EventController implements DrivingLi
 
         base.tankDrive(leftVelocity, rightVelocity);
     }
-
-    public void shiftEvent(DrivingEvent e) {
-        GRTDriveTrain dt = base.getDriveTrain();
-        if (dt instanceof ShiftingDriveTrain) {
-            if (e.getData() == DrivingEvent.SHIFT_DOWN){
-                ((ShiftingDriveTrain) dt).shiftDown();
-            }
-            else{
-                ((ShiftingDriveTrain) dt).shiftUp();
-            }
-        }
-    }
 }
